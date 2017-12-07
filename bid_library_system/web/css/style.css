@@ -21,8 +21,8 @@ article, aside, details, figcaption, figure,footer, header, hgroup, menu, nav, s
     margin-top: 20px;
     padding: 5px;
     background-color: white;
-    border-radius: 20px;
-    opacity: 0.9;
+    border-radius: 8px;
+    opacity: 0.8;
     transition: background-color;
     transition-duration: 700ms;
 }

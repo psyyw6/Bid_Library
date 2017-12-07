@@ -42,7 +42,7 @@
         <div class="logo-image">
             <img src="img/Atos_logo.png" width="170" height="100">
         </div>
-        <div class="custome_register">CUSTOMER REGISTRATION<br></div>
+        <div class="customer_register">CUSTOMER REGISTRATION<br></div>
         <div class="hint1">
             <a class="hint_words" href="login.jsp">Already have an acount? Log in here</a>
         </div>
