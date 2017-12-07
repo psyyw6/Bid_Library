@@ -32,13 +32,13 @@
     </div>
     <ul class="options">
         <li><a href="https://atos.net/en/">Home</a></li>
-        <li><a href="index.jsp">Bid Library</a></li>
-        <li><a href="login.jsp">Log In</a></li>
+        <li><a href="#">Bid Library</a></li>
+        <li><a href="login.php">Log In</a></li>
         <li><a href="#">Contact Us</a></li>
     </ul>
 </div>
 <div class="form-warpper">
-    <form class="register" method="post" action="reg_end.jsp">
+    <form class="register" method="post" action="reg_backend.php">
         <div class="logo-image">
             <img src="img/Atos_logo.png" width="170" height="100">
         </div>
@@ -48,23 +48,23 @@
         </div>
         <span class="input">
             <span class="input_content"><img src="img/user.png" width="30" height="30"></span>
-            <input class="input_field" type="text" id="username" placeholder="Username" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Username';}"/>
+            <input class="input_field" type="text" name="username" id="username" placeholder="Username" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Username';}"/>
         </span>
         <span class="input">
             <span class="input-content"><img src="img/password_logo.png" width="30" height="30"></span>
-            <input class="input_field" type="text" id="password" placeholder="Password" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Password';}"/>
+            <input class="input_field" type="password" name="password" id="password" placeholder="Password" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Password';}"/>
         </span>
         <span class="input">
             <span class="input-content"><img src="img/password_logo.png" width="30" height="30"></span>
-            <input class="input_field" type="text" id="cf-password" placeholder="Confirm Password" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Confirm Password';}"/>
+            <input class="input_field" type="password" id="cf-password" placeholder="Confirm Password" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Confirm Password';}"/>
         </span>
         <span class="input">
             <span class="input-content"><img src="img/email_logo.png" width="30" height="30"></span>
-            <input class="input_field" type="text" id="email" placeholder="Email" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Email';}"/>
+            <input class="input_field" type="email" name="email" id="email" placeholder="Email" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Email';}"/>
         </span>
         <span class="input">
             <span class="input-content"><img src="img/department_logo.png" width="30" height="30"></span>
-            <input class="input_field" type="text" id="department" placeholder="Department" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Department';}"/>
+            <input class="input_field" type="text" name="department" id="department" placeholder="Department" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Department';}"/>
         </span>
         <input class="submit" value="Register" type="submit"/>
     </form>
