@@ -40,26 +40,26 @@
     </ul>
 </div>
 
-<form class = log_in action = "login.jsp" method="get">
+<form class = log_in action = "/login.do" method="get">
     <div class="logo-image">
         <img src="img/Atos_logo.png" width="170" height="100">
     </div>
     <br>
     <div class="customer_login">CUSTOMER LOG IN</div><br>
     <div class="hint1">
-        <a class="hint_words" href="register.php">Haven't register yet? Please register here</a>
+        <a class="hint_words" href="/register">Haven't register yet? Please register here</a>
     </div>
     <span class="input input--haruki">
                     <label class="input__label input__label--haruki" for="input-1">
 						<span class="input__label-content "><img src="img/user.png" width="30" height="30"></span>
 					</label>
-					<input class="input__field input__field--username" type="text" id="input-1" placeholder="Username" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Username';}"/>
+					<input class="input__field input__field--username" type="text" name = "username" id="input-1" placeholder="Username" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Username';}"/>
     </span>
     <span class="input input--password">
                 <label class="input__label input__label--haruki" for="input-1">
                     <span class="input__label-content"><img src="img/password_logo.png" width="30" height="30"></span>
                 </label>
-                <input class="input__field input__field--username" type="password" placeholder="Password" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Password';}"/>
+                <input class="input__field input__field--username" type="password" name="password" placeholder="Password" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Password';}"/>
     </span>
     <span class="input input--submit">
                 <input class="input__field input__submit" type="submit" value="Log In">

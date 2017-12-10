@@ -22,4 +22,16 @@
         <property name="userDao" ref="userDao"/>
     </bean>
 
+    <bean id="RegisterController" class="atos.controller.RegisterController">
+        <property name="userDao" ref="userDao"/>
+    </bean>
+
+    <bean id="mapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="login.do">LoginController</prop>
+            </props>
+        </property>
+    </bean>
+
 </beans>
