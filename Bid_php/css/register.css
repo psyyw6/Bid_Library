@@ -70,6 +70,12 @@
 {
     outline:none;
 }
+#password_hint
+{
+    color:red;
+    margin-left: 55px;
+
+}
 .input::after
 {
     content: '';
