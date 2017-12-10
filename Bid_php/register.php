@@ -24,11 +24,12 @@
     <link rel="stylesheet" href="css/register.css">
     <script src="js/jquery.js"></script>
     <script src="js/login.js" rel="script"></script>
+    <script src="js/register.js" rel="script"></script>
 </head>
 <body>
 <div class="catalogue">
     <div class="cal-image">
-        <a href="#" onclick="showList()"><img src="img/list.png" width="90" height="65"></a>
+        <a href="#"><img src="img/list.png" width="90" height="65"></a>
     </div>
     <ul class="options">
         <li><a href="https://atos.net/en/">Home</a></li>
@@ -55,8 +56,11 @@
             <input class="input_field" type="password" name="password" id="password" placeholder="Password" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Password';}"/>
         </span>
         <span class="input">
+            <span id="password_hint"></span><br>
             <span class="input-content"><img src="img/password_logo.png" width="30" height="30"></span>
-            <input class="input_field" type="password" id="cf-password" placeholder="Confirm Password" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Confirm Password';}"/>
+            <input class="input_field" type="password" id="cf-password" placeholder="Confirm Password" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Confirm Password';}"
+                   onkeyup="checkPassword()"/>
+
         </span>
         <span class="input">
             <span class="input-content"><img src="img/email_logo.png" width="30" height="30"></span>
