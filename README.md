@@ -24,3 +24,9 @@ https://trello.com/b/Ctww9PtC
 6. Where to get at your documentation
 Dropbox:
 https://www.dropbox.com/sh/dz4hs0a5zagavyu/AABJLWr5Hdgpujgiw3QEhqhna?dl=0 
+
+7. If you have any questions or the dropbox link has expired please send an email to either Charlie, Joe, Yutong or Shanshan
+Charlie's email: psycln@nottingham.ac.uk
+Joe's email: psyjcd@exmail.nottingham.ac.uk
+Yutong's email: psyyw6@exmail.nottingham.ac.uk
+Shanshan's email: psysl6@exmail.nottingham.ac.uk
