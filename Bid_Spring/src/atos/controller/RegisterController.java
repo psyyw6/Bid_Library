@@ -24,6 +24,12 @@ public class RegisterController {
         return userDao;
     }
 
+    @RequestMapping(value = "/register", method = GET)
+    public String showReg()
+    {
+        return "register";
+    }
+
     @RequestMapping(value = "/reg.do",method = GET)
     public String RegUser(HttpServletRequest request, ModelMap model) {
         String name = request.getParameter("username");
@@ -35,7 +41,7 @@ public class RegisterController {
         if(!pwd.equals(cf_pwd)) {
             return "register";
         }
-        userDao.RegUsers(name,pwd,email,department);
+//        userDao.RegUsers(name,pwd,email,department);
         return "login";
     }
 

@@ -20,6 +20,7 @@ public class LoginController {
         this.userDao = userDao;
     }
 
+
     public UserDao getUserDao() {
         return userDao;
     }
