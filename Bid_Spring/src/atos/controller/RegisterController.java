@@ -36,12 +36,11 @@ public class RegisterController {
         String pwd = request.getParameter("password");
         String cf_pwd = request.getParameter("cf_password");
         String email = request.getParameter("email");
-        String department = request.getParameter("department");
 
         if(!pwd.equals(cf_pwd)) {
             return "register";
         }
-//        userDao.RegUsers(name,pwd,email,department);
+        userDao.registerUser(name,pwd,email);
         return "login";
     }
 

@@ -54,22 +54,18 @@
         <span class="input">
             <span class="input-content"><img src="img/password_logo.png" width="30" height="30"></span>
             <input class="input_field" type="password" name="password" id="password" placeholder="Password" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Password';}"
-                onkeyup="checkPassword()"/>
+            />
         </span>
-        <span class="input">
-            <span id="password_hint"></span><br>
+        <span class="input input_password_confirm">
+            <span id="password_hint">password do not same</span><br>
             <span class="input-content"><img src="img/password_logo.png" width="30" height="30"></span>
             <input class="input_field" type="password" name = "cf_password" id="cf-password" placeholder="Confirm Password" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Confirm Password';}"
-                   onkeyup="checkPassword()"/>
+                  />
 
         </span>
         <span class="input">
             <span class="input-content"><img src="img/email_logo.png" width="30" height="30"></span>
             <input class="input_field" type="email" name="email" id="email" placeholder="Email" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Email';}"/>
-        </span>
-        <span class="input">
-            <span class="input-content"><img src="img/department_logo.png" width="30" height="30"></span>
-            <input class="input_field" type="text" name="department" id="department" placeholder="Department" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Department';}"/>
         </span>
         <input class="submit" value="Register" type="submit"/>
     </form>

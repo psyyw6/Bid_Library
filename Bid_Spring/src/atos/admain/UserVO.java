@@ -1,21 +1,16 @@
 package atos.admain;
 
-public class UserVO {
+import org.springframework.jdbc.core.RowMapper;
+
+import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class UserVO implements RowMapper<UserVO>, Serializable {
     private String name;
     private String pwd;
     private String email;
-    private String department;
     private String role;
-
-    public UserVO()
-    {
-
-    }
-
-    public UserVO(String name,String pwd){
-        this.name = name;
-        this.pwd = pwd;
-    }
 
 
     public String getEmail() {
@@ -42,19 +37,22 @@ public class UserVO {
         this.name = name;
     }
 
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
     public String getRole() {
         return role;
     }
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    @Override
+    public UserVO mapRow(ResultSet resultSet, int i) throws SQLException {
+        UserVO userVO = new UserVO();
+        userVO.setEmail(resultSet.getString("Email"));
+        userVO.setName(resultSet.getString("Username"));
+        userVO.setPwd(resultSet.getString("Password"));
+        userVO.setRole(resultSet.getString("Role"));
+
+        return userVO;
     }
 }
