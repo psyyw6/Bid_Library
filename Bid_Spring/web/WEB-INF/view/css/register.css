@@ -78,6 +78,12 @@
     visibility: hidden;
 
 }
+#username_hint
+{
+    color:red;
+    margin-left: 55px;
+    /*display: none;*/
+}
 .input::after
 {
     content: '';

@@ -48,8 +48,9 @@
             <a class="hint_words" href="/login">Already have an acount? Log in here</a>
         </div>
         <span class="input">
+            <span id="username_hint"></span><br>
             <span class="input_content"><img src="img/user.png" width="30" height="30"></span>
-            <input class="input_field" type="text" name="username" id="username" placeholder="Username" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Username';}"/>
+            <input class="input_field" type="text" name="username" id="username" placeholder="Username" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Username';}" />
         </span>
         <span class="input">
             <span class="input-content"><img src="img/password_logo.png" width="30" height="30"></span>
@@ -65,7 +66,7 @@
         </span>
         <span class="input">
             <span class="input-content"><img src="img/email_logo.png" width="30" height="30"></span>
-            <input class="input_field" type="email" name="email" id="email" placeholder="Email" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Email';}"/>
+            <input class="input_field" type="email" name="email" id="email" placeholder="Email" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Email';}" onclick="checkUsername()"/>
         </span>
         <input class="submit" value="Register" type="submit"/>
     </form>

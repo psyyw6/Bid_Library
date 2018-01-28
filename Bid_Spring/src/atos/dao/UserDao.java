@@ -47,5 +47,17 @@ public class UserDao {
         return result;
     }
 
+    public UserVO checkDuplicate(String name){
+
+        String sql = "select * from Users where Username=?";
+        try{
+            return jdbcTemplate.queryForObject(sql,new UserVO(),name);
+        }
+        catch(Exception e){
+            return null;
+        }
+    }
+
+
 
 }
