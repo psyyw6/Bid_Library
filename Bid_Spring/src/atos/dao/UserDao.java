@@ -43,8 +43,14 @@ public class UserDao {
     public int registerUser(String name,String password,String email) {
         String sql = "INSERT INTO Users VALUES(?,?,?,'User');";
         Object[] params = new Object[]{name,password,email};
-        int result = jdbcTemplate.update(sql,params);
-        return result;
+        try {
+            return jdbcTemplate.update(sql, params);
+        }
+        catch (Exception e){
+            return 0;
+        }
+
+
     }
 
     public UserVO checkDuplicate(String name){

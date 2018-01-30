@@ -37,18 +37,25 @@ public class RegisterController {
         return "register";
     }
 
-    @RequestMapping(value = "/reg.do",method = GET)
-    public String RegUser(HttpServletRequest request, ModelMap model) {
-        String name = request.getParameter("username");
-        String pwd = request.getParameter("password");
-        String cf_pwd = request.getParameter("cf_password");
-        String email = request.getParameter("email");
-
-        if(!pwd.equals(cf_pwd)) {
-            return "register";
+    @RequestMapping(value = "/reg.do",method = POST)
+        @ResponseBody
+        public List<Userjson> register_user(@RequestParam String username,String pwd,String email) {
+        List<Userjson> userList = new ArrayList<Userjson>();
+        Userjson re_info = new Userjson();
+        System.out.println(username);
+        System.out.println(pwd);
+        System.out.println(email);
+        if(userDao.registerUser(username,pwd,email)!=1) {
+            re_info.setInfo("false");
+            userList.add(re_info);
+            return userList;
         }
-        userDao.registerUser(name,pwd,email);
-        return "login";
+        else {
+            re_info.setInfo("true");
+            userList.add(re_info);
+            return userList;
+        }
+
     }
 
     @RequestMapping(value = "/checkUser.do",method = POST)
@@ -60,13 +67,11 @@ public class RegisterController {
             {
                 re_info.setInfo("yes");
                 userList.add(re_info);
-                System.out.println(userList.get(0).getInfo());
                 return userList;
             }
             else{
                 re_info.setInfo("no");
                 userList.add(re_info);
-                System.out.println(userList.get(0).getInfo());
                 return userList;
             }
 

@@ -82,7 +82,7 @@
 {
     color:red;
     margin-left: 55px;
-    /*display: none;*/
+    visibility: hidden;
 }
 .input::after
 {

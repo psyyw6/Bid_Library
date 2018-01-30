@@ -39,37 +39,38 @@
     </ul>
 </div>
 <div class="form-warpper">
-    <form class="register" method="get" action="reg.do">
+    <form class="register">
         <div class="logo-image">
             <img src="img/Atos_logo.png" width="170" height="100">
         </div>
         <div class="customer_register">CUSTOMER REGISTRATION<br></div>
         <div class="hint1">
-            <a class="hint_words" href="/login">Already have an acount? Log in here</a>
+            <a class="hint_words" href="/login">Already have an account? Log in here</a>
         </div>
         <span class="input">
-            <span id="username_hint"></span><br>
+            <span id="username_hint">xxxxx</span><br>
             <span class="input_content"><img src="img/user.png" width="30" height="30"></span>
-            <input class="input_field" type="text" name="username" id="username" placeholder="Username" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Username';}" />
+            <input class="input_field" type="text" name="username" id="username" placeholder="Username" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Username';}" required="required"/>
         </span>
         <span class="input">
             <span class="input-content"><img src="img/password_logo.png" width="30" height="30"></span>
-            <input class="input_field" type="password" name="password" id="password" placeholder="Password" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Password';}"
+            <input class="input_field" type="password" name="password" id="password" placeholder="Password" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Password';}" required="required"
             />
         </span>
         <span class="input input_password_confirm">
             <span id="password_hint">password do not same</span><br>
             <span class="input-content"><img src="img/password_logo.png" width="30" height="30"></span>
             <input class="input_field" type="password" name = "cf_password" id="cf-password" placeholder="Confirm Password" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Confirm Password';}"
-                  />
+                   required="required" />
 
         </span>
         <span class="input">
             <span class="input-content"><img src="img/email_logo.png" width="30" height="30"></span>
-            <input class="input_field" type="email" name="email" id="email" placeholder="Email" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Email';}" onclick="checkUsername()"/>
+            <input class="input_field" type="email" name="email" id="email" placeholder="Email" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Email';}" onclick="checkUsername()" required="required"/>
         </span>
-        <input class="submit" value="Register" type="submit"/>
+        <input class="submit" value="Register" type="button" onclick="register_user()"/>
     </form>
 </div>
+
 </body>
 </html>
