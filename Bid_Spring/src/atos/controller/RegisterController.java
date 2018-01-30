@@ -32,8 +32,7 @@ public class RegisterController {
     }
 
     @RequestMapping(value = "/register", method = GET)
-    public String showReg()
-    {
+    public String showReg() {
         return "register";
     }
 
@@ -42,9 +41,6 @@ public class RegisterController {
         public List<Userjson> register_user(@RequestParam String username,String pwd,String email) {
         List<Userjson> userList = new ArrayList<Userjson>();
         Userjson re_info = new Userjson();
-        System.out.println(username);
-        System.out.println(pwd);
-        System.out.println(email);
         if(userDao.registerUser(username,pwd,email)!=1) {
             re_info.setInfo("false");
             userList.add(re_info);
