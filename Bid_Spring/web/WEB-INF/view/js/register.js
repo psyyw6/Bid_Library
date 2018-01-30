@@ -2,7 +2,10 @@ $(document).ready(function() {
     $("#email,#username").click(function () {
         var password = $("#password").val();
         var cf_password = $('#cf-password').val();
-
+        if(password == "") {
+            $("#password_hint_one").css("visibility","visible");
+            $("#password_hint_one").html("Password can not be empty");
+        }
         if(password!="") {
             if(password!=cf_password) {
                 $("#password_hint").css("visibility","visible");
@@ -97,4 +100,3 @@ function register_user(){
 
     })
 }
-

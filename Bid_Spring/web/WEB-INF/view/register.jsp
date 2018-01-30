@@ -52,7 +52,8 @@
             <span class="input_content"><img src="img/user.png" width="30" height="30"></span>
             <input class="input_field" type="text" name="username" id="username" placeholder="Username" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Username';}" required="required"/>
         </span>
-        <span class="input">
+        <span class="input input_password_confirm">
+            <span id="password_hint_one">xxxxx</span><br>
             <span class="input-content"><img src="img/password_logo.png" width="30" height="30"></span>
             <input class="input_field" type="password" name="password" id="password" placeholder="Password" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Password';}" required="required"
             />
