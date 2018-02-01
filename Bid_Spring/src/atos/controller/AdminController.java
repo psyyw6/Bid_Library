@@ -12,6 +12,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 public class AdminController {
     @Resource
     private UserDao userDao;
+    @RequestMapping(value="/administer_solution", method = GET)
+    public String showSolution() {return "administer_solution";}
 
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
