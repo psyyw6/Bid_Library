@@ -1,10 +1,13 @@
 package atos.controller;
 
+import atos.admain.UserVO;
 import atos.dao.UserDao;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -22,5 +25,8 @@ public class AdminController {
     }
 
     @RequestMapping(value="/administer_solution", method = GET)
-    public String showSolution() {return "administer_solution";}
+    public String showSolution(HttpServletRequest request, ModelMap model) {
+        UserVO loginstaff = (UserVO)request.getSession().getAttribute("loginstaff");
+        model.addAttribute("name",loginstaff.getName());
+        return "administer_solution";}
 }
