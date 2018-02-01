@@ -5,6 +5,7 @@ import atos.dao.UserDao;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -35,10 +36,13 @@ public class LoginController {
     public String logIn(HttpServletRequest request, ModelMap model) {
         String name = request.getParameter("username");
         String pwd = request.getParameter("password");
-        UserVO loginvo = userDao.selectByName(name, pwd);
+        UserVO loginvo = new UserVO();
+        loginvo = userDao.selectByName(name, pwd);
+        request.getSession().setAttribute("loginstaff",loginvo);
+        UserVO loginstaff = (UserVO)request.getSession().getAttribute("loginstaff");
         if(loginvo!= null){
-        model.addAttribute("name",name);
-        return "hello";
+        model.addAttribute("name",loginstaff.getName());
+        return "administer_solution";
         }
         else {
             return "login";
@@ -46,6 +50,13 @@ public class LoginController {
 
     }
 
+    @RequestMapping(value="logout",method = GET)
+    public String logout(HttpServletRequest request, ModelMap model){
 
+      request.getSession().removeAttribute("loginstaff");
+      request.getSession().invalidate();
+      return "login";
+
+    }
 
 }

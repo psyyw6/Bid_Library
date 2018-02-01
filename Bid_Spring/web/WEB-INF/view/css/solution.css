@@ -150,3 +150,7 @@
 tr > th > b{
     font-size: 5px;
 }
+#logout{
+    font-size:18px;
+    color: #f0f0f0;
+}
