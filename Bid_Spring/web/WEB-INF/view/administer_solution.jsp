@@ -42,7 +42,7 @@
                 <li><p>Welcome administers name! </p></li>
             </ul>
             <ul class="header_pre-external">
-                <li><p>Logout</p>
+                <li><a href="#">Logout</a>
                 </li>
             </ul>
         </div>
@@ -53,10 +53,10 @@
             </div>
             <nav class="header_main-nav">
                 <ul class="header_main-menu">
-                    <li class="megamenu"><a href="#">Proposal</a></li>
-                    <li class="megamenu"><a href="#">Request</a></li>
-                    <li class="megamenu"><a href="#">Events</a></li>
-                    <li class="megamenu"><a href="#">Solution</a></li>
+                    <li><a href="#">Proposal</a></li>
+                    <li><a href="#">Request</a></li>
+                    <li><a href="#">Events</a></li>
+                    <li style="text-decoration: underline;"><a href="#">Solution</a></li>
                 </ul>
             </nav>
         </div>
@@ -70,12 +70,12 @@
             </div>
         </header>
         <div class="section page_button">
-            <a class="button-white" href="#">Add New Solution</a>
+            <a class="button-white" style="border: solid 2px #0066a1;" href="#">Add New Solution</a>
         </div>
-        <div class="section page_content">
+        <div class="section page_main_content">
             <div class="grid-row">
                 <div class="grid-col-12">
-                    <h1 style="text-align: left;">current solution documents</h1>
+                    <h1 style="text-align: left; padding-bottom: 10px;">current solution documents</h1>
                     <table>
                         <tbody>
                         <tr>
@@ -86,7 +86,7 @@
                             <th width="200"><b>Changed Date<br></b></th>
                             <th width="200"><b>Changed person</b></th>
                             <th width="200"><b>Expired Date</b></th>
-                            <th><b>Action</b></th>
+                            <th colspan="3"><b>Action</b></th>
                         </tr>
                         <tr>
                             <td>Title one</td>
@@ -96,7 +96,21 @@
                             <td>03/01/2017</td>
                             <td>Bob</td>
                             <td>06/01/2017</td>
-                            <td>1.0</td>
+                            <td><a class="button-blue" href="#">EDIT</a></td>
+                            <td><a class="button-red" href="#">DELETE</a></td>
+                            <td><a class="button-grey" href="#">HISTORY</a></td>
+                        </tr>
+                        <tr>
+                            <td>Title two</td>
+                            <td>Jason</td>
+                            <td>1.3</td>
+                            <td>02/03/2017</td>
+                            <td>03/01/2017</td>
+                            <td>Andy</td>
+                            <td>06/01/2017</td>
+                            <td><a class="button-blue" href="#">EDIT</a></td>
+                            <td><a class="button-red" href="#">DELETE</a></td>
+                            <td><a class="button-grey" href="#">HISTORY</a></td>
                         </tr>
                         </tbody>
                     </table>
