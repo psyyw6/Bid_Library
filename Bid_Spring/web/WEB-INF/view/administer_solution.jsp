@@ -66,7 +66,7 @@
             </div>
         </header>
         <div class="section page_button">
-            <a class="button-white" style="border: solid 2px #0066a1;" href="#">Add New Solution</a>
+            <a class="button-white" style="border: solid 2px #0066a1;" href="add_solution">Add New Solution</a>
         </div>
         <div class="section page_main_content">
             <div class="grid-row">
