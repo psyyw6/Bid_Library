@@ -20,12 +20,8 @@
     <meta name="msapplication-TileImage" content="img/favicon/mstile-144x144.png">
     <meta name="msapplication-config" content="img/favicon/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
-    <%--<link rel="stylesheet" href="css/style.css">--%>
     <link rel="stylesheet" href="css/solution.css">
     <script src="js/jquery.js"></script>
-   <!-- <script src="js/login.js" rel="script"></script>
-    <script src="js/register.js" rel="script"></script>-->
-    <!--from Atos website-->
     <link rel="stylesheet" id="atos_css-css" href="https://atos.net/wp-content/themes/atos/style.css" type="text/css" media="screen">
     <link rel="stylesheet" id="js_composer_front-css" href="https://atos.net/wp-content/plugins/js_composer/assets/css/js_composer.min.css" type="text/css" media="all">
     <script type="text/javascript" src="https://atos.net/wp-content/plugins/sitepress-multilingual-cms/templates/language-switchers/legacy-dropdown/script.js"></script>
@@ -39,10 +35,10 @@
     <div class="wrapper">
         <div class="header_pre cf">
             <ul class="header_pre-institutional">
-                <li><p>Welcome administers name! </p></li>
+                <li><p>Welcome ${name}</p></li>
             </ul>
             <ul class="header_pre-external">
-                <li><a href="#">Logout</a>
+                <li><a href="/logout">Logout</a>
                 </li>
             </ul>
         </div>
