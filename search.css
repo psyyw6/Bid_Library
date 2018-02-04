@@ -1,0 +1,197 @@
+body{
+    background-image:url(https://atos.net/wp-content/uploads/2017/08/digital-vision-cyber-security-website-banner.jpg);
+    background-repeat: no-repeat;
+    background-size: 2000px 1000px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 100%;
+}
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,nav ul,nav li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
+article, aside, details, figcaption, figure,footer, header, hgroup, menu, nav, section {display: block;}
+
+.catalogue
+{
+    /*background-color: red;*/
+    margin-left: 40px;
+    display:inline-block;
+    float:left;
+}
+
+.cal-image
+{
+    width:90px;
+    margin-left: 28px;
+    margin-top: 14px;
+    padding: 5px;
+    background-color: white;
+    border-radius: 8px;
+    opacity: 0.8;
+    transition: background-color;
+    transition-duration: 700ms;
+}
+
+.cal-image:hover
+{
+    background-color: #197FBA;
+}
+
+.options
+{
+    list-style: none;
+    /*display: none;*/
+    /*background-color: red;*/
+    visibility: hidden;
+}
+
+.options li
+{
+    width:130px;
+    margin-left: -30px;
+    margin-right: 13px;
+    opacity: 0.9;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 3px;
+    padding-top:20px;
+    padding-bottom:20px;
+    background-color: black;
+    transition: background-color;
+    transition-duration: 700ms;
+
+}
+
+.options li a
+{
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1em;
+    color:white;
+
+}
+
+.options li:hover
+{
+    background-color: #197FBA;
+}
+
+.header
+{
+    width:100%;
+    display:inline-block;
+    padding-top:30px;
+    font-weight: bold;
+    font-family: "Helvetica Neue", Helvetica, Arial, ans-serif;
+    font-size: 1em;
+}
+
+.logoutButton
+{
+    background:none!important;
+    border:none;
+    color:white;
+    cursor:pointer;
+    display:inline-block;
+    margin-left:1820px;
+    margin-bottom:40px;
+    font-weight: bold;
+    font-family: "Helvetica Neue", Helvetica, Arial, ans-serif;
+    font-size: 1em;
+}
+
+.welcomeHeader
+{
+    padding-left: 70px;
+    display:inline-block;
+    color:white;
+}
+
+.title
+{
+    width:1910px;
+    background-color: white;
+    display:inline-block;
+    border: 5px solid #197FBA;
+    border-radius: 40px;
+    opacity: 0.9;
+    height:100px;
+    margin:0 auto;
+}
+
+.titleName
+{
+    float:left;
+    padding-left: 650px;
+    padding-top: 22px;
+    font-weight: bold;
+    font-family: "Helvetica Neue", Helvetica, Arial, ans-serif;
+    font-size: 3em;
+    color:#197FBA;
+}
+
+.logoImage
+{
+    float:right;
+    padding-top:10px;
+    padding-right:20px;
+}
+
+#searchBar
+{
+    border: 5px solid #197FBA;
+    border-radius: 40px;
+    height: 50px;
+    font-family: "Helvetica Neue", Helvetica, Arial, ans-serif;
+    color:#7a7e82;
+    font-size: 1.3em;
+    font-weight: bold;
+    padding-left:40px;
+    padding-right:10px;
+    width:440px;
+    background-image: url('http://www.freeiconspng.com/uploads/search-icon-png-2.png');
+    background-position: 10px 10px;
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+}
+
+.searchForm
+{
+    padding-top:50px;
+    padding-left:550px;
+}
+
+#submitButton
+{
+    border:5px solid #197FBA;
+    border-radius: 30px;
+    width: 120px;
+    height: 50px;
+    background-color: #197FBA;
+    font-size: 25px;
+    color:white;
+    outline: none;
+    -webkit-transition: background-color 700ms;
+    -moz-transition: background-color 700ms;
+    -ms-transition: background-color 700ms;
+    -o-transition: background-color 700ms;
+    transition: background-color 700ms;
+}
+
+#submitButton:hover,#submitButton:focus
+{
+    background-color:#FFFFFF;
+    border:5px solid #197FBA;
+    color:#197FBA;
+}
+
+#tags
+{
+    border: 5px solid #197FBA;
+    border-radius: 40px;
+    height: 50px;
+    font-family: "Helvetica Neue", Helvetica, Arial, ans-serif;
+    background-color: #FFFFFF;
+    color:#7a7e82;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align-last:center;
+    text-align: center;
+}
