@@ -7,6 +7,7 @@ $(document).ready(function() {
             $("#password_hint_one").html("Password can not be empty");
         }
         if(password!="") {
+            $("#password_hint_one").css("visibility","hidden");
             if(password!=cf_password) {
                 $("#password_hint").css("visibility","visible");
             }

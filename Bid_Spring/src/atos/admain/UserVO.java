@@ -10,7 +10,7 @@ public class UserVO implements RowMapper<UserVO>, Serializable {
     private String name;
     private String pwd;
     private String email;
-    private String role;
+    private boolean role;
 
 
     public String getEmail() {
@@ -37,11 +37,11 @@ public class UserVO implements RowMapper<UserVO>, Serializable {
         this.name = name;
     }
 
-    public String getRole() {
+    public boolean getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(boolean role) {
         this.role = role;
     }
 
@@ -51,7 +51,7 @@ public class UserVO implements RowMapper<UserVO>, Serializable {
         userVO.setEmail(resultSet.getString("Email"));
         userVO.setName(resultSet.getString("Username"));
         userVO.setPwd(resultSet.getString("Password"));
-        userVO.setRole(resultSet.getString("Role"));
+        userVO.setRole(resultSet.getBoolean("Role"));
 
         return userVO;
     }

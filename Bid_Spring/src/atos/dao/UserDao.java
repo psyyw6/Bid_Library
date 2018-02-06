@@ -41,7 +41,7 @@ public class UserDao {
     }
 
     public int registerUser(String name,String password,String email) {
-        String sql = "INSERT INTO Users VALUES(?,?,?,'User');";
+        String sql = "INSERT INTO Users VALUES(?,?,?,FALSE);";
         Object[] params = new Object[]{name,password,email};
         try {
             return jdbcTemplate.update(sql, params);

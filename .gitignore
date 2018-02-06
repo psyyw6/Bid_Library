@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 Bid_Spring/\.idea/
 
 Bid_Spring/out/
@@ -6,5 +7,10 @@ Bid_Spring/out/
 Bid_Spring/\.DS_Store
 
 \.DS_Store
+=======
+Bid_Spring/out/
+
+Bid_Spring/\.idea/
+>>>>>>> develop_main_page
 
 Bid_Spring/src/test\.txt
