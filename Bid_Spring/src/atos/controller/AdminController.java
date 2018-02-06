@@ -46,6 +46,14 @@ public class AdminController {
         }
         return "administer_solution";
     }
+    @RequestMapping(value="/modify", method = GET)
+    public String modifySolution(HttpServletRequest request, ModelMap model) {
+        if(request.getSession().getAttribute("loginstaff")!=null) {
+            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
+            model.addAttribute("name",loginstaff.getName());
+        }
+        return "modify";
+    }
 
     @RequestMapping(value = "/add_solution",method = GET)
     public String addSolutionPage(HttpServletRequest request,ModelMap model){
