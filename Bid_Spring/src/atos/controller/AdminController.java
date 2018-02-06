@@ -57,13 +57,15 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/upload.do",method = POST)
-    public String upLoadFile(@RequestParam MultipartFile myfiles,HttpServletRequest request) throws IOException{
-        String fileName = myfiles.getOriginalFilename();
+    public String upLoadFile(@RequestParam MultipartFile myfile,HttpServletRequest request) throws IOException{
+        String fileName = myfile.getOriginalFilename();
+        System.out.println(fileName);
         if(!checkFile(fileName)){
             return "error";
         }
         else{
-            InputStreamReader isr = new InputStreamReader(new FileInputStream((File) myfiles));
+            InputStream file = myfile.getInputStream();
+            InputStreamReader isr = new InputStreamReader(file);
             BufferedReader br = new BufferedReader(isr);
             String lineTxt = null;
             while ((lineTxt = br.readLine()) != null) {
