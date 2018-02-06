@@ -51,7 +51,7 @@
                     <li><a href="#">Proposal</a></li>
                     <li><a href="#">Request</a></li>
                     <li><a href="#">Events</a></li>
-                    <li style="text-decoration: underline;"><a href="#">Solution</a></li>
+                    <li><a href="/administer_solution">Solution</a></li>
                 </ul>
             </nav>
         </div>
@@ -68,12 +68,12 @@
         </div>
     </section>
     <section class = "add_form">
-        <form class = "add_solution_form">
+        <form class = "add_solution_form" action="upload.do" method="post" enctype="multipart/form-data">
 
                 <span class="form_label">
                     <span class="input_label">New solution:&nbsp;</span>
                     <input class="input_button" type = "button" value = "Browse..." onclick="fileInput.click()">
-                    <input id = "fileInput" type = "file" onchange="processFiles(this.files)" style = "display:none">
+                    <input id = "fileInput" type = "file" name = "myfile" onchange="processFiles(this.files)" style = "display:none">
                 </span>
             <span class="form_label">
                     <span class="input_label">Solution title:&nbsp;</span>
@@ -95,7 +95,7 @@
                     </select>
                 </span>
             <span class="upload">
-                    <input id="upload_button" type="button" value="UPLOAD">
+                    <input id="upload_button" type="submit" value="UPLOAD">
                 </span>
         </form>
     </section>

@@ -52,7 +52,7 @@
                     <li><a href="#">Proposal</a></li>
                     <li><a href="#">Request</a></li>
                     <li><a href="#">Events</a></li>
-                    <li style="text-decoration: underline;"><a href="#">Solution</a></li>
+                    <li><a href="/administer_solution">Solution</a></li>
                 </ul>
             </nav>
         </div>
