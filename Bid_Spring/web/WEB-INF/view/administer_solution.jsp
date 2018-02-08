@@ -92,7 +92,7 @@
                             <td>03/01/2017</td>
                             <td>Bob</td>
                             <td>06/01/2017</td>
-                            <td><a class="button-blue" href="#">EDIT</a></td>
+                            <td><a class="button-blue" href="/edit">EDIT</a></td>
                             <td><a class="button-red" href="#">DELETE</a></td>
                             <td><a class="button-grey" href="#">HISTORY</a></td>
                         </tr>

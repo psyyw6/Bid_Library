@@ -18,6 +18,10 @@
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
 
+    <bean id="solutionDao" class="atos.dao.SolutionDao">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+
     <bean id="LoginController" class="atos.controller.LoginController">
         <property name="userDao" ref="userDao"/>
     </bean>
@@ -26,13 +30,18 @@
         <property name="userDao" ref="userDao"/>
     </bean>
 
-    <bean id="AdminController" class="atos.controller.AdminController">
+    <bean id="AdminController_user" class="atos.controller.AdminController">
         <property name="userDao" ref="userDao"/>
+    </bean>
+
+    <bean id="AdminController_solution" class="atos.controller.AdminController">
+        <property name="solutionDao" ref="solutionDao"/>
     </bean>
 
     <bean id="UserController" class="atos.controller.UserController">
         <property name="userDao" ref="userDao"></property>
     </bean>
+
     <bean id="mapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
         <property name="mappings">
             <props>

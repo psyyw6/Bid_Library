@@ -27,7 +27,6 @@
     <link rel="stylesheet" id="js_composer_front-css" href="https://atos.net/wp-content/plugins/js_composer/assets/css/js_composer.min.css" type="text/css" media="all">
     <script src="js/jquery-ui.js"></script>
     <script src="js/jquery-ui.min.js"></script>
-
 </head>
 <body class="page_content page_home">
 <header class="header">
@@ -73,28 +72,38 @@
                 <span class="form_label">
                     <span class="input_label">New solution:&nbsp;</span>
                     <input class="input_button" type = "button" value = "Browse..." onclick="fileInput.click()">
-                    <input id = "fileInput" type = "file" name = "myfile" onchange="processFiles(this.files)" style = "display:none">
+                    &nbsp;&nbsp;<span id="file_name"></span>
+                    <input id="cancel" type="button" value="cancel" style="display: none" onclick="cancel_upload()">
+                    <input id = "fileInput" type = "file" name = "myfile" style="display: none">
                 </span>
-            <span class="form_label">
+                 <span class="form_label">
                     <span class="input_label">Solution title:&nbsp;</span>
-                    <input type="text" class="text_input" id="solution_title">
+                    <input type="text" class="text_input" id="solution_title" name="solution_title">
                 </span>
-            <span class="form_label c_name">
+                <span class="form_label">
+                    <span class="input_label">Author:&nbsp;</span>
+                    <input type="text" class="text_input" id="creator" name="creator">
+                </span>
+                 <span class="form_label c_name">
                     <span class="input_label">Customer Name:&nbsp;</span>
                     <input type="text" name="customer_name" class="text_input" id="customer_name">
                 </span>
-            <span class="form_label">
+                 <span class="form_label">
+                    <span class="input_label">Version:&nbsp;</span>
+                    <input type="text" class="text_input" id="version" name="version">
+                </span>
+                <span class="form_label">
                     <span class="input_label">Expired date:&nbsp;</span>
                     <input type="text" name="expired_date" id = "expired_date">
                 </span>
-            <span class="form_label">
+                <span class="form_label">
                     <span class="input_label">Type of Solution: </span>
-                    <select class = "select_box">
+                    <select class = "select_box" name="isExternal">
                         <option value="external">External</option>
                         <option value="internal">Internal</option>
                     </select>
                 </span>
-            <span class="upload">
+                <span class="upload">
                     <input id="upload_button" type="submit" value="UPLOAD">
                 </span>
         </form>
