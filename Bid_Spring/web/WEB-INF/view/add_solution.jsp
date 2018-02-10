@@ -10,12 +10,13 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Add Solution</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="img/ato_icon.png" sizes="200x200">
-    <meta name="msapplication-TileColor" content="#66e0e5">
-    <meta name="msapplication-TileImage" content="img/favicon/mstile-144x144.png">
-    <meta name="msapplication-config" content="img/favicon/browserconfig.xml">
+    <title>Add Solution</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" type="text/css" href="css/add_solution.css">
     <script src="js/jquery.js"></script>
@@ -23,7 +24,6 @@
     <link rel="stylesheet" href="css/jquery-ui.css">
     <link rel="stylesheet" href="css/jquery-ui.theme.css">
     <link rel="stylesheet" href="css/jquery-ui.structure.css">
-    <!--<link rel="stylesheet" id="atos_css-css" href="https://atos.net/wp-content/themes/atos/style.css" type="text/css" media="screen">-->
     <link rel="stylesheet" id="js_composer_front-css" href="https://atos.net/wp-content/plugins/js_composer/assets/css/js_composer.min.css" type="text/css" media="all">
     <script src="js/jquery-ui.js"></script>
     <script src="js/jquery-ui.min.js"></script>
@@ -66,46 +66,62 @@
             <p class = "title_word">Update New Solution</p>
         </div>
     </section>
-    <section class = "add_form">
-        <form class = "add_solution_form" action="upload.do" method="post" enctype="multipart/form-data">
-
-                <span class="form_label">
-                    <span class="input_label">New solution:&nbsp;</span>
-                    <input class="input_button" type = "button" value = "Browse..." onclick="fileInput.click()">
-                    &nbsp;&nbsp;<span id="file_name"></span>
-                    <input id="cancel" type="button" value="cancel" style="display: none" onclick="cancel_upload()">
-                    <input id = "fileInput" type = "file" name = "myfile" style="display: none">
-                </span>
-                 <span class="form_label">
-                    <span class="input_label">Solution title:&nbsp;</span>
-                    <input type="text" class="text_input" id="solution_title" name="solution_title">
-                </span>
-                <span class="form_label">
-                    <span class="input_label">Author:&nbsp;</span>
-                    <input type="text" class="text_input" id="creator" name="creator">
-                </span>
-                 <span class="form_label c_name">
-                    <span class="input_label">Customer Name:&nbsp;</span>
-                    <input type="text" name="customer_name" class="text_input" id="customer_name">
-                </span>
-                 <span class="form_label">
-                    <span class="input_label">Version:&nbsp;</span>
-                    <input type="text" class="text_input" id="version" name="version">
-                </span>
-                <span class="form_label">
-                    <span class="input_label">Expired date:&nbsp;</span>
-                    <input type="text" name="expired_date" id = "expired_date">
-                </span>
-                <span class="form_label">
-                    <span class="input_label">Type of Solution: </span>
-                    <select class = "select_box" name="isExternal">
+    <section class="upload_form">
+        <form class="form-horizontal" action="/upload.do" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="fileInput" class="col-sm-2 control-label">New Solution</label>
+                <div class="col-sm-10">
+                    <button type="button" class="btn btn-default" id="file_button" value="Browse" onclick="fileInput.click()">Browse</button>
+                    &nbsp;&nbsp; <span id="file_name">No file chosen</span>
+                </div>
+                <div>
+                    <input type="file" id="fileInput" name="myfile" style="display: none">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Solution_Title" class="col-sm-2 control-label">Solution Title</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="Solution_Title" name="solution_title" placeholder="Solution Title">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Author" class="col-sm-2 control-label">Author</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="Author" name="creator" placeholder="Author">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Version" class="col-sm-2 control-label">Version</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="Version" name="version" placeholder="Version">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Customer" class="col-sm-2 control-label">Customer Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="Customer" name="customer_name" placeholder="Customer Name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="expired_date" class="col-sm-2 control-label">Expired Date</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="expired_date" name="expired_date" placeholder="Expired Date">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="type" class="col-sm-2 control-label">Type</label>
+                <div class="col-sm-10" id="type">
+                    <select class="form-control" name="isExternal">
                         <option value="external">External</option>
                         <option value="internal">Internal</option>
                     </select>
-                </span>
-                <span class="upload">
-                    <input id="upload_button" type="submit" value="UPLOAD">
-                </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </div>
+            </div>
         </form>
     </section>
 </main>

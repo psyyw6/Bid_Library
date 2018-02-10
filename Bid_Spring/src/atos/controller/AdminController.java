@@ -130,7 +130,7 @@ public class AdminController {
     public String editSolution(HttpServletRequest request,ModelMap model){
         String solution_title = "Test Solution";
         String heading = "Heading 1";
-        SolutionVO solution_1 = solutionDao.getContent(heading);
+        SolutionVO solution_1 = solutionDao.getContent(heading,solution_title);
         if(solution_1!=null){
             String content = solution_1.getContent();
 //            String content2 = "abcd\nefgh";

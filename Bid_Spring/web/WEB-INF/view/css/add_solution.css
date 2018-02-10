@@ -37,7 +37,7 @@ body{
 	color:white;
 }
 .header_pre-institutional{
-	margin-top: 10px;
+	margin-top: 27px;
 	margin-left: -35px;
 	float:left;
 }
@@ -116,76 +116,14 @@ body{
 	font-family: "Stag Sans Medium", Verdana, Arial, Helvetica, sans-serif;
 	color:#197FBA;
 }
-.add_form{
-	background-color: white;
-	margin-left: 20px;
-	margin-right: 20px;
+.upload_form{
+	margin-top: 22px;
+	padding: 15px;
+	background: white;
 }
-.add_solution_form{
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	width: 50%;
-	height: 600px;
-	padding-top:40px;
-	margin-left:25%;
-	/*font-size: 20px;*/
-	font-weight: bold;
-
+.col-sm-10{
+	width: 60%;
 }
-.form_label{
-	display: block;
-	margin-left:10%;
-	margin-top: 20px;
-	margin-bottom: 30px;
+#type{
+	width: 150px;
 }
-.input_label{
-	font-size: 25px;
-}
-.input_button{
-	border: 1px solid;
-	font-size: 15px;
-	background-color: white;
-	width: 100px;
-	height: 30px;
-}
-.text_input{
-    background-color: #FFFFFF;
-    border: solid 1px ;
-	font-size: 20px;
-    padding:7px 7px ;
-    height: 40px ;
-    width: 300px;
-    border-radius: 6px;
-    margin-top: -5px;
-}
-#expired_date{
-	display: initial;
-    background-color: #FFFFFF ;
-    border: solid 1px ;
-    padding:7px 7px ;
-    height: 40px ;
-    width: 300px ;
-    border-radius: 6px ;
-    margin-top: -5px ;
-}
-.select_box{
-	font-size: 15px;
-	border: 1px solid;
-	width: 100px;
-	height: 40px;
-	margin-top: -5px;
-}
-.upload{
-	margin-left: 42%;
-}
-#upload_button{
-	margin-top: 30px;
-	margin-bottom: 30px;
-	color:white;
-	border: 2px solid black;
-	border-radius: 15px;
-	font-size: 18px;
-	background-color: #197FBA;
-	width:150px;
-	height:40px;
-}
-

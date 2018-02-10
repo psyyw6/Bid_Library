@@ -29,9 +29,9 @@ public class SolutionDao {
         }
     }
 
-    public SolutionVO getContent(String heading){
-        String sql = "Select * FROM Solution Where Heading=?";
-        Object params = heading;
+    public SolutionVO getContent(String heading,String solution_title){
+        String sql = "Select * FROM Solution Where Heading=? AND S_Title=?";
+        Object[] params = {heading,solution_title};
         try{
             return jdbcTemplate.queryForObject(sql,new SolutionVO(),params);
         }catch (Exception e){

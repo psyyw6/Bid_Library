@@ -4,7 +4,6 @@ $(document).ready(function(){
     file.on('change',function(e){
          var name = e.currentTarget.files[0].name;
          filename.html(name);
-         $("#cancel").css('display','inline');
     });
 });
 
