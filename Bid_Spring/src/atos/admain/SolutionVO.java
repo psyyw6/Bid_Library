@@ -11,7 +11,8 @@ public class SolutionVO implements RowMapper<SolutionVO>, Serializable{
     private String heading;
     private boolean isExternal;
     private String creator;
-    private String modify_date;
+    private String expired_date;
+    private String upload_date;
     private double version;
     private String customer;
     private String content;
@@ -71,12 +72,12 @@ public class SolutionVO implements RowMapper<SolutionVO>, Serializable{
     public void setContent(String content) {
         this.content = content;
     }
-    public String getModify_date() {
-        return modify_date;
+    public String getExpired_date() {
+        return expired_date;
     }
 
-    public void setModify_date(String modify_date) {
-        this.modify_date = modify_date;
+    public void setExpired_date(String expired_date) {
+        this.expired_date = expired_date;
     }
 
     @Override
@@ -86,7 +87,8 @@ public class SolutionVO implements RowMapper<SolutionVO>, Serializable{
         solutionVO.setHeading(resultSet.getString("Heading"));
         solutionVO.setExternal(resultSet.getBoolean("IsExternal"));
         solutionVO.setCreator(resultSet.getString("Creator"));
-        solutionVO.setModify_date(resultSet.getString("ModifyDate"));
+        solutionVO.setExpired_date(resultSet.getString("ExpiredDate"));
+        solutionVO.setUpload_date(resultSet.getString("UploadDate"));
         solutionVO.setVersion(resultSet.getDouble("Version"));
         solutionVO.setCustomer(resultSet.getString("Customer"));
         solutionVO.setContent(resultSet.getString("Content"));
@@ -95,4 +97,11 @@ public class SolutionVO implements RowMapper<SolutionVO>, Serializable{
     }
 
 
+    public String getUpload_date() {
+        return upload_date;
+    }
+
+    public void setUpload_date(String upload_date) {
+        this.upload_date = upload_date;
+    }
 }

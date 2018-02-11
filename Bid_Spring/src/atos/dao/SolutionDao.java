@@ -4,6 +4,7 @@ import atos.admain.SolutionVO;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 public class SolutionDao {
     @Resource
@@ -17,9 +18,9 @@ public class SolutionDao {
         return jdbcTemplate;
     }
 
-    public int storeSolution(String solution_title,String creator,String heading,String customer,String expired_date,boolean isExternal, String content,double version){
-        String sql = "INSERT INTO Solution VALUES(?,?,?,?,?,?,?,?);";
-        Object[] params = {solution_title,heading,isExternal,creator,expired_date,version,customer,content};
+    public int storeSolution(String solution_title,String creator,String heading,String customer,String expired_date,String upload_date,boolean isExternal, String content,double version){
+        String sql = "INSERT INTO Solution VALUES(?,?,?,?,?,?,?,?,?);";
+        Object[] params = {solution_title,heading,isExternal,creator,expired_date,upload_date,version,customer,content};
         try{
             return jdbcTemplate.update(sql,params);
         }
@@ -39,5 +40,17 @@ public class SolutionDao {
             return null;
         }
     }
+
+    public List selectAll(){
+        String sql = "select * from Solution";
+        try{
+            return jdbcTemplate.query(sql,new SolutionVO());
+        }
+        catch (Exception e){
+            System.out.println(e);
+            return  null;
+        }
+    }
+
 
 }

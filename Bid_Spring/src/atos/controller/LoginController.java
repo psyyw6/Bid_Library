@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,9 +43,10 @@ public class LoginController {
 
     @RequestMapping(value = "/login.do",method = POST)
     @ResponseBody
-    public List<Userjson> logIn(HttpServletRequest request, @RequestParam String name, String password) {
+    public List<Userjson> logIn(HttpServletRequest request, @RequestParam String name, String password)throws NoSuchAlgorithmException, UnsupportedEncodingException {
         UserVO loginvo = new UserVO();
-        loginvo = userDao.selectByName(name, password);
+        String new_password = RegisterController.EncoderByMd5(password);
+        loginvo = userDao.selectByName(name, new_password);
         List<Userjson> staffjson = new ArrayList<Userjson>();
         Userjson response_json = new Userjson();
         if(loginvo!=null){

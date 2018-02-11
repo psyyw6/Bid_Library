@@ -1,4 +1,9 @@
-<%--
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="atos.dao.UserDao" %>
+<%@ page import="atos.admain.SolutionVO" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
+<%@ page import="atos.dao.SolutionDao" %><%--
   Created by IntelliJ IDEA.
   User: lishanshan
   Date: 18/1/30
@@ -76,38 +81,30 @@
                         <tbody>
                         <tr>
                             <th width="200"><b>Solution Title<br></b></th>
+                            <th width="200"><b>Heading</b></th>
                             <th><b>Author</b></th>
                             <th><b>Version<br></b></th>
                             <th width="200"><b>Upload Date</b></th>
-                            <th width="200"><b>Changed Date<br></b></th>
-                            <th width="200"><b>Changed person</b></th>
+                            <th width="200"><b>Customer</b></th>
                             <th width="200"><b>Expired Date</b></th>
                             <th colspan="3"><b>Action</b></th>
                         </tr>
-                        <tr>
-                            <td>Title one</td>
-                            <td>Jame</td>
-                            <td>1.0</td>
-                            <td>03/01/2017</td>
-                            <td>03/01/2017</td>
-                            <td>Bob</td>
-                            <td>06/01/2017</td>
-                            <td><a class="button-blue" href="/edit">EDIT</a></td>
-                            <td><a class="button-red" href="#">DELETE</a></td>
-                            <td><a class="button-grey" href="#">HISTORY</a></td>
-                        </tr>
-                        <tr>
-                            <td>Title two</td>
-                            <td>Jason</td>
-                            <td>1.3</td>
-                            <td>02/03/2017</td>
-                            <td>03/01/2017</td>
-                            <td>Andy</td>
-                            <td>06/01/2017</td>
-                            <td><a class="button-blue" href="#">EDIT</a></td>
-                            <td><a class="button-red" href="#">DELETE</a></td>
-                            <td><a class="button-grey" href="#">HISTORY</a></td>
-                        </tr>
+                        <c:forEach var="solution_list"  items = "${solution_list}">
+                            <form id="class_table">
+                            <tr>
+                                <td>${solution_list.solution_title} <input type="hidden" name="solution_title" value="${solution_list.solution_title}"></td>
+                                <td>${solution_list.heading} <input type="hidden" name="solution_title" value="${solution_list.heading}"></td>
+                                <td>${solution_list.creator}</td>
+                                <td>${solution_list.version}</td>
+                                <td>${solution_list.upload_date}</td>
+                                <td>${solution_list.customer}</td>
+                                <td>${solution_list.expired_date}</td>
+                                <td><input type="submit" id="button-blue" value="EDIT" onclick="javascript:this.form.action='/edit'"></td>
+                                <td><input type="submit" id="button-red" value="DELETE"></td>
+                                <td><input type="submit" id="button-grey" value="EXPORT" onclick="javascript:this.form.action='/export_word'"></td>
+                            </tr>
+                            </form>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>

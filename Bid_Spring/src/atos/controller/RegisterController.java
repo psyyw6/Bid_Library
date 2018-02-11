@@ -7,10 +7,14 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import sun.misc.BASE64Encoder;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +35,13 @@ public class RegisterController {
         return userDao;
     }
 
+    public static String EncoderByMd5(String pwd) throws NoSuchAlgorithmException, UnsupportedEncodingException{
+        MessageDigest md5 = MessageDigest.getInstance("MD5");
+        BASE64Encoder base64Encoder = new BASE64Encoder();
+        String new_pwd = base64Encoder.encode(md5.digest(pwd.getBytes("utf-8")));
+        return new_pwd;
+    }
+
     @RequestMapping(value = "/register", method = GET)
     public String showReg() {
         return "register";
@@ -38,19 +49,21 @@ public class RegisterController {
 
     @RequestMapping(value = "/reg.do",method = POST)
         @ResponseBody
-        public List<Userjson> register_user(@RequestParam String username,String pwd,String email) {
+        public List<Userjson> register_user(@RequestParam String username,String pwd,String email)throws NoSuchAlgorithmException, UnsupportedEncodingException {
         List<Userjson> userList = new ArrayList<Userjson>();
         Userjson re_info = new Userjson();
-        if(userDao.registerUser(username,pwd,email)!=1) {
-            re_info.setInfo("false");
-            userList.add(re_info);
-            return userList;
-        }
-        else {
-            re_info.setInfo("true");
-            userList.add(re_info);
-            return userList;
-        }
+            String new_pwd = this.EncoderByMd5(pwd);
+            if(userDao.registerUser(username,new_pwd,email)!=1) {
+                re_info.setInfo("false");
+                userList.add(re_info);
+                return userList;
+            }
+            else {
+                re_info.setInfo("true");
+                userList.add(re_info);
+                return userList;
+            }
+
 
     }
 

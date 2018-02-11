@@ -164,12 +164,12 @@ tr > th{
     text-align: center;
 }
 
-.page_main_content .button-blue{
+.page_main_content #button-blue{
     margin: 0 0;
     padding: 13px 25px 12px 25px;
 }
 
-.button-red {
+#button-red {
     color: #ffffff;
     border: solid 2px #CC0000;
     background-color: #CC0000;
@@ -187,8 +187,8 @@ tr > th{
     border-radius: 20px;
 }
 
-.button-red:hover {
-    color: #CC0000;
+#button-red:hover {
+    color: #CC0000 ;
     border-color: #CC0000;
     background-color: transparent;
     -webkit-transition: all 150ms ease-in-out;
@@ -197,7 +197,7 @@ tr > th{
 }
 
 
-.button-grey {
+#button-grey {
     color: #ffffff;
     border: solid 2px #666666;
     background-color: #666666;
@@ -215,7 +215,7 @@ tr > th{
     border-radius: 20px;
 }
 
-.button-grey:hover {
+#button-grey:hover {
     color: #666666;
     border-color: #666666;
     background-color: transparent;
