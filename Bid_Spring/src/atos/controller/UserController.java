@@ -29,4 +29,9 @@ public class UserController {
         return "search";
     }
 
+    @RequestMapping(value="/staff_search", method = GET)
+    public String staffSearchPage(HttpServletRequest request, ModelMap model) {
+        return "staff_search";
+    }
+
 }

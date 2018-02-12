@@ -212,21 +212,17 @@ tr > th, td{
     text-align: center;
 }
 
-<<<<<<< Updated upstream
-.page_main_content #button-blue{
-=======
 .search_content-table tr > td{
     padding: 8px;
     font-size: 1rem;
 }
 
 .page_main_content .button-blue{
->>>>>>> Stashed changes
     margin: 0 0;
     padding: 13px 25px 12px 25px;
 }
 
-#button-red {
+.button-red {
     color: #ffffff;
     border: solid 2px #CC0000;
     background-color: #CC0000;
@@ -244,8 +240,8 @@ tr > th, td{
     border-radius: 20px;
 }
 
-#button-red:hover {
-    color: #CC0000 ;
+.button-red:hover {
+    color: #CC0000;
     border-color: #CC0000;
     background-color: transparent;
     -webkit-transition: all 150ms ease-in-out;
@@ -254,7 +250,7 @@ tr > th, td{
 }
 
 
-#button-grey {
+.button-grey {
     color: #ffffff;
     border: solid 2px #666666;
     background-color: #666666;
@@ -272,7 +268,7 @@ tr > th, td{
     border-radius: 20px;
 }
 
-#button-grey:hover {
+.button-grey:hover {
     color: #666666;
     border-color: #666666;
     background-color: transparent;
