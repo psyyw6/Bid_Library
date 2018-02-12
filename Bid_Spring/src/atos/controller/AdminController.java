@@ -140,11 +140,11 @@ public class AdminController {
     @RequestMapping(value = "/edit",method = GET)
     public String editSolution(HttpServletRequest request,ModelMap model){
         String solution_title = request.getParameter("solution_title");
-        System.out.println(solution_title);
         String heading = "Heading 1";
         SolutionVO solution_1 = solutionDao.getContent(heading,solution_title);
         if(solution_1!=null){
-            String content = solution_1.getContent();
+            String content = solution_1.getContent().replaceAll("\n","<br>");
+            model.addAttribute("heading",solution_1.getHeading());
             model.addAttribute("content",content);
             return "edit";
         }
@@ -165,7 +165,7 @@ public class AdminController {
             String filename = "test1.doc";
             ExportWord word1 = new ExportWord();
             Map<String,Object> map = new HashMap<String,Object>();
-            map.put("content",solution_1.getContent());
+            map.put("content",solution_1.getContent().replaceAll("\n","<w:p></w:p>"));
             word1.create(templatePath,templateName,filePath,filename,map);
             return "success_upload";
         }

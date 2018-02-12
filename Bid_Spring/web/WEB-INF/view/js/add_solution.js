@@ -15,14 +15,6 @@ $(function () {
    });
 });
 
-function cancel_upload(){
-    var file = document.getElementById("fileInput");
-    file.value = "";
-    var filename = $("#file_name");
-    filename.html("");
-    $("#cancel").css('display','none');
-}
-
 
 
 

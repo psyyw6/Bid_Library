@@ -1,0 +1,24 @@
+body {
+    text-align: center;
+    background: white !important;
+}
+
+#editor {
+    width: 80%;
+    margin: auto;
+    font-size:20px;
+    text-align: left;
+}
+
+#pre_bottom{
+    margin-bottom: 30px;
+}
+
+.col-sm-2{
+    width: 110px !important;
+    text-align: left !important;
+}
+.col-sm-offset-2
+{
+    margin-left: 110px !important;
+}
