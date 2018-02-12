@@ -40,7 +40,7 @@
 .header_pre-external {
     position: relative;
     top: -1px;
-    display: block;
+    display: block;;
     float: right;
 }
 
@@ -137,12 +137,60 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+.page_header-large .search_header-image{
+    min-height: 800px;
+}
 
-.grid-row{
-    position: relative;
-    width: 100%;
-    max-width: 1140px;
-    margin: 0 auto;
+.page_header-grad {
+    width:100%;
+    padding: 210px 0 0 40px;
+}
+
+.page_content-grad{
+    width:100%;
+    padding: 0 0 0 40px;
+    min-height: 500px;
+}
+
+.search_header-tag select{
+    width: 50%;
+    border-radius: 10px;
+    background-color: #f7f7f7;
+}
+
+.search_footer-tag select{
+    border-radius: 10px;
+    background-color: #f7f7f7;
+}
+.search-button{
+    margin: 0 20px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    color: #0066a1;
+    font-weight: bold;
+}
+
+#search_content-title{
+    text-align: left;
+    padding: 5px;
+    font-size: 2rem;
+    background: #ffffff;
+    margin-top: 20px;
+}
+
+.search_content-table{
+    background: #ffffff;
+    color: black;
+}
+
+
+.page_footer-grad{
+    background: #ffffff;
+    min-height: 60px;
+}
+
+.page_footer-grad .grid-row{
+    padding: 10px;
 }
 
 .page .page_button {
@@ -157,14 +205,23 @@
 }
 
 tr > th > b{
-    font-size: 1.3rem;
+    font-size: 1rem;
 }
 
-tr > th{
+tr > th, td{
     text-align: center;
 }
 
+<<<<<<< Updated upstream
 .page_main_content #button-blue{
+=======
+.search_content-table tr > td{
+    padding: 8px;
+    font-size: 1rem;
+}
+
+.page_main_content .button-blue{
+>>>>>>> Stashed changes
     margin: 0 0;
     padding: 13px 25px 12px 25px;
 }
