@@ -49,8 +49,6 @@ public class UserDao {
         catch (Exception e){
             return 0;
         }
-
-
     }
 
     public UserVO checkDuplicate(String name){

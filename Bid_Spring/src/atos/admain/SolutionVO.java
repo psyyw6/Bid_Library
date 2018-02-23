@@ -7,30 +7,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SolutionVO implements RowMapper<SolutionVO>, Serializable{
-    private String solution_title;
-    private String heading;
+    private String content_title;
     private boolean isExternal;
-    private String creator;
+    private String author;
     private String expired_date;
     private String upload_date;
-    private double version;
+    private int version;
     private String customer;
-    private String content;
+    private String flag;
 
-    public String getSolution_title() {
-        return solution_title;
+    public String getContent_title() {
+        return content_title;
     }
 
-    public void setSolution_title(String solution_title) {
-        this.solution_title = solution_title;
-    }
-
-    public String getHeading() {
-        return heading;
-    }
-
-    public void setHeading(String heading) {
-        this.heading = heading;
+    public void setContent_title(String content_title) {
+        this.content_title = content_title;
     }
 
     public boolean isExternal() {
@@ -41,19 +32,19 @@ public class SolutionVO implements RowMapper<SolutionVO>, Serializable{
         isExternal = external;
     }
 
-    public String getCreator() {
-        return creator;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setCreator(String creator) {
-        this.creator = creator;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    public double getVersion() {
+    public int getVersion() {
         return version;
     }
 
-    public void setVersion(double version) {
+    public void setVersion(int version) {
         this.version = version;
     }
 
@@ -65,13 +56,6 @@ public class SolutionVO implements RowMapper<SolutionVO>, Serializable{
         this.customer = customer;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
     public String getExpired_date() {
         return expired_date;
     }
@@ -80,23 +64,6 @@ public class SolutionVO implements RowMapper<SolutionVO>, Serializable{
         this.expired_date = expired_date;
     }
 
-    @Override
-    public SolutionVO mapRow(ResultSet resultSet, int i) throws SQLException {
-        SolutionVO solutionVO = new SolutionVO();
-        solutionVO.setSolution_title(resultSet.getString("S_Title"));
-        solutionVO.setHeading(resultSet.getString("Heading"));
-        solutionVO.setExternal(resultSet.getBoolean("IsExternal"));
-        solutionVO.setCreator(resultSet.getString("Creator"));
-        solutionVO.setExpired_date(resultSet.getString("ExpiredDate"));
-        solutionVO.setUpload_date(resultSet.getString("UploadDate"));
-        solutionVO.setVersion(resultSet.getDouble("Version"));
-        solutionVO.setCustomer(resultSet.getString("Customer"));
-        solutionVO.setContent(resultSet.getString("Content"));
-        return solutionVO;
-
-    }
-
-
     public String getUpload_date() {
         return upload_date;
     }
@@ -104,4 +71,26 @@ public class SolutionVO implements RowMapper<SolutionVO>, Serializable{
     public void setUpload_date(String upload_date) {
         this.upload_date = upload_date;
     }
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
+
+    @Override
+    public SolutionVO mapRow(ResultSet resultSet, int i) throws SQLException {
+        SolutionVO solutionVO = new SolutionVO();
+        solutionVO.setContent_title(resultSet.getString("Title"));
+        solutionVO.setExternal(resultSet.getBoolean("IsExternal"));
+        solutionVO.setAuthor(resultSet.getString("Author"));
+        solutionVO.setExpired_date(resultSet.getString("ExpiredDate"));
+        solutionVO.setUpload_date(resultSet.getString("UploadDate"));
+        solutionVO.setVersion(resultSet.getInt("Version"));
+        solutionVO.setCustomer(resultSet.getString("Customer"));
+        solutionVO.setFlag(resultSet.getString("Flag"));
+        return solutionVO;
+    }
+
 }

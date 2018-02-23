@@ -43,6 +43,10 @@
         <property name="userDao" ref="userDao"></property>
     </bean>
 
+    <bean id="UserController_solution" class="atos.controller.UserController">
+        <property name="solutionDao" ref="solutionDao"/>
+    </bean>
+
     <bean id="mapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
         <property name="mappings">
             <props>

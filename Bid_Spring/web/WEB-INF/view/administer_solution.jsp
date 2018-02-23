@@ -3,7 +3,8 @@
 <%@ page import="atos.admain.SolutionVO" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
-<%@ page import="atos.dao.SolutionDao" %><%--
+<%@ page import="atos.dao.SolutionDao" %>
+<%--
   Created by IntelliJ IDEA.
   User: lishanshan
   Date: 18/1/30
@@ -80,26 +81,26 @@
                     <table>
                         <tbody>
                         <tr>
-                            <th width="200"><b>Solution Title<br></b></th>
-                            <th width="200"><b>Heading</b></th>
+                            <th width="200"><b>Content Title<br></b></th>
                             <th><b>Author</b></th>
                             <th><b>Version<br></b></th>
                             <th width="200"><b>Upload Date</b></th>
                             <th width="200"><b>Customer</b></th>
                             <th width="200"><b>Expired Date</b></th>
+                            <th width="200"><b>Flag</b></th>
                             <th colspan="3"><b>Action</b></th>
                         </tr>
-                        <c:forEach var="solution_list"  items = "${solution_list}">
+                        <c:forEach var="content_list"  items = "${content_list}">
                             <form id="class_table">
                             <tr>
-                                <td>${solution_list.solution_title} <input type="hidden" name="solution_title" value="${solution_list.solution_title}"></td>
-                                <td>${solution_list.heading} <input type="hidden" name="solution_title" value="${solution_list.heading}"></td>
-                                <td>${solution_list.creator}</td>
-                                <td>${solution_list.version}</td>
-                                <td>${solution_list.upload_date}</td>
-                                <td>${solution_list.customer}</td>
-                                <td>${solution_list.expired_date}</td>
-                                <td><input type="submit" id="button-blue" value="EDIT" onclick="javascript:this.form.action='/edit'"></td>
+                                <td>${content_list.content_title} <input type="hidden" name="content_title" value="${content_list.content_title}"></td>
+                                <td>${content_list.author}</td>
+                                <td>${content_list.version} <input type="hidden" name="version" value="${content_list.version}"></td>
+                                <td>${content_list.upload_date}</td>
+                                <td>${content_list.customer}</td>
+                                <td>${content_list.expired_date}</td>
+                                <td>${content_list.flag}</td>
+                                <td><input type="submit" id="button-blue" value="DETAILS" onclick="javascript:this.form.action='/admin_view_detail'"></td>
                                 <td><input type="submit" id="button-red" value="DELETE"></td>
                                 <td><input type="submit" id="button-grey" value="EXPORT" onclick="javascript:this.form.action='/export_word'"></td>
                             </tr>

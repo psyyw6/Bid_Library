@@ -1,5 +1,6 @@
 package atos.dao;
 
+import atos.admain.SectionVO;
 import atos.admain.SolutionVO;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -18,9 +19,9 @@ public class SolutionDao {
         return jdbcTemplate;
     }
 
-    public int storeSolution(String solution_title,String creator,String heading,String customer,String expired_date,String upload_date,boolean isExternal, String content,double version){
-        String sql = "INSERT INTO Solution VALUES(?,?,?,?,?,?,?,?,?);";
-        Object[] params = {solution_title,heading,isExternal,creator,expired_date,upload_date,version,customer,content};
+    public int storeContent(String content_title,String author,String customer,String expired_date,String upload_date,boolean isExternal,int version,String flag){
+        String sql = "INSERT INTO Content VALUES(?,?,?,?,?,?,?,?);";
+        Object[] params = {content_title,isExternal,author,expired_date,upload_date,version,customer,flag};
         try{
             return jdbcTemplate.update(sql,params);
         }
@@ -30,19 +31,20 @@ public class SolutionDao {
         }
     }
 
-    public SolutionVO getContent(String heading,String solution_title){
-        String sql = "Select * FROM Solution Where Heading=? AND S_Title=?";
-        Object[] params = {heading,solution_title};
+    public int storeSectionDetail(String content_title,String section_name,int version,String section_detail){
+        String sql = "INSERT INTO Section Values(?,?,?,?);";
+        Object[] params = {section_name,content_title,section_detail,version};
         try{
-            return jdbcTemplate.queryForObject(sql,new SolutionVO(),params);
-        }catch (Exception e){
+            return jdbcTemplate.update(sql,params);
+        }
+        catch (Exception e){
             System.out.println(e);
-            return null;
+            return 0;
         }
     }
 
     public List selectAll(){
-        String sql = "select * from Solution";
+        String sql = "select * from Content";
         try{
             return jdbcTemplate.query(sql,new SolutionVO());
         }
@@ -52,5 +54,49 @@ public class SolutionDao {
         }
     }
 
+    public int deleteContent(String content_title,int version){
+        String sql = "delete from Content where Title = ? and Version = ?;";
+        Object[] params = {content_title,version};
+        try{
+            return jdbcTemplate.update(sql,params);
+        }catch (Exception e){
+            System.out.println(e);
+            return 0;
+        }
+    }
+
+    public List selectDetailOfContent(String content_title,int version){
+        String sql = "select * from Section where Title = ? and Section_Version = ?;";
+        Object[] params = {content_title,version};
+        try{
+            return jdbcTemplate.query(sql,new SectionVO(),params);
+        }
+        catch(Exception e){
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    public SectionVO selectSectionByName(String content_title,String section_name,int version){
+        String sql = "select * from Section where Title = ? and Section_Version = ? and Section_Name = ?;";
+        Object[] params = {content_title,version,section_name};
+        try{
+            return jdbcTemplate.queryForObject(sql,new SectionVO(),params);
+        }
+        catch (Exception e){
+            System.out.println(e);
+            return null;
+        }
+    }
+    public List selectByKeyword(String keyword){
+        String sql = "select * from Content where Title like ?";
+        try {
+            return jdbcTemplate.query(sql,new SolutionVO());
+        }
+        catch (Exception e){
+            System.out.println(e);
+            return null;
+        }
+    }
 
 }

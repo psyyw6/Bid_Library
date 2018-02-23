@@ -42,7 +42,7 @@
 
 <form class = log_in>
     <div class="logo-image">
-        <img src="img/Atos_logo.png" width="170" height="100">
+        <img src="img/atos_logo_3.png" width="170" height="80">
     </div>
     <br>
     <div class="customer_login">CUSTOMER LOG IN</div><br>
@@ -53,7 +53,7 @@
                     <label class="input__label input__label--haruki">
 						<span class="input__label-content "><img src="img/user.png" width="30" height="30"></span>
 					</label>
-					<input class="input__field input__field--username" type="text" name = "username" id="username" placeholder="Username" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Username';}"/>
+					<input class="input__field input__field--username" type="text" name = "username" id="username" placeholder="DAS ID" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'DAS ID';}"/>
     </span>
     <span class="input input--password">
                 <label class="input__label input__label--haruki">

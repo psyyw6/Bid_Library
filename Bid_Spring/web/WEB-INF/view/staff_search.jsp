@@ -65,8 +65,9 @@
             <div class="page_header-image cf search_header-image" style="background-image:url(https://atos.net/wp-content/uploads/2016/06/Scientific-Community-banner.jpg);">
                 <div class="page_header-grad">
                     <div class="grid-row">
+                        <form id="search_solution" action="/search.do" method="post">
                         <div class= "grid-col-7">
-                            <input style="border-radius: 10px" type="text" name="mySearch">
+                            <input style="border-radius: 10px" type="text" name="searchKeyword">
                         </div>
                         <div class ="grid-offset-6 search_header-tag">
                             <select>
@@ -76,13 +77,15 @@
                             </select>
                             <button class="search-button">search</button>
                         </div>
+                        </form>
                     </div>
+
                 </div>
                 <div class="page_content-grad">
                     <div class="grid-row">
                         <div class="grid-col-12" style="margin:0">
                             <h1 id="search_content-title">Search Result</h1>
-                            <table class="search_content-table">
+                            <table id="search_content-table">
                                 <tbody>
                                 <tr>
                                     <th><b>Solution Title<br></b></th>
@@ -92,28 +95,23 @@
                                     <th><b>Version</b></th>
                                     <th><b>Modified Date</b></th>
                                     <th><b>Customer Name</b></th>
-                                    <th><b>Content</b></th>
                                 </tr>
-                                <tr>
-                                    <td>Title one</td>
-                                    <td>Heading one</td>
-                                    <td>Internal</td>
-                                    <td>'DAS ID'</td>
-                                    <td>1.0</td>
-                                    <td>06/01/2017</td>
-                                    <td>Bob</td>
-                                    <td>The corresponding heading solution details</td>
-                                </tr>
-                                <tr>
-                                    <td>Title two</td>
-                                    <td>Heading two</td>
-                                    <td>External</td>
-                                    <td>'DAS ID'</td>
-                                    <td>2.0</td>
-                                    <td>07/02/2018</td>
-                                    <td>Jam</td>
-                                    <td>The corresponding heading solution details</td>
-                                </tr>
+                                <c:forEach var="solution_list"  items = "${solution_list}">
+                                    <form id="class_table">
+                                        <tr>
+                                            <td>${solution_list.solution_title} <input type="hidden" name="solution_title" value="${solution_list.solution_title}"></td>
+                                            <td>${solution_list.heading} <input type="hidden" name="heading" value="${solution_list.heading}"></td>
+                                            <td>${solution_list.}</td>
+                                            <td>${solution_list.version}</td>
+                                            <td>${solution_list.upload_date}</td>
+                                            <td>${solution_list.customer}</td>
+                                            <td>${solution_list.expired_date}</td>
+                                            <td><input type="submit" id="button-blue" value="EDIT" onclick="javascript:this.form.action='/edit'"></td>
+                                            <td><input type="submit" id="button-red" value="DELETE"></td>
+                                            <td><input type="submit" id="button-grey" value="EXPORT" onclick="javascript:this.form.action='/export_word'"></td>
+                                        </tr>
+                                    </form>
+                                </c:forEach>
                                 </tbody>
                             </table>
                         </div>

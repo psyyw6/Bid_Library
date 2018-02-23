@@ -178,8 +178,8 @@
     margin-top: 20px;
 }
 
-.search_content-table{
-    background: #ffffff;
+#search_content-table{
+    background: #ffffff !important;
     color: black;
 }
 
@@ -212,17 +212,16 @@ tr > th, td{
     text-align: center;
 }
 
-<<<<<<< Updated upstream
-.page_main_content #button-blue{
-=======
 .search_content-table tr > td{
     padding: 8px;
     font-size: 1rem;
 }
 
 .page_main_content .button-blue{
->>>>>>> Stashed changes
     margin: 0 0;
+}
+
+#button-blue{
     padding: 13px 25px 12px 25px;
 }
 

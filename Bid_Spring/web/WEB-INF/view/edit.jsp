@@ -13,6 +13,7 @@
     <link href="css/froala_editor.min.css" rel="stylesheet" type="text/css">
     <link rel="icon" type="image/png" href="img/ato_icon.png" sizes="200x200">
     <script src="js/jquery.js"></script>
+    <script src="js/edit.js"></script>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -54,30 +55,23 @@
             <div class="page_header-image cf">
             </div>
         </header>
+        <div class = "title_header">
+            <p class = "title_word">Section For ${section_name}</p>
+        </div>
     </section>
-    <section id="editor">
-        <form class="form-horizontal" action="/upload.do" method="post" enctype="multipart/form-data">
-        <div id='edit' style="margin-top: 30px;">
-            <h1>${heading}</h1>
 
-            <p>${content}</p>
+    <section id="editor">
+        <form class="form-horizontal" enctype="multipart/form-data">
+        <div id='edit' style="margin-top: 30px;">
+            <div id="content">
+                <p>${content}</p>
+            </div>
         </div>
         <br>
-        <div class="form-group">
-            <label for="Author" class="col-sm-2 control-label">Author</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="Author" name="creator" placeholder="Author">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="Version" class="col-sm-2 control-label">Version</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="Version" name="version" placeholder="Version">
-            </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary">Upload</button>
+                <button class="btn btn-primary" onclick="testContent()">Upload</button>
             </div>
         </div>
         </form>

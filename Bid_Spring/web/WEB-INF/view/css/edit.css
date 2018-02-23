@@ -14,11 +14,14 @@ body {
     margin-bottom: 30px;
 }
 
-.col-sm-2{
-    width: 110px !important;
-    text-align: left !important;
+.col-sm-offset-2{
+    margin-left: 0px;
 }
-.col-sm-offset-2
-{
-    margin-left: 110px !important;
+
+.title_header{
+    background-color: #DCDCDC;
+    text-align: left;
+    padding-top:15px;
+    padding-left: 20px;
+    padding-bottom: 15px;
 }

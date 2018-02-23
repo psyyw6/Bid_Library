@@ -66,9 +66,9 @@
         </div>
     </section>
     <section class="upload_form">
-        <form class="form-horizontal" action="/modify_solution.do" method="post" enctype="multipart/form-data">
+        <form class="form-horizontal" action="/upload.do" method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="fileInput" class="col-sm-2 control-label">New Solution</label>
+                <label for="fileInput" class="col-sm-2 control-label">New Content</label>
                 <div class="col-sm-10">
                     <button type="button" class="btn btn-default" id="file_button" value="Browse" onclick="fileInput.click()">Browse</button>
                     &nbsp;&nbsp; <span id="file_name">No file chosen</span>
@@ -78,21 +78,15 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="Solution_Title" class="col-sm-2 control-label">Solution Title</label>
+                <label for="Content_Title" class="col-sm-2 control-label">Content Title</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="Solution_Title" name="solution_title" placeholder="Solution Title">
+                    <input type="text" class="form-control" id="Content_Title" name="solution_title" placeholder="Solution Title">
                 </div>
             </div>
             <div class="form-group">
                 <label for="Author" class="col-sm-2 control-label">Author</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="Author" name="creator" placeholder="Author">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="Version" class="col-sm-2 control-label">Version</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="Version" name="version" placeholder="Version">
+                    <input type="text" class="form-control" id="Author" name="creator" value="${name}" placeholder="Author" disabled>
                 </div>
             </div>
             <div class="form-group">
@@ -105,6 +99,12 @@
                 <label for="expired_date" class="col-sm-2 control-label">Expired Date</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="expired_date" name="expired_date" placeholder="Expired Date">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="flag" class="col-sm-2 control-label">Flag</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="flag" name="flag" placeholder="Flag   (divided by '/')">
                 </div>
             </div>
             <div class="form-group">
