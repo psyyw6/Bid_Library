@@ -56,7 +56,9 @@
             </div>
         </header>
         <div class = "title_header">
-            <p class = "title_word">Section For ${section_name}</p>
+            <p class = "title_word">${content_title}: ${section_name}</p><input type="hidden" id="content_title" value="${content_title}">
+            <p class= "title_word">Version: ${version}</p><input type="hidden" id="section_name" value="${section_name}">
+                                                            <input type="hidden" id="version" value="${version}">
         </div>
     </section>
 
@@ -71,7 +73,7 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button class="btn btn-primary" onclick="testContent()">Upload</button>
+                <input type="button" value="upload" class="btn btn-primary" onclick="editSection()"/>
             </div>
         </div>
         </form>

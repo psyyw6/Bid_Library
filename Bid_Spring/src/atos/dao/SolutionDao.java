@@ -88,10 +88,12 @@ public class SolutionDao {
             return null;
         }
     }
-    public List selectByKeyword(String keyword){
-        String sql = "select * from Content where Title like ?";
-        try {
-            return jdbcTemplate.query(sql,new SolutionVO());
+
+    public SolutionVO selectContentByTitleAndVersion(String content_title,int version){
+        String sql = "select * from Content where Title = ? and Version = ?;";
+        Object[] params = {content_title,version};
+        try{
+            return jdbcTemplate.queryForObject(sql,new SolutionVO(),params);
         }
         catch (Exception e){
             System.out.println(e);

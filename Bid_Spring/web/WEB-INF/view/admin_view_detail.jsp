@@ -68,13 +68,13 @@
         <div class="section page_main_content">
             <div class="grid-row">
                 <div class="grid-col-12">
-                    <h1 style="text-align: left; padding-bottom: 10px;">${content_title} Sections</h1>
+                    <h1 style="text-align: left; padding-bottom: 10px;">${content_title} Sections &nbsp;&nbsp;&nbsp;Version: ${version}</h1>
                     <table>
                         <tbody>
                         <tr>
-                            <th width="200"><b>Content Title<br></b></th>
-                            <th width="200"><b>Section Name</b></th>
-                            <th width="200"><b>Version</b></th>
+                            <th width="350"><b>Content Title<br></b></th>
+                            <th width="350"><b>Section Name</b></th>
+                            <th></th>
                             <th colspan="3"><b>Action</b></th>
                         </tr>
                         <c:forEach var="section_list"  items = "${section_list}">
@@ -82,7 +82,7 @@
                                 <tr>
                                     <td>${section_list.title} <input type="hidden" name="content_title" value="${section_list.title}"></td>
                                     <td>${section_list.section_name}<input type="hidden" name="section_name" value="${section_list.section_name}"></td>
-                                    <td>${section_list.section_version} <input type="hidden" name="version" value="${section_list.section_version}"></td>
+                                    <td><input type="hidden" name="version" value="${version}"></td>
                                     <td><input type="submit" id="button-blue" value="EDIT" onclick="javascript:this.form.action='/edit'"></td>
                                     <td><input type="submit" id="button-red" value="DELETE"></td>
                                     <td><input type="submit" id="button-grey" value="EXPORT" onclick="javascript:this.form.action='/export_word'"></td>

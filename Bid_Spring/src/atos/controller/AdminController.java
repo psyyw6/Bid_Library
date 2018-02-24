@@ -3,6 +3,7 @@ package atos.controller;
 import atos.admain.SectionVO;
 import atos.admain.SolutionVO;
 import atos.admain.UserVO;
+import atos.admain.Userjson;
 import atos.dao.SolutionDao;
 import atos.dao.UserDao;
 import atos.wordExport.ExportWord;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -92,6 +94,10 @@ public class AdminController {
         }
         return "add_solution";
     }
+    @RequestMapping(value = "/success_upload", method = GET)
+    public String showSuccess(HttpServletRequest request,ModelMap model){
+        return "success_upload";
+    }
 
     @RequestMapping(value = "/upload.do",method = POST)
     public String upLoadFile(@RequestParam MultipartFile myfile,HttpServletRequest request) throws IOException{
@@ -166,6 +172,7 @@ public class AdminController {
         List<SectionVO>section_list = solutionDao.selectDetailOfContent(content_title,version);
         model.addAttribute("section_list",section_list);
         model.addAttribute("content_title",content_title);
+        model.addAttribute("version",version);
         return "admin_view_detail";
     }
 
@@ -179,12 +186,43 @@ public class AdminController {
         if(section_detail!=null){
             String details = section_detail.getSection_details().replaceAll("\n","</p><p>");
             model.addAttribute("section_name",section_name);
+            model.addAttribute("content_title",content_title);
+            model.addAttribute("version",version);
             model.addAttribute("content",details);
             return "edit";
         }
         else{
             return "error";
         }
+    }
+
+    @RequestMapping(value="/edit_upload.do",method = POST)
+    @ResponseBody
+    public List<Userjson> uploadForEdit(HttpServletRequest request, @RequestParam String content_title, String section_name, String version, String content_detail){
+        int num_version = Integer.parseInt(version);
+        List<Userjson> response = new ArrayList<Userjson>();
+        Userjson jsonInfo = new Userjson();
+        SolutionVO content = solutionDao.selectContentByTitleAndVersion(content_title,num_version);
+        int new_version = num_version + 1;
+        content_detail = content_detail.substring(3,content_detail.length()-4);
+        content_detail = content_detail.replaceAll("</p><p>","\n");
+        if(solutionDao.storeContent(content_title,content.getAuthor(),content.getCustomer(),content.getExpired_date(),content.getUpload_date(),content.isExternal(),new_version,content.getFlag())!=1)
+        {
+            jsonInfo.setInfo("false");
+            response.add(jsonInfo);
+            return response;
+        }
+        List<SectionVO> sections = solutionDao.selectDetailOfContent(content_title,num_version);
+        for(int i = 0;i<sections.size();i++){
+            if(!sections.get(i).getSection_name().equals(section_name)){
+                solutionDao.storeSectionDetail(sections.get(i).getTitle(),sections.get(i).getSection_name(),new_version,sections.get(i).getSection_details());
+            }else{
+                solutionDao.storeSectionDetail(sections.get(i).getTitle(),sections.get(i).getSection_name(),new_version,content_detail);
+            }
+        }
+        jsonInfo.setInfo("true");
+        response.add(jsonInfo);
+        return response;
     }
 //
 //    @RequestMapping(value="export_word",method = GET)

@@ -47,18 +47,18 @@ public class UserController {
         return "staff_search";
     }
 
-    @RequestMapping(value = "/search.do",method = POST)
-    public String SearchSolution(HttpServletRequest request, ModelMap model){
-        String keyword = request.getParameter("searchKeyword");
-        List<SolutionVO> search_solution_list = solutionDao.selectByKeyword(keyword);
-        if(search_solution_list!=null){
-            model.addAttribute("search_solution",search_solution_list);
-            return "staff_search";
-        }
-        else{
-            return "staff_search";
-        }
-    }
+//    @RequestMapping(value = "/search.do",method = POST)
+//    public String SearchSolution(HttpServletRequest request, ModelMap model){
+//        String keyword = request.getParameter("searchKeyword");
+//        List<SolutionVO> search_solution_list = solutionDao.selectByKeyword(keyword);
+//        if(search_solution_list!=null){
+//            model.addAttribute("search_solution",search_solution_list);
+//            return "staff_search";
+//        }
+//        else{
+//            return "staff_search";
+//        }
+//    }
 
 
 }
