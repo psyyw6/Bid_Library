@@ -44,9 +44,8 @@ public class LoginController {
     @RequestMapping(value = "/login.do",method = POST)
     @ResponseBody
     public List<Userjson> logIn(HttpServletRequest request, @RequestParam String name, String password)throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        UserVO loginvo = new UserVO();
         String new_password = RegisterController.EncoderByMd5(password);
-        loginvo = userDao.selectByName(name, new_password);
+        UserVO loginvo = userDao.selectByName(name, new_password);
         List<Userjson> staffjson = new ArrayList<Userjson>();
         Userjson response_json = new Userjson();
         if(loginvo!=null){
