@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: lishanshan
@@ -89,19 +90,20 @@
                                 <tbody>
                                 <tr>
                                     <th><b>Solution Title<br></b></th>
-                                    <th><b>Heading Title</b></th>
+                                    <th><b>Author</b></th>
                                     <th><b>Internal/External<br></b></th>
                                     <th><b>Creator DAS ID</b></th>
                                     <th><b>Version</b></th>
                                     <th><b>Modified Date</b></th>
                                     <th><b>Customer Name</b></th>
+                                    <th colspan="3"><b>Action</b></th>
                                 </tr>
                                 <c:forEach var="solution_list"  items = "${solution_list}">
                                     <form id="class_table">
                                         <tr>
-                                            <td>${solution_list.solution_title} <input type="hidden" name="solution_title" value="${solution_list.solution_title}"></td>
-                                            <td>${solution_list.heading} <input type="hidden" name="heading" value="${solution_list.heading}"></td>
-                                            <td>${solution_list.}</td>
+                                            <td>${solution_list.content_title} <input type="hidden" name="solution_title" value="${solution_list.content_title}"></td>
+                                            <td>${solution_list.author} <input type="hidden" name="heading" value="${solution_list.author}"></td>
+                                            <td>${solution_list.external}</td>
                                             <td>${solution_list.version}</td>
                                             <td>${solution_list.upload_date}</td>
                                             <td>${solution_list.customer}</td>

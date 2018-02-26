@@ -43,7 +43,10 @@ public class UserController {
 
     @RequestMapping(value="/staff_search", method = GET)
     public String staffSearchPage(HttpServletRequest request, ModelMap model) {
-
+        List<SolutionVO> contentList = solutionDao.selectAll();
+        if(contentList!=null){
+            model.addAttribute("solution_list",contentList);
+        }
         return "staff_search";
     }
 
