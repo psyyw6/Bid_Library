@@ -246,5 +246,14 @@ public class AdminController {
 //            return "error";
 //        }
 //    }
-
+    @RequestMapping(value="content_history",method = GET)
+    public String showHistory(HttpServletRequest request, ModelMap model){
+        String content_title = request.getParameter("content_title");
+        model.addAttribute("content_title",content_title);
+        List<SolutionVO> allContents = solutionDao.selectAllHistory(content_title);
+        if(allContents!=null){
+            model.addAttribute("allContents",allContents);
+        }
+        return "content_history";
+    }
 }

@@ -1,22 +1,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="atos.dao.UserDao" %>
-<%@ page import="atos.admain.SolutionVO" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.List" %>
-<%@ page import="atos.dao.SolutionDao" %>
 <%--
   Created by IntelliJ IDEA.
-  User: lishanshan
-  Date: 18/1/30
-  Time: 下午4:08
+  User: yutong
+  Date: 2018/2/26
+  Time: 10:35
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Solution</title>
+    <title>${content_title} History</title>
     <meta name="description" content="A free html template with Sketch design made with Bootstrap">
     <meta name="keywords" content="free html template, bootstrap, ui kit, sass"/>
     <meta name="author" content="Codrops"/>
@@ -90,20 +86,20 @@
                             <th width="200"><b>Flag</b></th>
                             <th colspan="3"><b>Action</b></th>
                         </tr>
-                        <c:forEach var="content_list"  items = "${content_list}">
+                        <c:forEach var="content_list"  items = "${allContents}">
                             <form id="class_table">
-                            <tr>
-                                <td>${content_list.content_title} <input type="hidden" name="content_title" value="${content_list.content_title}"></td>
-                                <td>${content_list.author}</td>
-                                <td>${content_list.version} <input type="hidden" name="version" value="${content_list.version}"></td>
-                                <td>${content_list.upload_date}</td>
-                                <td>${content_list.customer}</td>
-                                <td>${content_list.expired_date}</td>
-                                <td>${content_list.flag}</td>
-                                <td><input type="submit" id="button-blue" value="DETAILS" onclick="javascript:this.form.action='/admin_view_detail'"></td>
-                                <td><input type="submit" id="button-red" value="DELETE"></td>
-                                <td><input type="submit" id="button-grey" value="HISTORY" onclick="javascript:this.form.action='/content_history'"></td>
-                            </tr>
+                                <tr>
+                                    <td>${content_list.content_title} <input type="hidden" name="content_title" value="${content_list.content_title}"></td>
+                                    <td>${content_list.author}</td>
+                                    <td>${content_list.version} <input type="hidden" name="version" value="${content_list.version}"></td>
+                                    <td>${content_list.upload_date}</td>
+                                    <td>${content_list.customer}</td>
+                                    <td>${content_list.expired_date}</td>
+                                    <td>${content_list.flag}</td>
+                                    <td><input type="submit" id="button-blue" value="DETAILS" onclick="javascript:this.form.action='/admin_view_detail'"></td>
+                                    <td><input type="submit" id="button-red" value="DELETE"></td>
+                                    <td><input type="submit" id="button-grey" value="HISTORY" onclick="javascript:this.form.action='/#'"></td>
+                                </tr>
                             </form>
                         </c:forEach>
                         </tbody>

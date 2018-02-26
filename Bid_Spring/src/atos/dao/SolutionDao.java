@@ -44,7 +44,7 @@ public class SolutionDao {
     }
 
     public List selectAll(){
-        String sql = "select * from Content";
+        String sql = "SELECT a.* FROM bid_library.Content a inner join (select Title,max(Version) Version from bid_library.Content group by Title)b on a.Title = b.Title and a.Version = b.Version; ";
         try{
             return jdbcTemplate.query(sql,new SolutionVO());
         }
@@ -94,6 +94,18 @@ public class SolutionDao {
         Object[] params = {content_title,version};
         try{
             return jdbcTemplate.queryForObject(sql,new SolutionVO(),params);
+        }
+        catch (Exception e){
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    public List selectAllHistory(String content_title){
+        String sql = "select * from Content where Title = ?;";
+        Object[] params = {content_title};
+        try{
+            return jdbcTemplate.query(sql,new SolutionVO(),params);
         }
         catch (Exception e){
             System.out.println(e);
