@@ -1,9 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="atos.dao.UserDao" %>
-<%@ page import="atos.admain.SolutionVO" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.List" %>
-<%@ page import="atos.dao.SolutionDao" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: lishanshan
