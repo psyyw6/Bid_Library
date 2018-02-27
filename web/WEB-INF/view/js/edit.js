@@ -1,25 +1,3 @@
-$(function() {
-    $( "#dialog-confirm" ).dialog({
-        autoOpen: false,
-        resizable: false,
-        height:200,
-        modal: true,
-        buttons: {
-            "Save": function() {
-                editSection();
-                $( this ).dialog( "close" );
-            },
-            Cancel: function() {
-                $( this ).dialog( "close" );
-            }
-        }
-    });
-
-    $("#opener").click(function(){
-        $("#dialog-confirm").dialog("open");
-    });
-});
-
 function editSection(){
     var content = $("#content").html();
     var content_title = $("#content_title").val();

@@ -35,6 +35,7 @@ function checkUsername() {
         user_hint.html("xxxxx");
         $("#username_hint").css("visibility","hidden");
     }
+    alert(username);
     $.ajax({
             url:"checkUser.do",
             data:{"username":username},

@@ -47,6 +47,7 @@ public class UserDao {
             return jdbcTemplate.update(sql, params);
         }
         catch (Exception e){
+            System.out.println(e);
             return 0;
         }
     }

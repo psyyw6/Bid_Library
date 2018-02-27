@@ -256,4 +256,21 @@ public class AdminController {
         }
         return "content_history";
     }
+
+    @RequestMapping(value="delete_content.do",method= POST)
+    @ResponseBody
+    public List<Userjson> deleteContent(HttpServletRequest request,ModelMap model,@RequestParam String content_title,String version){
+        int version_num = Integer.parseInt(version);
+
+        List<Userjson> jsonList = new ArrayList<Userjson>();
+        Userjson jsonInfo = new Userjson();
+        if(solutionDao.deleteContent(content_title,version_num)==1){
+            jsonInfo.setInfo("true");
+
+        }else{
+            jsonInfo.setInfo("false");
+        }
+        jsonList.add(jsonInfo);
+        return jsonList;
+    }
 }

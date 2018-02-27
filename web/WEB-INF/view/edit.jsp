@@ -35,9 +35,6 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="css/add_solution.css">
     <link rel="stylesheet" type="text/css" href="css/edit.css">
-    <link rel="stylesheet" href="css/jquery-ui.css">
-    <link rel="stylesheet" href="css/jquery-ui.theme.css">
-    <link rel="stylesheet" href="css/jquery-ui.structure.css">
     <script src="js/jquery-ui.js"></script>
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/edit.js"></script>
@@ -94,20 +91,30 @@
         <br>
         </div>
         <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <input type="button" value="save" class="btn btn-primary" id="opener"/>
-            </div>
+                <div class="col-sm-offset-2 col-sm-10">
+                        <input type="button" value="save" class="btn btn-primary" data-toggle="modal" data-target="#myModal"/>
+                </div>
         </div>
         </form>
     </section>
 
-    <p id="pre_bottom"></p>
-    <div id="dialog-confirm" title="Save">
-        <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
-            Are you sure to save these changes?
-        </p>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Save</h4>
+                </div>
+                <div class="modal-body">
+                    Are you sure to save the changes?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="editSection()">Save changes</button>
+                </div>
+            </div>
+        </div>
     </div>
-
 </main>
 </body>
 
