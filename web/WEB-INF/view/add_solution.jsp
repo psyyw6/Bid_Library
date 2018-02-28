@@ -62,7 +62,7 @@
             </div>
         </header>
         <div class = "title_header">
-            <p class = "title_word">Update New Solution</p>
+            <p class = "title_word">Update New Content</p>
         </div>
     </section>
     <section class="upload_form">
@@ -71,7 +71,8 @@
                 <label for="fileInput" class="col-sm-2 control-label">New Content</label>
                 <div class="col-sm-10">
                     <button type="button" class="btn btn-default" id="file_button" value="Browse" onclick="fileInput.click()">Browse</button>
-                    &nbsp;&nbsp; <span id="file_name">No file chosen</span>
+                    &nbsp;&nbsp; <span id="file_name">No file chosen</span>&nbsp;&nbsp;
+                    <span id="file-info-hint" style="color:red;display: none">File type is invalid!&nbsp;&nbsp;txt file is required!</span>
                 </div>
                 <div>
                     <input type="file" id="fileInput" name="myfile" style="display: none">
@@ -118,7 +119,7 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-primary">Upload</button>
+                    <button type="submit" id="upload_button" class="btn btn-primary">Upload</button>
                 </div>
             </div>
         </form>

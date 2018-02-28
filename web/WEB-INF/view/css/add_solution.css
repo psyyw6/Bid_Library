@@ -1,5 +1,4 @@
 body{
-	background-color:#DCDCDC;
 }
 .header {
 	position: absolute;
@@ -108,13 +107,18 @@ body{
 
 .title_header{
 	padding-top:15px;
-	padding-left: 20px;
+	padding-left: 50px;
+	height: 60px;
+	background-color: #eeeaec;
+	font-weight: bold;
+
 }
 
 .title_word{
 	font-size: 20px;
 	font-family: "Stag Sans Medium", Verdana, Arial, Helvetica, sans-serif;
 	color:#197FBA;
+	text-transform: uppercase;
 }
 .upload_form{
 	margin-top: 22px;

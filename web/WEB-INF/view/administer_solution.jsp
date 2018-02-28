@@ -64,7 +64,7 @@
         </header>
         <div class="section page_button">
             <div class = "button-warpper">
-                <a class="button-white" href="add_solution">Add New Solution</a>
+                <a class="button-white" href="add_solution">ADD NEW CONTENT</a>
             </div>
         </div>
         <div class="section page_main_content">
