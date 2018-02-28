@@ -50,7 +50,7 @@
         <span class="input">
             <span id="username_hint">xxxxx</span><br>
             <span class="input_content"><img src="img/user.png" width="30" height="30"></span>
-            <input class="input_field" type="text" name="username" id="DAS ID" placeholder="Username" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'DAS ID';}" required="required"/>
+            <input class="input_field" type="text" name="username" id="username" placeholder="Username" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'DAS ID';}" required="required"/>
         </span>
         <span class="input input_password_confirm">
             <span id="password_hint_one">xxxxx</span><br>
