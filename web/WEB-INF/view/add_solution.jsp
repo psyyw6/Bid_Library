@@ -49,7 +49,7 @@
                     <li><a href="#">Proposal</a></li>
                     <li><a href="#">Request</a></li>
                     <li><a href="#">Events</a></li>
-                    <li><a href="/administer_solution">Solution</a></li>
+                    <li><a href="/administer_solution">Contents</a></li>
                 </ul>
             </nav>
         </div>
@@ -103,7 +103,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="flag" class="col-sm-2 control-label">Flag</label>
+                <label for="flag" class="col-sm-2 control-label">Tag</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="flag" name="flag" placeholder="Flag   (divided by '/')">
                 </div>

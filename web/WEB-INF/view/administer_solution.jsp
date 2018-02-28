@@ -49,7 +49,7 @@
                     <li><a href="#">Proposal</a></li>
                     <li><a href="#">Request</a></li>
                     <li><a href="#">Events</a></li>
-                    <li><a href="/administer_solution">Solution</a></li>
+                    <li><a href="/administer_solution">Contents</a></li>
                 </ul>
             </nav>
         </div>
@@ -81,7 +81,7 @@
                         <th><b>Upload Date</b></th>
                         <th><b>Customer</b></th>
                         <th><b>Expired Date</b></th>
-                        <th><b>Flag</b></th>
+                        <th><b>Tag</b></th>
                         <th class="button-th" colspan="3" width="50"><b>Action</b></th>
                     </tr>
                     <c:forEach var="content_list"  items = "${content_list}">
