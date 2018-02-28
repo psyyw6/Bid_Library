@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 public class SolutionVO implements RowMapper<SolutionVO>, Serializable{
     private String content_title;
+    private String section_name;
     private boolean isExternal;
     private String author;
     private String expired_date;
@@ -22,6 +23,14 @@ public class SolutionVO implements RowMapper<SolutionVO>, Serializable{
 
     public void setContent_title(String content_title) {
         this.content_title = content_title;
+    }
+
+    public String getSection_name() {
+        return section_name;
+    }
+
+    public void setSection_name(String section_name) {
+        this.section_name = section_name;
     }
 
     public boolean isExternal() {
@@ -71,6 +80,7 @@ public class SolutionVO implements RowMapper<SolutionVO>, Serializable{
     public void setUpload_date(String upload_date) {
         this.upload_date = upload_date;
     }
+
     public String getFlag() {
         return flag;
     }
@@ -83,6 +93,7 @@ public class SolutionVO implements RowMapper<SolutionVO>, Serializable{
     public SolutionVO mapRow(ResultSet resultSet, int i) throws SQLException {
         SolutionVO solutionVO = new SolutionVO();
         solutionVO.setContent_title(resultSet.getString("Title"));
+//        solutionVO.setSection_name(resultSet.getString("Section_Name"));
         solutionVO.setExternal(resultSet.getBoolean("IsExternal"));
         solutionVO.setAuthor(resultSet.getString("Author"));
         solutionVO.setExpired_date(resultSet.getString("ExpiredDate"));

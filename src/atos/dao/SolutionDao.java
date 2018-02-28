@@ -101,6 +101,18 @@ public class SolutionDao {
         }
     }
 
+//    public List<SolutionVO> selectSectionByName(String column, String keyword){
+//        String sql = "select * from Section, Content where Content.? = ?;";
+//        Object[] params = {column, keyword};
+//        try{
+//            return jdbcTemplate.query(sql,new SolutionVO(), params);
+//        }
+//        catch (Exception e){
+//            System.out.println(e);
+//            return null;
+//        }
+//    }
+
     public List selectAllHistory(String content_title){
         String sql = "select * from Content where Title = ?;";
         Object[] params = {content_title};

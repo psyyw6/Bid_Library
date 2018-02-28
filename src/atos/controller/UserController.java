@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -43,12 +45,33 @@ public class UserController {
 
     @RequestMapping(value="/staff_search", method = GET)
     public String staffSearchPage(HttpServletRequest request, ModelMap model) {
-        List<SolutionVO> contentList = solutionDao.selectAll();
+//        String flag = request.getParameter("flag");
+//        List<SolutionVO> contentList = solutionDao.selectSectionByName(flag);
+        List contentList = solutionDao.selectAll();
         if(contentList!=null){
             model.addAttribute("solution_list",contentList);
         }
         return "staff_search";
     }
+
+//    @RequestMapping(value="/search.do", method = POST)
+//    @ResponseBody
+//    public String staffSearchResultPage(HttpServletRequest request, @RequestParam String flag, ModelMap model) {
+//        //String flag = request.getParameter("flag");
+//        List<SolutionVO> contentList = solutionDao.selectSectionByName(flag);
+//        if(contentList!=null){
+//            model.addAttribute("solution_list",contentList);
+//            return "success_upload";
+//        }
+//        else{
+//            return "staff_search";
+//        }
+//
+//    }
+
+
+
+
 
 //    @RequestMapping(value = "/search.do",method = POST)
 //    public String SearchSolution(HttpServletRequest request, ModelMap model){
