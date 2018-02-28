@@ -118,11 +118,11 @@
                         <h4 class="modal-title" id="myModalLabel">Save</h4>
                     </div>
                     <div class="modal-body">
-                        Are you sure to save the changes?
+                        Are you sure to delete this content?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" onclick="deleteContent()">Delete</button>
+                        <button type="button" class="btn btn-danger" onclick="deleteContent()">Delete</button>
                     </div>
                 </div>
             </div>

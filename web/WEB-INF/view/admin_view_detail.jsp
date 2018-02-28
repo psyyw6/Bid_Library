@@ -81,7 +81,7 @@
                                     <td>${section_list.title} <input type="hidden" name="content_title" value="${section_list.title}"></td>
                                     <td>${section_list.section_name}<input type="hidden" name="section_name" value="${section_list.section_name}"></td>
                                     <td><input type="hidden" name="version" value="${version}"></td>
-                                    <td class="button-td"><input type="submit" class="btn btn-primary"id="button-blue" value="EDIT" onclick="javascript:this.form.action='/edit'"></td>
+                                    <td class="button-td"><input type="submit" class="btn btn-info" id="edit-button" value="EDIT" onclick="javascript:this.form.action='/edit'"></td>
                                 </tr>
                             </form>
                         </c:forEach>

@@ -92,7 +92,7 @@
         </div>
         <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                        <input type="button" value="save" class="btn btn-primary" data-toggle="modal" data-target="#myModal"/>
+                        <input type="button" value="save" class="btn btn-primary" id="save-button" data-toggle="modal" data-target="#myModal"/>
                 </div>
         </div>
         </form>

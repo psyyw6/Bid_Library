@@ -28,3 +28,8 @@ body {
 #myModal{
     top:30%;
 }
+#save-button{
+    width: 120px !important;
+    height: 50px;
+    font-size: 20px;
+}
