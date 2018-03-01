@@ -91,6 +91,7 @@
                     <th><b>Upload Date</b></th>
                     <th><b>Customer</b></th>
                     <th><b>Expired Date</b></th>
+                    <th><b>Type</b></th>
                     <th><b>Details</b></th>
                 </tr>
                 <c:forEach var="content_list"  items = "${content_list}" varStatus="status">
@@ -101,6 +102,7 @@
                     <td>${content_list.upload_date}</td>
                     <td>${content_list.customer}</td>
                     <td>${content_list.expired_date}</td><input type="hidden" id="index" value="${status.index}">
+                    <td>${content_list.isExternal}</td>
                     <td><input type="button" class="btn btn-info" value="Details" onclick="viewSection(this)"></td>
                 </tr>
                     <c:set value="${'section'}${status.index}" var="option1"></c:set>
@@ -108,7 +110,7 @@
                         <c:forEach var="section_list" items="${requestScope[option1]}">
                         <tr class="section-td">
                             <td colspan="3">${section_list.section_name}</td>
-                            <td colspan="2">Version: ${section_list.section_version}</td>
+                            <td colspan="3">Version: ${section_list.section_version}</td>
                             <td colspan="2"><input type="button" class="btn btn-primary button-view" value="View"></td>
                         </tr>
                         </c:forEach>

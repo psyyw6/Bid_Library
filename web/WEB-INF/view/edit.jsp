@@ -71,7 +71,7 @@
 <main role="main">
     <section class="section page">
         <header class="page_header-large">
-            <div class="page_header-image cf" style="background-image: url(https://atos.net/wp-content/uploads/2016/06/About-us-1.png);">
+            <div class="page_header-image cf" style="background-image: url(https://atos.net/wp-content/uploads/2017/02/atos-lights-map-na.jpg);">
             </div>
         </header>
         <div class = "title_header" id="title-header">

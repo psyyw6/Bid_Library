@@ -19,7 +19,7 @@ public class SolutionDao {
         return jdbcTemplate;
     }
 
-    public int storeContent(String content_title,String author,String customer,String expired_date,String upload_date,boolean isExternal){
+    public int storeContent(String content_title,String author,String customer,String expired_date,String upload_date,String isExternal){
         String sql = "INSERT INTO Content VALUES(?,?,?,?,?,?);";
         Object[] params = {content_title,isExternal,author,expired_date,upload_date,customer};
         try{

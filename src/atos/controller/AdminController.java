@@ -115,11 +115,6 @@ public class AdminController {
         String upload_date = df.format(today);
         boolean isExternal;
         int version =1;
-        if(type.equals("external")){
-            isExternal = true;
-        }else{
-            isExternal = false;
-        }
         if(!checkFile(fileName)||fileName == ""){
             return "error";
         }
@@ -131,7 +126,7 @@ public class AdminController {
             String section_details = "";
             String section_name = "";
             int i = 0;
-            if(solutionDao.storeContent(content_title,author,customer_name,expired_date,upload_date,isExternal)==1){
+            if(solutionDao.storeContent(content_title,author,customer_name,expired_date,upload_date,type)==1){
                 while ((lineText = br.readLine()) != null) {
                     if(!lineText.equals("")){
                         if(lineText.charAt(0) == '*') {

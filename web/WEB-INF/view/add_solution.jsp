@@ -58,7 +58,7 @@
 <main role="main">
     <section class="section page">
         <header class="page_header-large">
-            <div class="page_header-image cf"  style="background-image: url(https://atos.net/wp-content/uploads/2017/03/atos-cloud-executive-summary-related-resource-image-300x142.jpg)">
+            <div class="page_header-image cf"  style="background-image: url(https://atos.net/wp-content/uploads/2017/02/atos-lights-map-na.jpg)">
             </div>
         </header>
         <div class = "title_header">
@@ -106,8 +106,8 @@
                 <label for="type" class="col-sm-2 control-label">Type</label>
                 <div class="col-sm-10" id="type">
                     <select class="form-control" name="isExternal">
-                        <option value="external">External</option>
-                        <option value="internal">Internal</option>
+                        <option value="External">External</option>
+                        <option value="Internal">Internal</option>
                     </select>
                 </div>
             </div>

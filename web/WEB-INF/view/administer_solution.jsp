@@ -95,6 +95,7 @@
                         <th><b>Upload Date</b></th>
                         <th><b>Customer</b></th>
                         <th><b>Expired Date</b></th>
+                        <th><b>Type</b></th>
                         <th class="button-th" colspan="2" width="50"><b>Action</b></th>
                     </tr>
                     <c:forEach var="content_list"  items = "${content_list}">
@@ -105,6 +106,7 @@
                                 <td>${content_list.upload_date}</td>
                                 <td>${content_list.customer}</td>
                                 <td>${content_list.expired_date}</td>
+                                <td>${content_list.isExternal}</td>
                                 <td class="button-td"><input type="submit" class="btn btn-info" id="button-blue" value="DETAILS" onclick="this.form.action='/admin_view_detail'"></td>
                                 <td class="button-td"><input type="button" class="btn btn-danger" id="button-red" value="DELETE" onclick="showDialog(this)"></td>
                             </tr>

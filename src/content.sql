@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS Content;
 
 CREATE TABLE Content(
 	Title VARCHAR(50) NOT NULL,
-	IsExternal Boolean NOT NULL,
+	IsExternal VARCHAR(50) NOT NULL,
 	Author VARCHAR(50) BINARY NOT NULL,
 	ExpiredDate DATE NOT NULL,
 	UploadDate DATE NOT NULL,
