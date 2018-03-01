@@ -56,17 +56,19 @@
                         <header class="page-large">
                             <div class="page-image" style="background-image:url(https://atos.net/wp-content/uploads/2016/06/Scientific-Community-banner.jpg);">
                                 <div class="page_header-grad">
-                                    <form class="form-inline" action="/search.do" method="post">
+                                    <form class="form-inline" action="/search.do" method="get">
                                         <div class="col-sm-offset-1 col-sm-3">
-                                            <select class="form-control" style="width: 100%">
-                                                <option>tag 1</option>
-                                                <option>tag 2</option>
-                                                <option>tag 3</option>
+                                            <select class="form-control" name = "search_area" style="width: 100%">
+                                                <option value="everything">Everything</option>
+                                                <option value="Customer">Customer Name</option>
+                                                <option value="Section_Detail"> Section Detail</option>
+                                                <option value="Section_Name"> Section Name</option>
+                                                <option value="Title"> Content Title</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-8">
                                             <div class="input-group" style="width: 95%">
-                                                <input type="text" class="form-control" placeholder="Search">
+                                                <input type="text" name="keyword" class="form-control" placeholder="Search">
                                                 <div class="input-group-btn">
                                                     <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                                                 </div>
