@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -45,29 +46,34 @@ public class UserController {
 
     @RequestMapping(value="/staff_search", method = GET)
     public String staffSearchPage(HttpServletRequest request, ModelMap model) {
-//        String flag = request.getParameter("flag");
-//        List<SolutionVO> contentList = solutionDao.selectSectionByName(flag);
-        List contentList = solutionDao.selectAll();
-        if(contentList!=null){
-            model.addAttribute("solution_list",contentList);
-        }
         return "staff_search";
     }
 
-//    @RequestMapping(value="/search.do", method = POST)
+    @RequestMapping(value="/search.do", method = GET)
 //    @ResponseBody
-//    public String staffSearchResultPage(HttpServletRequest request, @RequestParam String flag, ModelMap model) {
-//        //String flag = request.getParameter("flag");
-//        List<SolutionVO> contentList = solutionDao.selectSectionByName(flag);
-//        if(contentList!=null){
-//            model.addAttribute("solution_list",contentList);
-//            return "success_upload";
-//        }
-//        else{
-//            return "staff_search";
-//        }
-//
-//    }
+    public String staffSearchResultPage(HttpServletRequest request, ModelMap model) {
+        String searchArea = request.getParameter("search_area");
+        String keyword = request.getParameter("keyword");
+        String[] multiKeyword = keyword.split("\\|");
+        List<SolutionVO> contentList = new ArrayList<SolutionVO>();
+        for(int i=0; i<multiKeyword.length; i++) {
+            if (searchArea.equals("everything")) {
+                contentList.addAll(solutionDao.selectContentByEverything(multiKeyword[i]));
+            } else {
+                contentList.addAll(solutionDao.selectContentByKeyword(searchArea, multiKeyword[i]));
+            }
+        }
+
+        if(!contentList.isEmpty()){
+//            check duplicate result
+            model.addAttribute("solution_list",contentList);
+            return "staff_search";
+        }
+        else{
+            return "error";
+        }
+
+    }
 
 
 
