@@ -25,14 +25,6 @@ public class SolutionVO implements RowMapper<SolutionVO>, Serializable{
         this.content_title = content_title;
     }
 
-    public String getSection_name() {
-        return section_name;
-    }
-
-    public void setSection_name(String section_name) {
-        this.section_name = section_name;
-    }
-
     public boolean isExternal() {
         return isExternal;
     }
@@ -93,7 +85,6 @@ public class SolutionVO implements RowMapper<SolutionVO>, Serializable{
     public SolutionVO mapRow(ResultSet resultSet, int i) throws SQLException {
         SolutionVO solutionVO = new SolutionVO();
         solutionVO.setContent_title(resultSet.getString("Title"));
-//        solutionVO.setSection_name(resultSet.getString("Section_Name"));
         solutionVO.setExternal(resultSet.getBoolean("IsExternal"));
         solutionVO.setAuthor(resultSet.getString("Author"));
         solutionVO.setExpired_date(resultSet.getString("ExpiredDate"));
