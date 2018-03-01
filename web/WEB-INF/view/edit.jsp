@@ -71,10 +71,10 @@
 <main role="main">
     <section class="section page">
         <header class="page_header-large">
-            <div class="page_header-image cf">
+            <div class="page_header-image cf" style="background-image: url(https://atos.net/wp-content/uploads/2016/06/About-us-1.png);">
             </div>
         </header>
-        <div class = "title_header">
+        <div class = "title_header" id="title-header">
             <p class = "title_word">${content_title}: ${section_name}</p><input type="hidden" id="content_title" value="${content_title}">
             <p class= "title_word">Version: ${version}</p><input type="hidden" id="section_name" value="${section_name}">
                                                             <input type="hidden" id="version" value="${version}">

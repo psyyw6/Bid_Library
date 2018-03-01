@@ -49,7 +49,7 @@
                     <li><a href="#">Proposal</a></li>
                     <li><a href="#">Request</a></li>
                     <li><a href="#">Events</a></li>
-                    <li><a href="/administer_solution">Contents</a></li>
+                    <li><a href="/administer_solution">Solution</a></li>
                 </ul>
             </nav>
         </div>
@@ -58,7 +58,7 @@
 <main role="main">
     <section class="section page">
         <header class="page_header-large">
-            <div class="page_header-image cf">
+            <div class="page_header-image cf"  style="background-image: url(https://atos.net/wp-content/uploads/2017/03/atos-cloud-executive-summary-related-resource-image-300x142.jpg)">
             </div>
         </header>
         <div class = "title_header">
@@ -103,12 +103,6 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="flag" class="col-sm-2 control-label">Tag</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="flag" name="flag" placeholder="Flag   (divided by '/')">
-                </div>
-            </div>
-            <div class="form-group">
                 <label for="type" class="col-sm-2 control-label">Type</label>
                 <div class="col-sm-10" id="type">
                     <select class="form-control" name="isExternal">
@@ -119,7 +113,7 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" id="upload_button" class="btn btn-primary">Upload</button>
+                    <button type="submit" id="upload_button" class="btn btn-primary" disabled="disabled">Upload</button>
                 </div>
             </div>
         </form>

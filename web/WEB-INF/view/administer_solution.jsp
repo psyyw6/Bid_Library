@@ -26,6 +26,21 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <style>
+        th{
+            text-align: center !important;
+            color: white;
+            background-color: #197FBA;
+        }
+
+        td{
+            padding-top: 20px !important;
+            padding-bottom: 20px;!important;
+            text-align: center;
+            font-size: 20px;
+        }
+    </style>
+    <script src="js/content_action.js"></script>
 </head>
 <body class="page_content page_home">
 <header class="header">
@@ -77,26 +92,21 @@
                     <tr>
                         <th><b>Content Title<br></b></th>
                         <th><b>Author</b></th>
-                        <th><b>Version<br></b></th>
                         <th><b>Upload Date</b></th>
                         <th><b>Customer</b></th>
                         <th><b>Expired Date</b></th>
-                        <th><b>Tag</b></th>
-                        <th class="button-th" colspan="3" width="50"><b>Action</b></th>
+                        <th class="button-th" colspan="2" width="50"><b>Action</b></th>
                     </tr>
                     <c:forEach var="content_list"  items = "${content_list}">
                         <form id="class_table">
                             <tr>
-                                <td>${content_list.content_title} <input type="hidden" id= "content_title" name="content_title" value="${content_list.content_title}"></td>
+                                <td>${content_list.content_title} <input type="hidden" id="content_title" name="content_title" value="${content_list.content_title}"></td>
                                 <td>${content_list.author}</td>
-                                <td>${content_list.version} <input type="hidden" id="version" name="version" value="${content_list.version}"></td>
                                 <td>${content_list.upload_date}</td>
                                 <td>${content_list.customer}</td>
                                 <td>${content_list.expired_date}</td>
-                                <td>${content_list.flag}</td>
                                 <td class="button-td"><input type="submit" class="btn btn-info" id="button-blue" value="DETAILS" onclick="this.form.action='/admin_view_detail'"></td>
                                 <td class="button-td"><input type="button" class="btn btn-danger" id="button-red" value="DELETE" onclick="showDialog(this)"></td>
-                                <td class="button-td"><input type="submit" class="btn btn-warning" id="button-grey" value="HISTORY" onclick="this.form.action='/content_history'"></td>
                             </tr>
                         </form>
                     </c:forEach>
@@ -105,6 +115,23 @@
             </div>
         </div>
     </section>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Delete</h4>
+                </div>
+                <div class="modal-body">
+                    Are you sure to delete this content?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteContent()">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 </body>
 </html>

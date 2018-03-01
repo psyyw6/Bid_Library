@@ -1,5 +1,6 @@
 package atos.controller;
 
+import atos.admain.SectionVO;
 import atos.admain.SolutionVO;
 import atos.dao.SolutionDao;
 import atos.dao.UserDao;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -45,29 +47,34 @@ public class UserController {
 
     @RequestMapping(value="/staff_search", method = GET)
     public String staffSearchPage(HttpServletRequest request, ModelMap model) {
-//        String flag = request.getParameter("flag");
-//        List<SolutionVO> contentList = solutionDao.selectSectionByName(flag);
-        List contentList = solutionDao.selectAll();
+        List<SolutionVO> contentList = solutionDao.selectAll();
+
+
         if(contentList!=null){
-            model.addAttribute("solution_list",contentList);
+            model.addAttribute("content_list",contentList);
+//            model.addAttribute("section_list",sectionList);
         }
+        for(int i=0;i<contentList.size();i++){
+            String content_title = contentList.get(i).getContent_title();
+            List<SectionVO> sectionList = solutionDao.selectNewestDetailOfContent(content_title);
+            model.addAttribute("section"+i,sectionList);
+        }
+
         return "staff_search";
     }
 
-//    @RequestMapping(value="/search.do", method = POST)
-//    @ResponseBody
-//    public String staffSearchResultPage(HttpServletRequest request, @RequestParam String flag, ModelMap model) {
-//        //String flag = request.getParameter("flag");
-//        List<SolutionVO> contentList = solutionDao.selectSectionByName(flag);
-//        if(contentList!=null){
-//            model.addAttribute("solution_list",contentList);
-//            return "success_upload";
-//        }
-//        else{
-//            return "staff_search";
-//        }
-//
-//    }
+    @RequestMapping(value="/search.do", method = POST)
+    public String staffSearchResultPage(HttpServletRequest request, @RequestParam String flag, ModelMap model) {
+        //String flag = request.getParameter("flag");
+        String keyword = request.getParameter("keyword");
+        String tag = request.getParameter("tag");
+        List<SolutionVO> result_content_list = new ArrayList<SolutionVO>();
+        if(tag.equals("Default")){
+            result_content_list = solutionDao.selectByDefault(keyword);
+            model.addAttribute("content_list",result_content_list);
+        }
+        return "staff_search";
+    }
 
 
 

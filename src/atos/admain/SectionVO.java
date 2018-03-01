@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class SectionVO implements RowMapper<SectionVO>, Serializable {
     private String section_name;
     private String title;
-    private String section_version;
+    private int section_version;
     private String section_details;
 
     public String getSection_name() {
@@ -28,11 +28,11 @@ public class SectionVO implements RowMapper<SectionVO>, Serializable {
         this.title = title;
     }
 
-    public String getSection_version() {
+    public int getSection_version() {
         return section_version;
     }
 
-    public void setSection_version(String section_version) {
+    public void setSection_version(int section_version) {
         this.section_version = section_version;
     }
 
@@ -49,7 +49,7 @@ public class SectionVO implements RowMapper<SectionVO>, Serializable {
         SectionVO sectionVO = new SectionVO();
         sectionVO.setTitle(resultSet.getString("Title"));
         sectionVO.setSection_name(resultSet.getString("Section_Name"));
-        sectionVO.setSection_version(resultSet.getString("Section_Version"));
+        sectionVO.setSection_version(resultSet.getInt("Section_Version"));
         sectionVO.setSection_details(resultSet.getString("Section_Detail"));
 
         return sectionVO;

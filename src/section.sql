@@ -8,8 +8,8 @@ CREATE TABLE Section(
 	CONSTRAINT se_pk
 	PRIMARY KEY (Section_Name, Title, Section_Version),
 	CONSTRAINT se_fk
-	FOREIGN KEY (Title, Section_Version)
-	REFERENCES Content(Title, Version)
+	FOREIGN KEY (Title)
+	REFERENCES Content(Title)
 	ON UPDATE CASCADE
 	ON DELETE CASCADE
 )ENGINE=InnoDB;

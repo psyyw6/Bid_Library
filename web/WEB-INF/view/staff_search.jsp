@@ -21,102 +21,104 @@
     <script src="js/jquery.js"></script>
     <script src="js/login.js" rel="script"></script>
     <script src="js/register.js" rel="script"></script>
+    <script src="js/staff_search.js" rel="script"></script>
+    <link rel="stylesheet" href="css/add_solution.css">
+    <link rel="stylesheet" id="js_composer_front-css" href="https://atos.net/wp-content/plugins/js_composer/assets/css/js_composer.min.css" type="text/css" media="all">
     <link rel="stylesheet" href="css/jquery-ui.css">
     <link rel="stylesheet" href="css/jquery-ui.theme.css">
     <link rel="stylesheet" href="css/jquery-ui.structure.css">
 </head>
 <body class="page_content page_home">
-<header class="header">
+<header class="header" id="header-id">
     <div class="wrapper">
         <div class="header_pre cf">
             <ul class="header_pre-institutional">
-                <li><p>Welcome your DIS is 'employee DIS' </p></li>
+                <li><p>Welcome ${name}</p></li>
             </ul>
             <ul class="header_pre-external">
-                <li><a href="#">Logout</a>
+                <li><a href="/logout">Logout</a>
                 </li>
             </ul>
         </div>
         <div class="header_main cf">
             <div class="header_main-logo">
                 <a href="https://atos.net/en">
-                    <img src="https://atos.net/wp-content/themes/atos/images/atos-logo-menu-bar.png" alt="Atos"></a>
+                    <img height="38px" src="https://atos.net/wp-content/themes/atos/images/atos-logo-menu-bar.png" alt="Atos"></a>
             </div>
             <nav class="header_main-nav">
-                <ul class="header_main-menu">
+                <ul class="header_main-menu" id="main-menu">
                     <li><a href="#">Home</a></li>
-                    <li style="text-decoration: underline;"><a href="#">Search</a></li>
+                    <li><a href="#">Search</a></li>
                 </ul>
             </nav>
         </div>
     </div>
 </header>
-                <main role="main">
-                    <section class="page">
-                        <header class="page-large">
-                            <div class="page-image" style="background-image:url(https://atos.net/wp-content/uploads/2016/06/Scientific-Community-banner.jpg);">
-                                <div class="page_header-grad">
-                                    <form class="form-inline" action="/search.do" method="post">
-                                        <div class="col-sm-offset-1 col-sm-3">
-                                            <select class="form-control" style="width: 100%">
-                                                <option>tag 1</option>
-                                                <option>tag 2</option>
-                                                <option>tag 3</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <div class="input-group" style="width: 95%">
-                                                <input type="text" class="form-control" placeholder="Search">
-                                                <div class="input-group-btn">
-                                                    <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-
-
-                                <div class="page_content-grad">
-                                    <div class="row">
-                                        <div class="col-sm-12" style="margin:0">
-                                            <h1>Search Result</h1>
-                                            <table class="table table-striped">
-                                                <tbody>
-                                                <tr>
-                                    <th><b>Content Title<br></b></th>
-                                    <%--<th><b>Section Name<br></b></th>--%>
-                                    <th><b>Author</b></th>
-                                    <th><b>Internal/External<br></b></th>
-                                    <th><b>Creator DAS ID</b></th>
-                                    <th><b>Version</b></th>
-                                    <th><b>Modified Date</b></th>
-                                    <th><b>Customer Name</b></th>
-                                    <th colspan="3"><b>Action</b></th>
-                                </tr>
-                                <c:forEach var="solution_list"  items = "${solution_list}">
-                                    <form id="class_table">
-                                        <tr>
-                                            <td>${solution_list.content_title} <input type="hidden" name="content_title" value="${solution_list.content_title}"></td>
-                                            <%--<td>${solution_list.section_name} <input type="hidden" name="section_name" value="${solution_list.section_name}"></td>--%>
-                                            <td>${solution_list.author} <input type="hidden" name="heading" value="${solution_list.author}"></td>
-                                            <td>${solution_list.external}</td>
-                                            <td>${solution_list.version}</td>
-                                            <td>${solution_list.upload_date}</td>
-                                            <td>${solution_list.customer}</td>
-                                            <td>${solution_list.expired_date}</td>
-                                            <td><input type="submit" id="button-blue" value="EDIT" onclick="javascript:this.form.action='/edit'"></td>
-                                            <td><input type="submit" id="button-red" value="DELETE"></td>
-                                            <td><input type="submit" id="button-grey" value="EXPORT" onclick="javascript:this.form.action='/export_word'"></td>
-                                        </tr>
-                                    </form>
-                                </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+<main role="main">
+    <section class="section page">
+        <header class="page_header-blank">
+            <div class="blank-area">
             </div>
         </header>
+
+        <div class="search-box-wrapper">
+            <form class="form-inline" id="search-form" method="post" action="search.do">
+                <div class="form-group">
+                    <input type="text" id="search-box" class="form-control cf" placeholder="Type your keyword here" name="keyword">
+                </div>
+                <input type="submit" id="search-button" class="btn btn-primary" value="Search">
+                <select class="form-control" id="search-select" name="tag">
+                    <option>Default</option>
+                    <option>Content Title</option>
+                    <option>Author</option>
+                    <option>External/Internal</option>
+                    <option>Section Name</option>
+                </select>
+            </form>
+        </div>
+
+        <div class="search-result-wrapper">
+            <div class="search-table-title">
+                <h2 style="color:white">Result Contents:</h2>
+            </div>
+        </div>
+        <div class="result-table-wrapper">
+            <table class="table">
+                <tr id="tr-th">
+                    <th><b>Select</b></th>
+                    <th><b>Content Title<br></b></th>
+                    <th><b>Author</b></th>
+                    <th><b>Upload Date</b></th>
+                    <th><b>Customer</b></th>
+                    <th><b>Expired Date</b></th>
+                    <th><b>Details</b></th>
+                </tr>
+                <c:forEach var="content_list"  items = "${content_list}" varStatus="status">
+                <tr class="tr-td">
+                    <td><input type="checkbox" name="select_box"></td>
+                    <td>${content_list.content_title}</td>
+                    <td>${content_list.author}</td>
+                    <td>${content_list.upload_date}</td>
+                    <td>${content_list.customer}</td>
+                    <td>${content_list.expired_date}</td><input type="hidden" id="index" value="${status.index}">
+                    <td><input type="button" class="btn btn-info" value="Details" onclick="viewSection(this)"></td>
+                </tr>
+                    <c:set value="${'section'}${status.index}" var="option1"></c:set>
+                    <tbody class="section_div">
+                        <c:forEach var="section_list" items="${requestScope[option1]}">
+                        <tr class="section-td">
+                            <td colspan="3">${section_list.section_name}</td>
+                            <td colspan="2">Version: ${section_list.section_version}</td>
+                            <td colspan="2"><input type="button" class="btn btn-primary button-view" value="View"></td>
+                        </tr>
+                        </c:forEach>
+                    </tbody>>
+                </c:forEach>
+            </table>
+        </div>
+        <div class="generate-button-wrapper">
+            <input type="button" class="btn btn-primary" value="Generate">
+        </div>
 
     </section>
 </main>

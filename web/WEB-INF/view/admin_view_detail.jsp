@@ -26,6 +26,7 @@
       <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
       <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 </head>
 <body class="page_content page_home">
 <header class="header">
@@ -64,7 +65,7 @@
         </header>
         <div class="section page_main_content">
                 <div class="table-title">
-                    <h1 style="text-align: left; padding-bottom: 10px;">${content_title} Sections &nbsp;&nbsp;&nbsp;Version: ${version}</h1>
+                    <h1 style="text-align: left; padding-bottom: 10px;">${content_title} Sections</h1>
                 </div>
                 <div class="table-warpper">
                     <table class="table table-stripe">
@@ -72,16 +73,17 @@
                         <tr>
                             <th><b>Content Title<br></b></th>
                             <th><b>Section Name</b></th>
-                            <th></th>
-                            <th><b>Action</b></th>
+                            <th><b>Version</b></th>
+                            <th colspan="2"><b>Action</b></th>
                         </tr>
                         <c:forEach var="section_list"  items = "${section_list}">
                             <form id="class_table">
                                 <tr>
                                     <td>${section_list.title} <input type="hidden" name="content_title" value="${section_list.title}"></td>
                                     <td>${section_list.section_name}<input type="hidden" name="section_name" value="${section_list.section_name}"></td>
-                                    <td><input type="hidden" name="version" value="${version}"></td>
-                                    <td class="button-td"><input type="submit" class="btn btn-info" id="edit-button" value="EDIT" onclick="javascript:this.form.action='/edit'"></td>
+                                    <td>${section_list.section_version}<input type="hidden" name="version" value="${section_list.section_version}"></td>
+                                    <td class="button-td"><input type="submit" class="btn btn-info" id="edit-button" value="EDIT" onclick="this.form.action='/edit'"></td>
+                                    <td class="button-td"><input type = "submit" class="btn btn-warning" value="HISTORY" onclick="this.form.action='/section_history'"></td>
                                 </tr>
                             </form>
                         </c:forEach>
