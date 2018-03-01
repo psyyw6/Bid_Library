@@ -101,17 +101,39 @@ public class SolutionDao {
         }
     }
 
-//    public List<SolutionVO> selectSectionByName(String column, String keyword){
-//        String sql = "select * from Section, Content where Content.? = ?;";
-//        Object[] params = {column, keyword};
-//        try{
-//            return jdbcTemplate.query(sql,new SolutionVO(), params);
-//        }
-//        catch (Exception e){
-//            System.out.println(e);
-//            return null;
-//        }
-//    }
+    public List selectContentByKeyword(String searchArea, String keyword){
+        String sql;
+        keyword = '%'+keyword+'%';
+        if(searchArea.equals("Section_Detail") || searchArea.equals("Section_Name")){
+            sql = "SELECT DISTINCT c.* FROM Content c INNER JOIN Section s ON c.Title = s.Title WHERE s." + searchArea + " LIKE ?;";
+        }
+        else {
+            sql = "SELECT DISTINCT * FROM Content where Content." + searchArea + " LIKE ?;";
+        }
+        Object[] params = {keyword};
+
+        try{
+            return jdbcTemplate.query(sql,new SolutionVO(), params);
+        }
+        catch (Exception e){
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    public List selectContentByEverything(String keyword){
+        keyword = '%'+keyword+'%';
+        String sql = "SELECT DISTINCT c.* from Content c INNER JOIN Section s ON c.Title = s.Title WHERE s.Section_Name LIKE ? OR s.Title LIKE ? OR s.Section_Detail LIKE ? OR c.Title LIKE ? OR c.Customer LIKE ? ;";
+
+        Object[] params = {keyword, keyword, keyword, keyword, keyword};
+        try{
+            return jdbcTemplate.query(sql,new SolutionVO(), params);
+        }
+        catch (Exception e){
+            System.out.println(e);
+            return null;
+        }
+    }
 
     public List selectAllHistory(String content_title){
         String sql = "select * from Content where Title = ?;";
