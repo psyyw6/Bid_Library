@@ -47,33 +47,33 @@ public class UserController {
 
     @RequestMapping(value="/staff_search", method = GET)
     public String staffSearchPage(HttpServletRequest request, ModelMap model) {
-        List<SolutionVO> contentList = solutionDao.selectAll();
-
-
-        if(contentList!=null){
-            model.addAttribute("content_list",contentList);
-//            model.addAttribute("section_list",sectionList);
-        }
-        for(int i=0;i<contentList.size();i++){
-            String content_title = contentList.get(i).getContent_title();
-            List<SectionVO> sectionList = solutionDao.selectNewestDetailOfContent(content_title);
-            model.addAttribute("section"+i,sectionList);
-        }
-
         return "staff_search";
     }
 
-    @RequestMapping(value="/search.do", method = POST)
-    public String staffSearchResultPage(HttpServletRequest request, @RequestParam String flag, ModelMap model) {
-        //String flag = request.getParameter("flag");
+    @RequestMapping(value="/search.do", method = GET)
+//    @ResponseBody
+    public String staffSearchResultPage(HttpServletRequest request, ModelMap model) {
+        String searchArea = request.getParameter("search_area");
         String keyword = request.getParameter("keyword");
-        String tag = request.getParameter("tag");
-        List<SolutionVO> result_content_list = new ArrayList<SolutionVO>();
-        if(tag.equals("Default")){
-            result_content_list = solutionDao.selectByDefault(keyword);
-            model.addAttribute("content_list",result_content_list);
+        String[] multiKeyword = keyword.split("\\|");
+        List<SolutionVO> contentList = new ArrayList<SolutionVO>();
+        for(int i=0; i<multiKeyword.length; i++) {
+            if (searchArea.equals("everything")) {
+                contentList.addAll(solutionDao.selectContentByEverything(multiKeyword[i]));
+            } else {
+                contentList.addAll(solutionDao.selectContentByKeyword(searchArea, multiKeyword[i]));
+            }
         }
-        return "staff_search";
+
+        if(!contentList.isEmpty()){
+//            check duplicate result
+            model.addAttribute("solution_list",contentList);
+            return "staff_search";
+        }
+        else{
+            return "error";
+        }
+
     }
 
 
