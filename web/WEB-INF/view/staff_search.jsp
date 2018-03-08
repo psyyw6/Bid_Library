@@ -54,32 +54,12 @@
         </div>
     </div>
 </header>
-                <main role="main">
-                    <section class="page">
-                        <header class="page-large">
-                            <div class="page-image" style="background-image:url(https://atos.net/wp-content/uploads/2016/06/Scientific-Community-banner.jpg);">
-                                <div class="page_header-grad">
-                                    <form class="form-inline" action="/search.do" method="get">
-                                        <div class="col-sm-offset-1 col-sm-3">
-                                            <select class="form-control" name = "search_area" style="width: 100%">
-                                                <option value="everything">Everything</option>
-                                                <option value="Customer">Customer Name</option>
-                                                <option value="Section_Detail"> Section Detail</option>
-                                                <option value="Section_Name"> Section Name</option>
-                                                <option value="Title"> Content Title</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <div class="input-group" style="width: 95%">
-                                                <input type="text" name="keyword" class="form-control" placeholder="Search">
-                                                <div class="input-group-btn">
-                                                    <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-
+<main role="main">
+    <section class="section page">
+        <header class="page_header-blank">
+            <div class="blank-area">
+            </div>
+        </header>
         <div class="search-box-wrapper">
             <form class="form-inline" id="search-form" method="post" action="search.do">
                 <div class="form-group">
@@ -87,11 +67,12 @@
                 </div>
                 <input type="submit" id="search-button" class="btn btn-primary" value="Search">
                 <select class="form-control" id="search-select" name="tag">
-                    <option>Default</option>
-                    <option>Content Title</option>
-                    <option>Author</option>
-                    <option>External/Internal</option>
-                    <option>Section Name</option>
+                    <option value="Default">Default</option>
+                    <option value="Content Title">Content Title</option>
+                    <option value="Author">Author</option>
+                    <option value="Customer">Customer</option>
+                    <option value="Type">External/Internal</option>
+                    <option value="Section Name">Section Name</option>
                 </select>
             </form>
         </div>
@@ -116,7 +97,7 @@
                 <c:forEach var="content_list"  items = "${content_list}" varStatus="status">
                 <tr class="tr-td">
                     <td><input type="checkbox" name="select_box"></td>
-                    <td>${content_list.content_title}</td>
+                    <td>${content_list.content_title}</td><input type="hidden" id="content_title" value="${content_list.content_title}">
                     <td>${content_list.author}</td>
                     <td>${content_list.upload_date}</td>
                     <td>${content_list.customer}</td>
@@ -127,18 +108,21 @@
                     <c:set value="${'section'}${status.index}" var="option1"></c:set>
                     <tbody class="section_div">
                         <c:forEach var="section_list" items="${requestScope[option1]}">
-                        <tr class="section-td">
-                            <td colspan="3">${section_list.section_name}</td>
-                            <td colspan="3">Version: ${section_list.section_version}</td>
-                            <td colspan="2"><input type="button" class="btn btn-primary button-view" value="View"></td>
-                        </tr>
+                         <form>
+                            <tr class="section-td">
+                                <td colspan="3">${section_list.section_name}</td><input type="hidden" name="section_name" value="${section_list.section_name}">
+                                <td colspan="3">Version: ${section_list.section_version}</td><input type="hidden" name="version" value="${section_list.section_version}">
+                                <input type="hidden" name="content_title" value=${content_list.content_title}>
+                                <td colspan="2"><input type="submit" class="btn btn-primary button-view" value="View" onclick="this.form.action ='/userViewDetail.do'"></td>
+                            </tr>
+                         </form>
                         </c:forEach>
-                    </tbody>>
+                    </tbody>
                 </c:forEach>
             </table>
         </div>
         <div class="generate-button-wrapper">
-            <input type="button" class="btn btn-primary" value="Generate">
+            <input type="button" class="btn btn-primary" value="Generate" onclick="checkBoxTest()">
         </div>
 
     </section>

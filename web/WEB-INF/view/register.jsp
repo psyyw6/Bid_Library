@@ -33,7 +33,7 @@
     </div>
     <ul class="options">
         <li><a href="https://atos.net/en/">Home</a></li>
-        <li><a href="#">Bid Library</a></li>
+        <li><a href="/staff_search">Bid Library</a></li>
         <li><a href="/login">Log In</a></li>
         <li><a href="#">Contact Us</a></li>
     </ul>
@@ -50,7 +50,7 @@
         <span class="input">
             <span id="username_hint">xxxxx</span><br>
             <span class="input_content"><img src="img/user.png" width="30" height="30"></span>
-            <input class="input_field" type="text" name="username" id="username" placeholder="Username" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'DAS ID';}" required="required"/>
+            <input class="input_field" type="text" name="username" id="username" placeholder="DAS ID" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'DAS ID';}" required="required"/>
         </span>
         <span class="input input_password_confirm">
             <span id="password_hint_one">xxxxx</span><br>

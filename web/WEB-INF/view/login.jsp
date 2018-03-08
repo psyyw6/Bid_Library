@@ -34,7 +34,7 @@
     </div>
     <ul class="options">
         <li><a href="https://atos.net/en/">Home</a></li>
-        <li><a href="#">Bid Library</a></li>
+        <li><a href="/staff_search">Bid Library</a></li>
         <li><a href="/login">Log In</a></li>
         <li><a href="#">Contact Us</a></li>
     </ul>
