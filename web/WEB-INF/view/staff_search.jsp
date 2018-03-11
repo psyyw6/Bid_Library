@@ -12,15 +12,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Search</title>
+    <script src="js/jquery.js"></script>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <meta name="theme-color" content="#ffffff">
     <link rel="icon" type="image/png" href="img/ato_icon.png" sizes="200x200">
     <link rel="stylesheet" href="css/staff_search.css">
-    <script src="js/jquery.js"></script>
-    <script src="js/login.js" rel="script"></script>
-    <script src="js/register.js" rel="script"></script>
     <script src="js/staff_search.js" rel="script"></script>
     <link rel="stylesheet" href="css/add_solution.css">
     <link rel="stylesheet" id="js_composer_front-css" href="https://atos.net/wp-content/plugins/js_composer/assets/css/js_composer.min.css" type="text/css" media="all">
@@ -121,6 +119,27 @@
                 </c:forEach>
             </table>
         </div>
+
+        <div class="generate-button-wrapper">
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#template_area" aria-expanded="false" aria-controls="template_area">
+                Select a template
+            </button>
+            <div class="collapse" id="template_area">
+                <div class="well row">
+                    <div class="col-md-4" style="text-align: center">
+                        <input type="radio" name="template_option" value="template1">&nbsp;&nbsp;&nbsp;<img src="img/template1.jpg" alt="template1" class="img-rounded " width="150" height="200" >
+                        <br><br>
+                        <p class="template_name">Template1</p>
+                    </div>
+                    <div class="col-md-4"  style="text-align: center">
+                        <input type="radio" name="template_option" value="template2">&nbsp;&nbsp;&nbsp;<img src="img/template2.jpg" alt="template2" class="img-rounded" width="150" height="200">
+                        <br><br>
+                        <p class="template_name">Template2</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="generate-button-wrapper">
             <input type="button" class="btn btn-primary" value="Generate" onclick="checkBoxTest()">
         </div>
