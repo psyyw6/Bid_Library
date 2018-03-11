@@ -2,6 +2,7 @@ package atos.dao;
 
 import atos.admain.SectionVO;
 import atos.admain.SolutionVO;
+import atos.exceptions.AdministerException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.annotation.Resource;
@@ -25,6 +26,9 @@ public class SolutionDao {
         try{
             return jdbcTemplate.update(sql,params);
         }
+        catch(org.springframework.dao.DuplicateKeyException e){
+            throw new AdministerException("Existed Content Title", content_title+ "have already existed, "+"please choose another content title");
+        }
         catch(Exception e){
             System.out.println(e);
             return 0;
@@ -36,6 +40,9 @@ public class SolutionDao {
         Object[] params = {section_name,content_title,section_detail,version};
         try{
             return jdbcTemplate.update(sql,params);
+        }
+        catch (org.springframework.dao.DuplicateKeyException e){
+            throw new AdministerException("Duplicate Section Name in the '" + content_title+"' ", section_name+" have already existed, please check your uploaded file");
         }
         catch (Exception e){
             System.out.println(e);
