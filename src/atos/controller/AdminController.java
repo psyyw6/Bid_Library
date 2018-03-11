@@ -6,12 +6,15 @@ import atos.admain.UserVO;
 import atos.admain.Userjson;
 import atos.dao.SolutionDao;
 import atos.dao.UserDao;
-import atos.wordExport.ExportWord;
+import atos.exceptions.AdministerException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+//import org.slf4j.Logger;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -26,6 +29,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
 public class AdminController {
+
+//    private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
+
     @Resource
     private UserDao userDao;
     @Resource
@@ -87,13 +93,23 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/add_solution",method = GET)
-    public String addSolutionPage(HttpServletRequest request,ModelMap model){
+    public String addSolutionPage(HttpServletRequest request,ModelMap model) throws Exception{
         if(request.getSession().getAttribute("loginstaff")!=null) {
             UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
             model.addAttribute("name",loginstaff.getName());
+
         }
         return "add_solution";
     }
+
+    @ExceptionHandler(AdministerException.class)
+    public ModelAndView handleAdministerExceptionException(HttpServletRequest request, AdministerException ex){
+        ModelAndView modelAndView = new ModelAndView("administer_error");
+        modelAndView.addObject("errCode", ex.getErrCode());
+        modelAndView.addObject("errMsg", ex.getErrMsg());
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/success_upload", method = GET)
     public String showSuccess(HttpServletRequest request,ModelMap model){
         return "success_upload";
@@ -101,66 +117,70 @@ public class AdminController {
 
     @RequestMapping(value = "/upload.do",method = POST)
     public String upLoadFile(@RequestParam MultipartFile myfile,HttpServletRequest request) throws IOException{
-        String author = "yutong";
-        if(request.getSession().getAttribute("loginstaff")!=null) {
-            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
-            author = loginstaff.getName();
-        }
-        String fileName = myfile.getOriginalFilename();
-        String content_title = request.getParameter("solution_title");
-        String customer_name = request.getParameter("customer_name");
-        String expired_date = convertSqlDate(request.getParameter("expired_date"));
-        String type = request.getParameter("isExternal");
-        String flag = request.getParameter("flag");
-        Date today = new Date();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String upload_date = df.format(today);
-        int version = 1;
-        boolean isExternal;
-        if(type.equals("external")){
-            isExternal = true;
-        }else{
-            isExternal = false;
-        }
-        if(!checkFile(fileName)||fileName == ""){
-            return "error";
-        }
-        else {
-            InputStream file = myfile.getInputStream();
-            InputStreamReader isr = new InputStreamReader(file);
-            BufferedReader br = new BufferedReader(isr);
-            String lineText = "";
-            String section_details = "";
-            String section_name = "";
-            int i = 0;
-            if(solutionDao.storeContent(content_title,author,customer_name,expired_date,upload_date,isExternal,version,flag)==1){
-                while ((lineText = br.readLine()) != null) {
-                    if(!lineText.equals("")){
-                        if(lineText.charAt(0) == '*') {
-                            if (!section_name.equals("") && !section_details.equals("")) {
-                                solutionDao.storeSectionDetail(content_title, section_name, version, section_details);
+            String author = "yutong";
+            if (request.getSession().getAttribute("loginstaff") != null) {
+                UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
+                author = loginstaff.getName();
+            }
+            String fileName = myfile.getOriginalFilename();
+            String content_title = request.getParameter("solution_title");
+            String customer_name = request.getParameter("customer_name");
+            String expired_date = convertSqlDate(request.getParameter("expired_date"));
+            String type = request.getParameter("isExternal");
+            String flag = request.getParameter("flag");
+            Date today = new Date();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            String upload_date = df.format(today);
+            int version = 1;
+            boolean isExternal;
+            if (type.equals("external")) {
+                isExternal = true;
+            } else {
+                isExternal = false;
+            }
+            if (!checkFile(fileName) || fileName == "") {
+                throw new AdministerException("wrong file txt", "please upload again");
+            } else {
+                InputStream file = myfile.getInputStream();
+                InputStreamReader isr = new InputStreamReader(file);
+                BufferedReader br = new BufferedReader(isr);
+                String lineText = "";
+                String section_details = "";
+                String section_name = "";
+                int i = 0;
+                System.out.println("content: " + content_title + " acuthor: " + author + " customer name: " + customer_name + " flag: " + flag);
+                if (solutionDao.storeContent(content_title, author, customer_name, expired_date, upload_date, isExternal, version, flag) == 1) {
+                    while ((lineText = br.readLine()) != null) {
+                        if (!lineText.equals("")) {
+                            if (lineText.charAt(0) == '*') {
+                                if (!section_name.equals("") && !section_details.equals("")) {
+                                    solutionDao.storeSectionDetail(content_title, section_name, version, section_details);
+                                }
+                                section_name = lineText.substring(1);
+                                section_details = "";
+
+                            } else {
+                                section_details += lineText;
+                                section_details += "\n";
                             }
-                            section_name = lineText.substring(1);
-                            section_details = "";
-                        }
-                        else{
-                            section_details += lineText;
-                            section_details += "\n";
                         }
                     }
-                }
-                if(!section_name.equals("")&&!section_details.equals("")){
-                    solutionDao.storeSectionDetail(content_title, section_name, version, section_details);
-                }
-                return "success_upload";
-            }
-            else{
-                solutionDao.deleteContent(content_title,version);
-                return "error";
-            }
-        }
 
+                    if (!section_name.equals("") && !section_details.equals("")) {
+                        solutionDao.storeSectionDetail(content_title, section_name, version, section_details);
+                    }
+                    System.out.println(" " + section_name + " " + content_title + " " + version + " " + section_details);
+                    return "success_upload";
+                }
+                else {
+                    solutionDao.deleteContent(content_title, version);
+                    return "error";
+                }
+            }
     }
+
+
+
     @RequestMapping(value="/admin_view_detail",method = GET)
     public String viewContentDetail(HttpServletRequest request,ModelMap model){
         if(request.getSession().getAttribute("loginstaff")!=null) {
