@@ -1,5 +1,4 @@
 body{
-	background-color:#DCDCDC;
 }
 .header {
 	position: absolute;
@@ -9,7 +8,6 @@ body{
 	width: 100%;
 	height: 300px;
 	margin-bottom: 20px;
-	/*background-image:url(https://atos.net/wp-content/uploads/2016/06/About-us-1.png);*/
 	text-transform: uppercase;
 }
 .wrapper {
@@ -97,24 +95,26 @@ body{
 .page_header-image {
 	position: relative;
 	width: 100%;
-	background-image: url(https://atos.net/wp-content/uploads/2017/03/atos-cloud-executive-summary-related-resource-image-300x142.jpg);
 	background-size: 100% 500px;
 	min-height: 300px;
 	padding: 1px;
-	background-position: top center;
-	background-repeat: no-repeat;
 }
 
 
 .title_header{
 	padding-top:15px;
-	padding-left: 20px;
+	padding-left: 50px;
+	height: 60px;
+	background-color: #eeeaec;
+	font-weight: bold;
+
 }
 
 .title_word{
 	font-size: 20px;
 	font-family: "Stag Sans Medium", Verdana, Arial, Helvetica, sans-serif;
 	color:#197FBA;
+	text-transform: uppercase;
 }
 .upload_form{
 	margin-top: 22px;
@@ -126,4 +126,63 @@ body{
 }
 #type{
 	width: 150px;
+}
+
+.page_button{
+	height: 65px;
+	background-color: #e8ebee;
+	padding-top: 10px;
+}
+
+.button-warpper{
+	border: 2px #197FBA solid;
+	width: fit-content;
+	margin-left: 80px;
+	padding: 10px 15px 10px 15px;
+	background-color: white;
+	border-radius: 15px;
+
+}
+.button-white{
+	font-weight: bold;
+	font-size: 15px;
+}
+.button-warpper a{
+	text-decoration: none !important;
+}
+.table-title{
+	border-bottom:5px solid #e8ebee;
+	padding-left: 80px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #197FBA;
+}
+.table-warpper{
+	margin: 20px 10% 0 10%;
+}
+.button-th{
+	text-align: center;
+}
+.button-td{
+	text-align: center;
+}
+/*th{*/
+	/*text-align: center !important;*/
+	/*color: white;*/
+	/*background-color: #197FBA;*/
+/*}*/
+
+/*td{*/
+	/*padding-top: 20px !important;*/
+	/*padding-bottom: 20px;!important;*/
+	/*text-align: center;*/
+	/*font-size: 20px;*/
+
+/*}*/
+#myModal{
+	top:30%;
+	text-align: center;
+}
+.modal-body{
+	font-size: 20px;
 }

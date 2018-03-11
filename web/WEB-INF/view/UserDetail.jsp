@@ -1,6 +1,13 @@
 <%--
   Created by IntelliJ IDEA.
   User: yutong
+  Date: 2018/3/5
+  Time: 19:25
+  To change this template use File | Settings | File Templates.
+--%>
+<%--
+  Created by IntelliJ IDEA.
+  User: yutong
   Date: 08/02/2018
   Time: 00:24
   To change this template use File | Settings | File Templates.
@@ -37,11 +44,16 @@
     <link rel="stylesheet" type="text/css" href="css/edit.css">
     <script src="js/jquery-ui.js"></script>
     <script src="js/jquery-ui.min.js"></script>
-    <script src="js/edit.js"></script>
     <link rel="stylesheet" id="js_composer_front-css" href="https://atos.net/wp-content/plugins/js_composer/assets/css/js_composer.min.css" type="text/css" media="all">
+    <style>
+        #main-menu{
+            margin-left: 70%;
+        }
+
+    </style>
 </head>
 <body>
-<header class="header">
+<header class="header" id="header-id">
     <div class="wrapper">
         <div class="header_pre cf">
             <ul class="header_pre-institutional">
@@ -58,11 +70,9 @@
                     <img height="38px" src="https://atos.net/wp-content/themes/atos/images/atos-logo-menu-bar.png" alt="Atos"></a>
             </div>
             <nav class="header_main-nav">
-                <ul class="header_main-menu">
-                    <li><a href="#">Proposal</a></li>
-                    <li><a href="#">Request</a></li>
-                    <li><a href="#">Events</a></li>
-                    <li><a href="/administer_solution">Solution</a></li>
+                <ul class="header_main-menu" id="main-menu">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Search</a></li>
                 </ul>
             </nav>
         </div>
@@ -77,44 +87,23 @@
         <div class = "title_header" id="title-header">
             <p class = "title_word">${content_title}: ${section_name}</p><input type="hidden" id="content_title" value="${content_title}">
             <p class= "title_word">Version: ${version}</p><input type="hidden" id="section_name" value="${section_name}">
-                                                            <input type="hidden" id="version" value="${version}">
+            <input type="hidden" id="version" value="${version}">
         </div>
     </section>
 
     <section id="editor">
         <form class="form-horizontal" enctype="multipart/form-data">
-        <div id='edit' style="margin-top: 30px;">
-            <div id="content">
-                <p>${content}</p>
-            </div>
-        </div>
-        <br>
-        </div>
-        <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                        <input type="button" value="save" class="btn btn-primary" id="save-button" data-toggle="modal" data-target="#myModal"/>
+            <div id='edit' style="margin-top: 30px;">
+                <div id="content">
+                    <p>${content}</p>
                 </div>
-        </div>
+            </div>
+            <br>
+            </div>
         </form>
     </section>
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Save</h4>
-                </div>
-                <div class="modal-body">
-                    Are you sure to save the changes?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="editSection()">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </main>
 </body>
 

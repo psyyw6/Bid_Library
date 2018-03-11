@@ -6,6 +6,7 @@ import atos.exceptions.AdministerException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.annotation.Resource;
+import java.util.HashSet;
 import java.util.List;
 
 public class SolutionDao {
@@ -20,9 +21,9 @@ public class SolutionDao {
         return jdbcTemplate;
     }
 
-    public int storeContent(String content_title,String author,String customer,String expired_date,String upload_date,boolean isExternal,int version,String flag){
-        String sql = "INSERT INTO Content VALUES(?,?,?,?,?,?,?,?);";
-        Object[] params = {content_title,isExternal,author,expired_date,upload_date,version,customer,flag};
+    public int storeContent(String content_title,String author,String customer,String expired_date,String upload_date,String isExternal){
+        String sql = "INSERT INTO Content VALUES(?,?,?,?,?,?);";
+        Object[] params = {content_title,isExternal,author,expired_date,upload_date,customer};
         try{
             return jdbcTemplate.update(sql,params);
         }
@@ -51,7 +52,7 @@ public class SolutionDao {
     }
 
     public List selectAll(){
-        String sql = "SELECT a.* FROM bid_library.Content a inner join (select Title,max(Version) Version from bid_library.Content group by Title)b on a.Title = b.Title and a.Version = b.Version; ";
+        String sql = "SELECT * FROM Content;";
         try{
             return jdbcTemplate.query(sql,new SolutionVO());
         }
@@ -61,9 +62,21 @@ public class SolutionDao {
         }
     }
 
-    public int deleteContent(String content_title,int version){
-        String sql = "delete from Content where Title = ? and Version = ?;";
-        Object[] params = {content_title,version};
+    public SolutionVO selectContentByTitle(String title){
+        String sql = "select * from Content where Title = ?";
+        Object[] params = {title};
+        try{
+            return jdbcTemplate.queryForObject(sql,new SolutionVO(),params);
+        }
+        catch (Exception e){
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    public int deleteContent(String content_title){
+        String sql = "delete from Content where Title = ?;";
+        Object[] params = {content_title};
         try{
             return jdbcTemplate.update(sql,params);
         }catch (Exception e){
@@ -84,23 +97,23 @@ public class SolutionDao {
         }
     }
 
-    public SectionVO selectSectionByName(String content_title,String section_name,int version){
-        String sql = "select * from Section where Title = ? and Section_Version = ? and Section_Name = ?;";
-        Object[] params = {content_title,version,section_name};
+    public List selectNewestDetailOfContent(String content_title){
+        String sql = "select a.* from Section a inner join (select Section_Name, max(Section_Version) Section_Version from Section group by Section_Name)b on a.Section_Name = b.Section_Name and a.Section_Version = b.Section_Version where a.Title = ?;";
+        Object[] params = {content_title};
         try{
-            return jdbcTemplate.queryForObject(sql,new SectionVO(),params);
+            return jdbcTemplate.query(sql,new SectionVO(),params);
         }
         catch (Exception e){
             System.out.println(e);
             return null;
         }
     }
-
-    public SolutionVO selectContentByTitleAndVersion(String content_title,int version){
-        String sql = "select * from Content where Title = ? and Version = ?;";
-        Object[] params = {content_title,version};
+//
+    public SectionVO selectSectionByName(String content_title,String section_name,int version){
+        String sql = "select * from Section where Title = ? and Section_Version = ? and Section_Name = ?;";
+        Object[] params = {content_title,version,section_name};
         try{
-            return jdbcTemplate.queryForObject(sql,new SolutionVO(),params);
+            return jdbcTemplate.queryForObject(sql,new SectionVO(),params);
         }
         catch (Exception e){
             System.out.println(e);
@@ -119,6 +132,18 @@ public class SolutionDao {
         }
         Object[] params = {keyword};
 
+//    public List<SolutionVO> selectSectionByName(String column, String keyword){
+//        String sql = "select * from Section, Content where Content.? = ?;";
+//        Object[] params = {column, keyword};
+//        try{
+//            return jdbcTemplate.query(sql,new SolutionVO(), params);
+//        }
+//        catch (Exception e){
+//            System.out.println(e);
+//            return null;
+//        }
+//    }
+
         try{
             return jdbcTemplate.query(sql,new SolutionVO(), params);
         }
@@ -128,13 +153,11 @@ public class SolutionDao {
         }
     }
 
-    public List selectContentByEverything(String keyword){
-        keyword = '%'+keyword+'%';
-        String sql = "SELECT DISTINCT c.* from Content c INNER JOIN Section s ON c.Title = s.Title WHERE s.Section_Name LIKE ? OR s.Title LIKE ? OR s.Section_Detail LIKE ? OR c.Title LIKE ? OR c.Customer LIKE ? ;";
-
-        Object[] params = {keyword, keyword, keyword, keyword, keyword};
+    public List<SectionVO> selectAllHistory(String content_title,String section_name){
+        String sql = "select * from Section where Title = ? and Section_Name = ?;";
+        Object[] params = {content_title,section_name};
         try{
-            return jdbcTemplate.query(sql,new SolutionVO(), params);
+            return jdbcTemplate.query(sql,new SectionVO(),params);
         }
         catch (Exception e){
             System.out.println(e);
@@ -142,16 +165,112 @@ public class SolutionDao {
         }
     }
 
-    public List selectAllHistory(String content_title){
-        String sql = "select * from Content where Title = ?;";
-        Object[] params = {content_title};
+    public List<SolutionVO> selectByDefault(String keyword){
+        String sql = "select * from Content where Title LIKE ? or Author like ?  or Customer like ? or IsExternal like ?;";
+        Object[] params = {keyword,keyword,keyword,keyword};
         try{
             return jdbcTemplate.query(sql,new SolutionVO(),params);
         }
+        catch(Exception e){
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    public List<SectionVO> searchBySectionName(String keyword){
+        String sql = "select * from Section where Section_Name like ?";
+        Object[] params = {keyword};
+        try {
+            return jdbcTemplate.query(sql,new SectionVO(),params);
+        }
         catch (Exception e){
             System.out.println(e);
             return null;
         }
     }
 
+    public SectionVO selectMaxVersionByTitleAndName(String content_title,String section_name){
+        String sql = "select a.* from Section a inner join (select Section_Name, max(Section_Version) Section_Version from Section group by Section_Name)b on a.Section_Name = b.Section_Name and a.Section_Version = b.Section_Version where a.Title = ? and a.Section_Name = ?;";
+        Object[] params = {content_title,section_name};
+        try{
+            return jdbcTemplate.queryForObject(sql,new SectionVO(),params);
+        }
+        catch (Exception e){
+            return null;
+        }
+
+    }
+
+    public List<SectionVO> searchMaxVersionByName(String section_name){
+        String sql = "select a.* from Section a inner join (select Section_Name, max(Section_Version) Section_Version from Section group by Section_Name)b on a.Section_Name = b.Section_Name and a.Section_Version = b.Section_Version where a.Section_Name = ?;";
+        Object[] params = {section_name};
+        try{
+            return jdbcTemplate.query(sql,new SectionVO(),params);
+        }
+        catch (Exception e){
+            return null;
+        }
+
+    }
+
+    public int DeleteSection(String content_title,String section_name,int version){
+        String sql = "delete from Section where Title = ? and Section_Name = ? and Section_Version = ?;";
+        Object[] params = {content_title,section_name,version};
+        try{
+            return jdbcTemplate.update(sql,params);
+        }
+        catch (Exception e){
+            System.out.println(e);
+            return 0;
+        }
+    }
+
+    public List<SolutionVO> searchByTitle(String keyword){
+        String sql = "select * from Cotent where Title like ?;";
+        Object[] params = {keyword};
+        try{
+            return jdbcTemplate.query(sql,new SolutionVO(),params);
+        }
+        catch(Exception e){
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    public List<SolutionVO> searchByAuthor(String keyword){
+        String sql = "select * from Content where Author like ?;";
+        Object[] params = {keyword};
+        try{
+            return jdbcTemplate.query(sql,new SolutionVO(),params);
+        }
+        catch(Exception e){
+            System.out.println(e);
+            return null;
+        }
+
+    }
+
+    public List<SolutionVO> searchByType(String keyword){
+        String sql = "select * from Content where IsExternal like ?;";
+        Object[] params = {keyword};
+        try{
+            return jdbcTemplate.query(sql,new SolutionVO(),params);
+        }
+        catch(Exception e){
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    public List<SolutionVO> searchByCustomer(String keyword){
+        String sql = "select * from Content where Customer like ?;";
+        Object[] params = {keyword};
+        try{
+            return jdbcTemplate.query(sql,new SolutionVO(),params);
+        }
+        catch(Exception e){
+            System.out.println(e);
+            return null;
+        }
+    }
 }

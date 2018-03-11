@@ -8,14 +8,11 @@ import java.sql.SQLException;
 
 public class SolutionVO implements RowMapper<SolutionVO>, Serializable{
     private String content_title;
-    private String section_name;
-    private boolean isExternal;
+    private String isExternal;
     private String author;
     private String expired_date;
     private String upload_date;
-    private int version;
     private String customer;
-    private String flag;
 
     public String getContent_title() {
         return content_title;
@@ -25,11 +22,11 @@ public class SolutionVO implements RowMapper<SolutionVO>, Serializable{
         this.content_title = content_title;
     }
 
-    public boolean isExternal() {
+    public String  getIsExternal() {
         return isExternal;
     }
 
-    public void setExternal(boolean external) {
+    public void setExternal(String external) {
         isExternal = external;
     }
 
@@ -41,13 +38,7 @@ public class SolutionVO implements RowMapper<SolutionVO>, Serializable{
         this.author = author;
     }
 
-    public int getVersion() {
-        return version;
-    }
 
-    public void setVersion(int version) {
-        this.version = version;
-    }
 
     public String getCustomer() {
         return customer;
@@ -73,25 +64,16 @@ public class SolutionVO implements RowMapper<SolutionVO>, Serializable{
         this.upload_date = upload_date;
     }
 
-    public String getFlag() {
-        return flag;
-    }
-
-    public void setFlag(String flag) {
-        this.flag = flag;
-    }
 
     @Override
     public SolutionVO mapRow(ResultSet resultSet, int i) throws SQLException {
         SolutionVO solutionVO = new SolutionVO();
         solutionVO.setContent_title(resultSet.getString("Title"));
-        solutionVO.setExternal(resultSet.getBoolean("IsExternal"));
+        solutionVO.setExternal(resultSet.getString("IsExternal"));
         solutionVO.setAuthor(resultSet.getString("Author"));
         solutionVO.setExpired_date(resultSet.getString("ExpiredDate"));
         solutionVO.setUpload_date(resultSet.getString("UploadDate"));
-        solutionVO.setVersion(resultSet.getInt("Version"));
         solutionVO.setCustomer(resultSet.getString("Customer"));
-        solutionVO.setFlag(resultSet.getString("Flag"));
         return solutionVO;
     }
 

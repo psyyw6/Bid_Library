@@ -1,23 +1,19 @@
-$(function() {
-    $( "#dialog-confirm" ).dialog({
-        autoOpen: false,
-        resizable: false,
-        height:200,
-        modal: true,
-        buttons: {
-            "Save": function() {
-                editSection();
-                $( this ).dialog( "close" );
-            },
-            Cancel: function() {
-                $( this ).dialog( "close" );
-            }
+$(document).ready(function () {
+    var original_content = $("#content").text();
+    $("#save-button").attr("disabled",true);
+    $("#editor").keyup(function () {
+        var content = $("#content").text();
+        original_content = original_content.trim();
+        content = content.trim();
+        if(content != original_content){
+            $("#save-button").attr("disabled",false);
         }
+        else{
+            $("#save-button").attr("disabled",true);
+        }
+
     });
 
-    $("#opener").click(function(){
-        $("#dialog-confirm").dialog("open");
-    });
 });
 
 function editSection(){
