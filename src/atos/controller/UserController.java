@@ -3,12 +3,12 @@ package atos.controller;
 import atos.admain.SolutionVO;
 import atos.dao.SolutionDao;
 import atos.dao.UserDao;
+import atos.exceptions.AdministerException;
+import atos.exceptions.StaffException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -46,6 +46,7 @@ public class UserController {
 
     @RequestMapping(value="/staff_search", method = GET)
     public String staffSearchPage(HttpServletRequest request, ModelMap model) {
+        //throw new StaffException("123", "test");
         return "staff_search";
     }
 
@@ -76,7 +77,13 @@ public class UserController {
     }
 
 
-
+    @ExceptionHandler(StaffException.class)
+    public ModelAndView handleAdministerExceptionException(HttpServletRequest request, StaffException ex){
+        ModelAndView modelAndView = new ModelAndView("staff_error");
+        modelAndView.addObject("errCode", ex.getErrCode());
+        modelAndView.addObject("errMsg", ex.getErrMsg());
+        return modelAndView;
+    }
 
 
 //    @RequestMapping(value = "/search.do",method = POST)
