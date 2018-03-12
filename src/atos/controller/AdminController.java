@@ -226,28 +226,7 @@ public class AdminController {
         response.add(jsonInfo);
         return response;
     }
-//
-//    @RequestMapping(value="export_word",method = GET)
-//    public String exportWord(HttpServletRequest request, ModelMap model){
-//        String solution_title = request.getParameter("solution_title");
-//        String heading = request.getParameter("heading");
-//        SolutionVO solution_1 = solutionDao.getContent(heading,solution_title);
-//        try{
-//            String templatePath = "/atos/ftl/";
-//            String templateName = "template1.ftl";
-//            String filePath = "/Users/realmadrid/Desktop/";
-//            String filename = "test1.doc";
-//            ExportWord word1 = new ExportWord();
-//            Map<String,Object> map = new HashMap<String,Object>();
-//            map.put("content",solution_1.getContent().replaceAll("\n","<w:p></w:p>"));
-//            word1.create(templatePath,templateName,filePath,filename,map);
-//            return "success_upload";
-//        }
-//        catch (Exception e){
-//            e.printStackTrace();
-//            return "error";
-//        }
-//    }
+
     @RequestMapping(value="section_history",method = GET)
     public String showHistory(HttpServletRequest request, ModelMap model){
         String content_title = request.getParameter("content_title");
