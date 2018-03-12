@@ -186,3 +186,34 @@ body{
 .modal-body{
 	font-size: 20px;
 }
+
+
+#button-green {
+	color: #ffffff;
+	border: solid 2px darkgreen;
+	background-color: darkgreen;
+	cursor: pointer;
+	position: relative;
+	display: inline-block;
+	font-family: "Stag Sans Semibold", Verdana, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	font-size: 1.3rem;
+	margin: 20px 20px;
+	min-width: 200px;
+	line-height: 13px;
+	/* line-height: 1.3rem; */
+	min-height: 40px;
+	padding: 13px 20px 12px 20px;
+	text-transform: uppercase;
+	border-radius: 20px;
+}
+
+#button-green:hover {
+	color: darkgreen ;
+	border-color: darkgreen;
+	background-color: transparent;
+	-webkit-transition: all 150ms ease-in-out;
+	transition: all 150ms ease-in-out;
+	text-decoration: none;
+}
+
