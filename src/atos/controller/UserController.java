@@ -6,8 +6,7 @@ import atos.admain.Userjson;
 import atos.dao.SolutionDao;
 import atos.dao.UserDao;
 import atos.wordExport.ExportWord;
-import atos.exceptions.AdministerException;
-import atos.exceptions.StaffException;
+import atos.exceptions.NoSearchResultException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -52,10 +51,11 @@ public class UserController {
     @RequestMapping(value="/staff_search", method = GET)
     public String staffSearchPage(HttpServletRequest request, ModelMap model) {
         List<SolutionVO> contentList = solutionDao.selectAll();
-
-
-        if(contentList!=null){
+        if(!contentList.isEmpty()){
             model.addAttribute("content_list",contentList);
+        }
+        else{
+            throw new NoSearchResultException("No Available Content","Sorry, there is no content now");
         }
         for(int i=0;i<contentList.size();i++){
             String content_title = contentList.get(i).getContent_title();
@@ -64,6 +64,7 @@ public class UserController {
         }
 
         return "staff_search";
+
     }
 
     @RequestMapping(value="/search.do", method = POST)
@@ -112,7 +113,7 @@ public class UserController {
 
         }
 
-        if(resultContentList!=null){
+        if(!resultContentList.isEmpty()){
             model.addAttribute("content_list",resultContentList);
 
             for(int i=0;i<resultContentList.size();i++){
@@ -120,6 +121,9 @@ public class UserController {
                 List<SectionVO> sectionList = solutionDao.selectNewestDetailOfContent(content_title);
                 model.addAttribute("section"+i,sectionList);
             }
+        }
+        else{
+            throw new NoSearchResultException("No Result", "Sorry, there is no matched result, please try another keyword");
         }
 
         return "staff_search";
@@ -130,13 +134,14 @@ public class UserController {
         return "success_generate";
     }
 
-    @ExceptionHandler(StaffException.class)
-    public ModelAndView handleAdministerExceptionException(HttpServletRequest request, StaffException ex){
+    @ExceptionHandler(NoSearchResultException.class)
+    public ModelAndView handleAdministerExceptionException(HttpServletRequest request, NoSearchResultException ex){
         ModelAndView modelAndView = new ModelAndView("staff_error");
         modelAndView.addObject("errCode", ex.getErrCode());
         modelAndView.addObject("errMsg", ex.getErrMsg());
         return modelAndView;
     }
+
     @RequestMapping(value="userViewDetail.do",method = GET)
     public String userViewDetail(HttpServletRequest request,ModelMap model){
         String content_title = request.getParameter("content_title");

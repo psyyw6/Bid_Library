@@ -3,14 +3,14 @@ package atos.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-public class StaffException extends RuntimeException {
+public class NoSearchResultException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
     private String errCode;
     private String errMsg;
 
-    public StaffException(String errCode, String errMsg) {
+    public NoSearchResultException(String errCode, String errMsg) {
         this.errCode = errCode;
         this.errMsg = errMsg;
     }

@@ -6,7 +6,7 @@ import atos.admain.UserVO;
 import atos.admain.Userjson;
 import atos.dao.SolutionDao;
 import atos.dao.UserDao;
-import atos.exceptions.AdministerException;
+import atos.exceptions.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -102,8 +102,13 @@ public class AdminController {
         return "add_solution";
     }
 
-    @ExceptionHandler(AdministerException.class)
-    public ModelAndView handleAdministerExceptionException(HttpServletRequest request, AdministerException ex){
+    @ExceptionHandler(DuplicateKeyException.class)
+    public ModelAndView handleDuplicateKeyException(HttpServletRequest request, DuplicateKeyException ex){
+
+        System.out.println(ex.getContentTitle());
+        if(ex.getContentTitle()!=null) {
+            solutionDao.deleteContent(ex.getContentTitle());
+        }
         ModelAndView modelAndView = new ModelAndView("administer_error");
         modelAndView.addObject("errCode", ex.getErrCode());
         modelAndView.addObject("errMsg", ex.getErrMsg());
@@ -116,7 +121,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/upload.do",method = POST)
-    public String upLoadFile(@RequestParam MultipartFile myfile,HttpServletRequest request) throws IOException{
+    public String upLoadFile(@RequestParam MultipartFile myfile,HttpServletRequest request) throws Exception{
         String author = "yutong";
         if(request.getSession().getAttribute("loginstaff")!=null) {
             UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
@@ -130,10 +135,9 @@ public class AdminController {
         Date today = new Date();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String upload_date = df.format(today);
-        boolean isExternal;
         int version =1;
         if(!checkFile(fileName)||fileName == ""){
-            throw new AdministerException("wrong file txt", "please upload again");
+            throw new DuplicateKeyException(null, "Wrong File Format", "Please upload again");
         }
         else {
             InputStream file = myfile.getInputStream();
@@ -148,7 +152,7 @@ public class AdminController {
                     if(!lineText.equals("")){
                         if(lineText.charAt(0) == '*') {
                             if (!section_name.equals("") && !section_details.equals("")) {
-                                solutionDao.storeSectionDetail(content_title, section_name, version, section_details);
+                                    solutionDao.storeSectionDetail(content_title, section_name, version, section_details);
                             }
                             section_name = lineText.substring(1);
                             section_details = "";

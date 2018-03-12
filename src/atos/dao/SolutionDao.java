@@ -2,11 +2,10 @@ package atos.dao;
 
 import atos.admain.SectionVO;
 import atos.admain.SolutionVO;
-import atos.exceptions.AdministerException;
+import atos.exceptions.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.annotation.Resource;
-import java.util.HashSet;
 import java.util.List;
 
 public class SolutionDao {
@@ -22,13 +21,14 @@ public class SolutionDao {
     }
 
     public int storeContent(String content_title,String author,String customer,String expired_date,String upload_date,String isExternal){
+
         String sql = "INSERT INTO Content VALUES(?,?,?,?,?,?);";
         Object[] params = {content_title,isExternal,author,expired_date,upload_date,customer};
         try{
-            return jdbcTemplate.update(sql,params);
+        return jdbcTemplate.update(sql,params);
         }
         catch(org.springframework.dao.DuplicateKeyException e){
-            throw new AdministerException("Existed Content Title", content_title+ "have already existed, "+"please choose another content title");
+            throw new DuplicateKeyException(null, "Existed Content Title", "'"+content_title+ "' have already existed, "+"please choose another content title");
         }
         catch(Exception e){
             System.out.println(e);
@@ -43,7 +43,7 @@ public class SolutionDao {
             return jdbcTemplate.update(sql,params);
         }
         catch (org.springframework.dao.DuplicateKeyException e){
-            throw new AdministerException("Duplicate Section Name in the '" + content_title+"' ", section_name+" have already existed, please check your uploaded file");
+            throw new DuplicateKeyException(content_title,"Duplicate Section Name in the '" + content_title+"' ", "'"+section_name+"' have already existed, please check your uploaded file");
         }
         catch (Exception e){
             System.out.println(e);
@@ -77,6 +77,7 @@ public class SolutionDao {
     public int deleteContent(String content_title){
         String sql = "delete from Content where Title = ?;";
         Object[] params = {content_title};
+        System.out.println("33333333333: " + content_title);
         try{
             return jdbcTemplate.update(sql,params);
         }catch (Exception e){
@@ -226,7 +227,7 @@ public class SolutionDao {
     }
 
     public List<SolutionVO> searchByTitle(String keyword){
-        String sql = "select * from Cotent where Title like ?;";
+        String sql = "select * from Content where Title like ?;";
         Object[] params = {keyword};
         try{
             return jdbcTemplate.query(sql,new SolutionVO(),params);
