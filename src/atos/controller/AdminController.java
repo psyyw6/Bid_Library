@@ -1,18 +1,13 @@
 package atos.controller;
 
-import atos.admain.SectionVO;
-import atos.admain.SolutionVO;
-import atos.admain.UserVO;
-import atos.admain.Userjson;
+import atos.admain.*;
 import atos.dao.SolutionDao;
 import atos.dao.UserDao;
 import atos.exceptions.DuplicateKeyException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 //import org.slf4j.Logger;
 import org.springframework.web.multipart.MultipartFile;
@@ -270,4 +265,37 @@ public class AdminController {
         jsonList.add(jsonInfo);
         return jsonList;
     }
+
+
+    @RequestMapping(value="/upload",method = POST)
+    @ResponseBody
+    public ResponseEntity<EditorUploadVO> upload(@RequestParam("file") MultipartFile file,HttpServletRequest request)throws IOException{
+        String filename = file.getOriginalFilename();
+        String name = filename.substring(0,filename.indexOf("."));
+        String suffix = filename.substring(filename.lastIndexOf("."));
+        Calendar date = Calendar.getInstance();
+        File dateDirs = new File(date.get(Calendar.YEAR)
+                + File.separator + (date.get(Calendar.MONTH) + 1));
+        String path1 = request.getSession().getServletContext().getRealPath("WEB-INF/view/upload"+File.separator);
+        String path = path1+filename;
+        File descFile = new File(path);
+        System.out.println(path);
+        int i = 1;
+        String newFilename = filename;
+        while (descFile.exists()) {
+            newFilename = name + "(" + i + ")" + suffix;
+            String parentPath = descFile.getParent();
+            descFile = new File(parentPath + File.separator + newFilename);
+            i++;
+        }
+        if (!descFile.getParentFile().exists()) {
+            descFile.getParentFile().mkdirs();
+        }
+        file.transferTo(descFile);
+        String fileUrl = "upload/" + newFilename;
+        String[] data = {fileUrl};
+//        response.add(new EditorUploadVO(0,data));
+        return ResponseEntity.ok().body(new EditorUploadVO(0,data));
+    }
+
 }

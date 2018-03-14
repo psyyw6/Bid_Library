@@ -10,26 +10,8 @@
 <head>
     <title>Edit Solution</title>
     <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
-    <link href="css/froala_editor.min.css" rel="stylesheet" type="text/css">
     <link rel="icon" type="image/png" href="img/ato_icon.png" sizes="200x200">
     <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
-    <script src="js/froala_editor.min.js"></script>
-    <!--[if lt IE 9]>
-    <script src="js/froala_editor_ie8.min.js"></script>
-    <![endif]-->
-    <script src="js/plugins/tables.min.js"></script>
-    <script src="js/plugins/lists.min.js"></script>
-    <script src="js/plugins/colors.min.js"></script>
-    <script src="js/plugins/media_manager.min.js"></script>
-    <script src="js/plugins/font_family.min.js"></script>
-    <script src="js/plugins/font_size.min.js"></script>
-    <script src="js/plugins/block_styles.min.js"></script>
-    <script src="js/plugins/video.min.js"></script>
-    <script>
-        $(function(){
-            $('#edit').editable({inlineMode: false, alwaysBlank: true})
-        });
-    </script>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -89,10 +71,10 @@
             </div>
         </div>
         <br>
-        </div>
+
         <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                        <input type="button" value="save" class="btn btn-primary" id="save-button" data-toggle="modal" data-target="#myModal"/>
+                        <input type="button" value="Save" class="btn btn-primary" id="save-button" data-toggle="modal" data-target="#myModal"/>
                 </div>
         </div>
         </form>
@@ -116,6 +98,41 @@
         </div>
     </div>
 </main>
+
+<script type="text/javascript" src="js/wangEditor.min.js"></script>
+
+<script type="text/javascript">
+    var E = window.wangEditor;
+    var editor = new E('#edit');
+
+    editor.customConfig.uploadFileName = 'file';
+    editor.customConfig.uploadImgServer = '/upload'
+    editor.customConfig.uploadImgMaxSize = 10 * 1024 * 1024;
+    editor.customConfig.uploadImgHooks = {
+        success: function (xhr, editor, result) {
+            // alert(result);
+        },
+        fail:function (xhr, editor,result) {
+            // alert("插不了");
+        }
+    }
+    editor.customConfig.debug = true;
+    editor.customConfig.lang = {
+        '设置标题': 'title',
+        '正文': 'p',
+        '链接文字': 'link text',
+        '链接': 'link',
+        '上传图片': 'Upload image',
+        '上传': 'upload',
+        '创建': 'init',
+        '网络图片':'Internet Image',
+        '图片':'Image',
+        '插入':'Insert'
+        // 还可自定添加更多
+    }
+    editor.create();
+</script>
+
 </body>
 
 

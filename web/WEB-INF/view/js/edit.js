@@ -1,8 +1,20 @@
 $(document).ready(function () {
-    var original_content = $("#content").text();
+    var original_content = editor.txt.html();
     $("#save-button").attr("disabled",true);
     $("#editor").keyup(function () {
-        var content = $("#content").text();
+        var content = editor.txt.html();
+        original_content = original_content.trim();
+        content = content.trim();
+        if(content != original_content){
+            $("#save-button").attr("disabled",false);
+        }
+        else{
+            $("#save-button").attr("disabled",true);
+        }
+
+    });
+    $("#editor").click(function () {
+        var content = editor.txt.html();
         original_content = original_content.trim();
         content = content.trim();
         if(content != original_content){
