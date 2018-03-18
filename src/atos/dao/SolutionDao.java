@@ -203,7 +203,7 @@ public class SolutionDao {
     }
 
     public List<SectionVO> searchMaxVersionByName(String section_name){
-        String sql = "select a.* from Section a inner join (select Section_Name, max(Section_Version) Section_Version from Section group by Section_Name)b on a.Section_Name = b.Section_Name and a.Section_Version = b.Section_Version where a.Section_Name = ?;";
+        String sql = "select a.* from Section a inner join (select Section_Name, max(Section_Version) Section_Version from Section group by Section_Name)b on a.Section_Name = b.Section_Name and a.Section_Version = b.Section_Version where a.Section_Name like ?;";
         Object[] params = {section_name};
         try{
             return jdbcTemplate.query(sql,new SectionVO(),params);
@@ -212,6 +212,17 @@ public class SolutionDao {
             return null;
         }
 
+    }
+
+    public List<SectionVO> searchMaxVersionByDetails(String details){
+        String sql = "select a.* from Section a inner join (select Section_Name, max(Section_Version) Section_Version from Section group by Section_Name)b on a.Section_Name = b.Section_Name and a.Section_Version = b.Section_Version where a.Section_Detail like ?";
+        Object[] params = {details};
+        try{
+            return jdbcTemplate.query(sql,new SectionVO(),params);
+        }
+        catch (Exception e){
+            return null;
+        }
     }
 
     public int DeleteSection(String content_title,String section_name,int version){

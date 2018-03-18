@@ -1,5 +1,6 @@
 package atos.controller;
 
+import atos.admain.InternalTemplate;
 import atos.admain.SectionVO;
 import atos.admain.SolutionVO;
 import atos.admain.Userjson;
@@ -73,11 +74,16 @@ public class UserController {
         String keyword = request.getParameter("keyword");
         List<SolutionVO> resultContentList = new ArrayList<SolutionVO>();
         List<SectionVO> resultSectionList = new ArrayList<SectionVO>();
+        List<SectionVO> resultSectionList2 = new ArrayList<SectionVO>();
+        List<SectionVO> finalSectionList = new ArrayList<SectionVO>();
         switch (searchArea){
             case "Default":
                 resultContentList =  solutionDao.selectByDefault(keyword);
                 resultSectionList = solutionDao.searchMaxVersionByName(keyword);
-                for(SectionVO resultS : resultSectionList){
+                resultSectionList2 = solutionDao.searchMaxVersionByDetails(keyword);
+                finalSectionList.addAll(resultSectionList);
+                finalSectionList.addAll(resultSectionList2);
+                for(SectionVO resultS : finalSectionList){
                     int isExist = 0;
                     for(SolutionVO resultC : resultContentList){
                         if(resultS.getTitle().equals(resultC.getContent_title())){
@@ -175,27 +181,28 @@ public class UserController {
         }
         try{
             String templatePath = "/atos/ftl/";
-            String templateName = "MI008.ftl";
+            String templateName = "internalTemplate.ftl";
             String filePath = "/Users/realmadrid/Desktop/";
             String filename = "test1.doc";
             ExportWord word1 = new ExportWord();
-            Map<String,Object> map = new HashMap<String,Object>();
+//            Map<String,Object> map = new HashMap<String,Object>();
+            InternalTemplate template = new InternalTemplate();
             for(SolutionVO temp : targetContents){
                 List<SectionVO> sectionList = solutionDao.selectNewestDetailOfContent(temp.getContent_title());
                 for(SectionVO sectionTemp : sectionList){
                     String data = sectionTemp.getSection_details().replaceAll("\n","<w:p></w:p>");
                     String orginalData = "";
                     String section_name = sectionTemp.getSection_name().replaceAll(" ","");
-                    if(map.containsKey(section_name)){
-                        orginalData = map.get(section_name).toString();
+                    if(template.internal_map.containsKey(section_name)){
+                        orginalData = template.internal_map.get(section_name).toString();
                     }
                     data = data + orginalData;
-                    map.put(section_name,data);
+                    template.internal_map.put(section_name,data);
                 }
             }
             jsonInfo.setInfo("true");
             response.add(jsonInfo);
-            word1.create(templatePath,templateName,filePath,filename,map);
+            word1.create(templatePath,templateName,filePath,filename,template.internal_map);
             return response;
         }
         catch (Exception e){
