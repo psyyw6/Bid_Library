@@ -25,5 +25,9 @@ public class InternalTemplate {
         internal.put("Assumptions", "");
         internal.put("Issues", "");
         internal.put("Dependencies", "");
+        internal.put("One-OffCharges", "");
+        internal.put("AnnualRecurringCharges", "");
+        internal.put("PaymentMilestones", "");
+        internal.put("Glossary", "");
     }
 }
