@@ -29,7 +29,7 @@ $(document).ready(function () {
 });
 
 function editSection(){
-    var content = $("#content").html();
+    var content = editor.txt.html();
     var content_title = $("#content_title").val();
     var version = $("#version").val();
     var section_name = $("#section_name").val();

@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="css/edit.css">
     <script src="js/jquery-ui.js"></script>
     <script src="js/jquery-ui.min.js"></script>
-    <script src="js/edit.js"></script>
+    <script src="js/edit.js?t=2"></script>
     <link rel="stylesheet" id="js_composer_front-css" href="https://atos.net/wp-content/plugins/js_composer/assets/css/js_composer.min.css" type="text/css" media="all">
 </head>
 <body>
@@ -66,12 +66,9 @@
     <section id="editor">
         <form class="form-horizontal" enctype="multipart/form-data">
         <div id='edit' style="margin-top: 30px;">
-            <div id="content">
-                <p>${content}</p>
-            </div>
+            <p>${content}</p>
         </div>
         <br>
-
         <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                         <input type="button" value="Save" class="btn btn-primary" id="save-button" data-toggle="modal" data-target="#myModal"/>
@@ -80,7 +77,7 @@
         </form>
     </section>
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="myModal" tabindex="9999" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -106,17 +103,16 @@
     var editor = new E('#edit');
 
     editor.customConfig.uploadFileName = 'file';
-    editor.customConfig.uploadImgServer = '/upload'
+    editor.customConfig.uploadImgServer = '/upload';
     editor.customConfig.uploadImgMaxSize = 10 * 1024 * 1024;
+    editor.customConfig.zIndex = 100;
     editor.customConfig.uploadImgHooks = {
         success: function (xhr, editor, result) {
-            // alert(result);
         },
         fail:function (xhr, editor,result) {
-            // alert("插不了");
+
         }
-    }
-    editor.customConfig.debug = true;
+    };
     editor.customConfig.lang = {
         '设置标题': 'title',
         '正文': 'p',
@@ -129,7 +125,7 @@
         '图片':'Image',
         '插入':'Insert'
         // 还可自定添加更多
-    }
+    };
     editor.create();
 </script>
 

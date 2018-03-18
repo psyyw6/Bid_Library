@@ -147,6 +147,7 @@ public class AdminController {
                     if(!lineText.equals("")){
                         if(lineText.charAt(0) == '*') {
                             if (!section_name.equals("") && !section_details.equals("")) {
+                                section_details = section_details.substring(0,section_details.length()-2);
                                     solutionDao.storeSectionDetail(content_title, section_name, version, section_details);
                             }
                             section_name = lineText.substring(1);
@@ -159,6 +160,7 @@ public class AdminController {
                     }
                 }
                 if(!section_name.equals("")&&!section_details.equals("")){
+                    section_details = section_details.substring(0,section_details.length()-2);
                     solutionDao.storeSectionDetail(content_title, section_name, version, section_details);
                 }
                 return "success_upload";
@@ -216,6 +218,7 @@ public class AdminController {
         int new_version = latestSection.getSection_version() + 1;
         content_detail = content_detail.substring(3,content_detail.length()-4);
         content_detail = content_detail.replaceAll("</p><p>","\n");
+        System.out.println(content_detail);
         solutionDao.storeSectionDetail(content_title,section_name,new_version,content_detail);
         jsonInfo.setInfo("true");
         response.add(jsonInfo);
@@ -273,13 +276,9 @@ public class AdminController {
         String filename = file.getOriginalFilename();
         String name = filename.substring(0,filename.indexOf("."));
         String suffix = filename.substring(filename.lastIndexOf("."));
-        Calendar date = Calendar.getInstance();
-        File dateDirs = new File(date.get(Calendar.YEAR)
-                + File.separator + (date.get(Calendar.MONTH) + 1));
         String path1 = request.getSession().getServletContext().getRealPath("WEB-INF/view/upload"+File.separator);
         String path = path1+filename;
         File descFile = new File(path);
-        System.out.println(path);
         int i = 1;
         String newFilename = filename;
         while (descFile.exists()) {
@@ -294,7 +293,6 @@ public class AdminController {
         file.transferTo(descFile);
         String fileUrl = "upload/" + newFilename;
         String[] data = {fileUrl};
-//        response.add(new EditorUploadVO(0,data));
         return ResponseEntity.ok().body(new EditorUploadVO(0,data));
     }
 
