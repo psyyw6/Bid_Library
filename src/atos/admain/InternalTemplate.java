@@ -4,26 +4,30 @@ import java.util.HashMap;
 
 public class InternalTemplate {
 
-    public HashMap<String, Object> internal_map;
+    public HashMap<String, Object> internal;
 
-    public InternalTemplate(){
-        internal_map = new HashMap<String, Object>();
-        internal_map.put("ImmediateandSustainedReductioninOperatingExpense", "");
-        internal_map.put("ModularandScalableSolution", "");
-        internal_map.put("StandardisationandContinuity", "");
-        internal_map.put("SimplicityandInnovation", "");
-        internal_map.put("RequirementsChecklist", "");
-        internal_map.put("InScope", "");
-        internal_map.put("OutOfScope", "");
-        internal_map.put("ManagedService", "");
-        internal_map.put("SoftwareLicences", "");
-        internal_map.put("TechnicalComponentsoftheSolution", "");
-        internal_map.put("EnvironmentalConsiderations", "");
-        internal_map.put("AssistiveTechnology", "");
-        internal_map.put("OutlineDeliveryApproach", "");
-        internal_map.put("Risks", "");
-        internal_map.put("Assumptions", "");
-        internal_map.put("Issues", "");
-        internal_map.put("Dependencies", "");
+    InternalTemplate(){
+        internal = new HashMap<String, Object>();
+        internal.put("ImmediateandSustainedReductioninOperatingExpense", "");
+        internal.put("ModularandScalableSolution", "");
+        internal.put("StandardisationandContinuity", "");
+        internal.put("SimplicityandInnovation", "");
+        internal.put("RequirementsChecklist", "");
+        internal.put("InScope", "");
+        internal.put("OutOfScope", "");
+        internal.put("ManagedService", "");
+        internal.put("Software Licences", "");
+        internal.put("TechnicalComponentsoftheSolution", "");
+        internal.put("EnvironmentalConsiderations", "");
+        internal.put("AssistiveTechnology", "");
+        internal.put("OutlineDeliveryApproach", "");
+        internal.put("Risks", "");
+        internal.put("Assumptions", "");
+        internal.put("Issues", "");
+        internal.put("Dependencies", "");
+        internal.put("One-OffCharges", "");
+        internal.put("AnnualRecurringCharges", "");
+        internal.put("PaymentMilestones", "");
+        internal.put("Glossary", "");
     }
 }

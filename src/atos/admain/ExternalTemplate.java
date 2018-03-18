@@ -19,5 +19,7 @@ public class ExternalTemplate {
         external.put("Assumptions", "");
         external.put("Issues", "");
         external.put("Dependencies", "");
+        external.put("One-OffCharges", "");
+        external.put("AnnualOngoingCharges", "");
     }
 }
