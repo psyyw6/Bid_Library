@@ -19,7 +19,7 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="icon" type="image/png" href="img/ato_icon.png" sizes="200x200">
     <link rel="stylesheet" href="css/staff_search.css">
-    <script src="js/staff_search.js" rel="script"></script>
+    <script src="js/staff_search.js?t=2" rel="script"></script>
     <link rel="stylesheet" href="css/add_solution.css">
     <link rel="stylesheet" id="js_composer_front-css" href="https://atos.net/wp-content/plugins/js_composer/assets/css/js_composer.min.css" type="text/css" media="all">
     <link rel="stylesheet" href="css/jquery-ui.css">
@@ -127,12 +127,12 @@
             <div class="collapse" id="template_area">
                 <div class="well row">
                     <div class="col-md-4" style="text-align: center">
-                        <input type="radio" name="template_option" value="template1">&nbsp;&nbsp;&nbsp;<img src="img/template1.jpg" alt="template1" class="img-rounded " width="150" height="200" >
+                        <input type="radio" name="template_option" value="Template1">&nbsp;&nbsp;&nbsp;<img src="img/template1.jpg" alt="template1" class="img-rounded " width="150" height="200" >
                         <br><br>
                         <p class="template_name">Template1</p>
                     </div>
                     <div class="col-md-4"  style="text-align: center">
-                        <input type="radio" name="template_option" value="template2">&nbsp;&nbsp;&nbsp;<img src="img/template2.jpg" alt="template2" class="img-rounded" width="150" height="200">
+                        <input type="radio" name="template_option" value="Template2">&nbsp;&nbsp;&nbsp;<img src="img/template2.jpg" alt="template2" class="img-rounded" width="150" height="200">
                         <br><br>
                         <p class="template_name">Template2</p>
                     </div>

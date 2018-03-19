@@ -171,7 +171,7 @@ public class UserController {
 
     @RequestMapping(value = "export_word", method = POST)
     @ResponseBody
-    public List<Userjson> exportWord(HttpServletRequest request, ModelMap model, @RequestParam(required = false, value = "list[]") List<String> list) throws IOException {
+    public List<Userjson> exportWord(HttpServletRequest request, ModelMap model, @RequestParam(required = false, value = "list[]") List<String> list,String selected_template) throws IOException {
 
         List<SolutionVO> targetContents = new ArrayList<SolutionVO>();
         List<Userjson> response = new ArrayList<Userjson>();
@@ -184,7 +184,7 @@ public class UserController {
         }
         for (SolutionVO temp : targetContents) {
             List<SectionVO> sectionList = solutionDao.selectNewestDetailOfContent(temp.getContent_title());
-
+            map.put("CustomerName",temp.getCustomer());
             for (SectionVO sectionTemp : sectionList) {
                 String data = sectionTemp.getSection_details();
                 String orginalData = "";
@@ -196,10 +196,16 @@ public class UserController {
                 }
 
                 RichHtmlHandler handler = new RichHtmlHandler(data);
-
-                handler.setDocSrcLocationPrex("file:///C:/E118C9D1");
-                handler.setNextPartId("01D3BEEE.2C089450");
-                handler.setDocSrcParent("AO001-1.fld");
+                if(selected_template.equals("Template1")){
+                    handler.setDocSrcLocationPrex("file:///C:/26F25CD1");
+                    handler.setNextPartId("01D3BFBC.2F868BE0");
+                    handler.setDocSrcParent("Template1.fld");
+                }
+                else if(selected_template.equals("Template2")){
+                    handler.setDocSrcLocationPrex("file:///C:/26F25CD1");
+                    handler.setNextPartId("01D3BFAE.E2495DB0");
+                    handler.setDocSrcParent("Template1.fld");
+                }
                 handler.setShapeidPrex("_x56fe_x7247_x0020");
                 handler.setSpidPrex("_x0000_i");
                 handler.setTypeid("#_x0000_t75");
@@ -238,7 +244,7 @@ public class UserController {
         OutputStream out;
         try {
             out = new FileOutputStream(f);
-            WordGeneratorWithFreemarker.createDoc(map, "AO001-1.ftl", out);
+            WordGeneratorWithFreemarker.createDoc(map,selected_template+".ftl", out);
             jsonInfo.setInfo("true");
             response.add(jsonInfo);
         } catch (FileNotFoundException e) {
@@ -256,6 +262,11 @@ public class UserController {
         }
         return response;
 
+    }
+
+    @RequestMapping(value = "generate_error",method = GET)
+    public String showGenerateError(HttpServletRequest request,ModelMap model){
+        return "generate_error";
     }
 
 }
