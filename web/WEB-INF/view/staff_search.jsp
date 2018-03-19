@@ -144,6 +144,7 @@
             <input type="button" class="btn btn-primary" value="Generate" onclick="checkBoxTest()">
         </div>
 
+
     </section>
 </main>
 </body>

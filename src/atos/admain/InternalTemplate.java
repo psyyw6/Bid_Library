@@ -6,7 +6,7 @@ public class InternalTemplate {
 
     public HashMap<String, Object> internal;
 
-    InternalTemplate(){
+    public InternalTemplate(){
         internal = new HashMap<String, Object>();
         internal.put("ImmediateandSustainedReductioninOperatingExpense", "");
         internal.put("ModularandScalableSolution", "");
@@ -16,7 +16,7 @@ public class InternalTemplate {
         internal.put("InScope", "");
         internal.put("OutOfScope", "");
         internal.put("ManagedService", "");
-        internal.put("Software Licences", "");
+        internal.put("SoftwareLicences", "");
         internal.put("TechnicalComponentsoftheSolution", "");
         internal.put("EnvironmentalConsiderations", "");
         internal.put("AssistiveTechnology", "");
@@ -25,7 +25,7 @@ public class InternalTemplate {
         internal.put("Assumptions", "");
         internal.put("Issues", "");
         internal.put("Dependencies", "");
-        internal.put("One-OffCharges", "");
+        internal.put("OneOffCharges", "");
         internal.put("AnnualRecurringCharges", "");
         internal.put("PaymentMilestones", "");
         internal.put("Glossary", "");

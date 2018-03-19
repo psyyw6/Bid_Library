@@ -147,20 +147,18 @@ public class AdminController {
                     if(!lineText.equals("")){
                         if(lineText.charAt(0) == '*') {
                             if (!section_name.equals("") && !section_details.equals("")) {
-                                section_details = section_details.substring(0,section_details.length()-2);
-                                    solutionDao.storeSectionDetail(content_title, section_name, version, section_details);
+//                                section_details = section_details.substring(0,section_details.length()-2);
+                                solutionDao.storeSectionDetail(content_title, section_name, version, section_details);
                             }
                             section_name = lineText.substring(1);
                             section_details = "";
                         }
                         else{
-                            section_details += lineText;
-                            section_details += "\n";
+                            section_details += "<p>"+lineText+"</p>";
                         }
                     }
                 }
                 if(!section_name.equals("")&&!section_details.equals("")){
-                    section_details = section_details.substring(0,section_details.length()-2);
                     solutionDao.storeSectionDetail(content_title, section_name, version, section_details);
                 }
                 return "success_upload";
@@ -195,7 +193,7 @@ public class AdminController {
 
         SectionVO section_detail = solutionDao.selectSectionByName(content_title,section_name,version);
         if(section_detail!=null){
-            String details = section_detail.getSection_details().replaceAll("\n","</p><p>");
+            String details = section_detail.getSection_details();
             model.addAttribute("section_name",section_name);
             model.addAttribute("content_title",content_title);
             model.addAttribute("version",version);
@@ -216,8 +214,6 @@ public class AdminController {
         SolutionVO content = solutionDao.selectContentByTitle(content_title);
         SectionVO latestSection = solutionDao.selectMaxVersionByTitleAndName(content_title,section_name);
         int new_version = latestSection.getSection_version() + 1;
-        content_detail = content_detail.substring(3,content_detail.length()-4);
-        content_detail = content_detail.replaceAll("</p><p>","\n");
         System.out.println(content_detail);
         solutionDao.storeSectionDetail(content_title,section_name,new_version,content_detail);
         jsonInfo.setInfo("true");
