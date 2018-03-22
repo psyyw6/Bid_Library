@@ -1,71 +1,72 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: yutong
-  Date: 17/12/10
-  Time: 15:32
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Log in</title>
-    <meta name="description" content="A free html template with Sketch design made with Bootstrap">
-    <meta name="keywords" content="free html template, bootstrap, ui kit, sass"/>
-    <meta name="author" content="Codrops"/>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="img/ato_icon.png" sizes="200x200">
-    <meta name="msapplication-TileColor" content="#66e0e5">
-    <meta name="msapplication-TileImage" content="img/favicon/mstile-144x144.png">
-    <meta name="msapplication-config" content="img/favicon/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
-    <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/jquery.js"></script>
-    <script src="js/login.js" rel="script"></script>
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+
+    <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+
+    <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+
+    <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/login.js"></script>
+
 </head>
-
 <body>
-<div class="catalogue">
-    <div class="cal-image">
-        <a href="#" onclick="showList()"><img src="img/list.png" width="90" height="65"></a>
+
+<div class="limiter">
+    <div class="container-login100" style="background-image: url('https://atos.net/wp-content/uploads/2017/11/banni%C3%A8re-data-center-applications-and-transformation.png');">
+
+        <div class="wrap-login100 p-t-30 p-b-50">
+            <div class="logo animated fadeInDown delay-07s">
+                <a href="https://atos.net/en">
+                    <img src="img/atos_logo_3.png" alt="Atos">
+                </a>
+            </div>
+            <span class="login100-form-title p-b-41">
+                    Account Login
+                </span>
+
+            <form class="login100-form validate-form p-b-33 p-t-5">
+
+                <div class="wrap-input100 validate-input" data-validate = "Enter username">
+                    <input class="input100" type="text" name="username" placeholder="User name">
+                    <span class="focus-input100" data-placeholder="&#xe82a;"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Enter password">
+                    <input class="input100" type="password" name="password" placeholder="Password">
+                    <span class="focus-input100" data-placeholder="&#xe80f;"></span>
+                </div>
+
+                <div class="container-login100-form-btn m-t-32">
+                    <button class="login100-form-btn" onclick="login()">
+                        Login
+                    </button>
+              </div>
+                <div class="text-center p-t-20">
+                    <a class="txt2" href="/register">
+                        Not register? Create an account
+                    </a>
+                </div>
+
+            </form>
+        </div>
     </div>
-    <ul class="options">
-        <li><a href="https://atos.net/en/">Home</a></li>
-        <li><a href="/staff_search">Bid Library</a></li>
-        <li><a href="/login">Log In</a></li>
-        <li><a href="#">Contact Us</a></li>
-    </ul>
 </div>
-
-<form class = log_in>
-    <div class="logo-image">
-        <img src="img/atos_logo_3.png" width="170" height="80">
-    </div>
-    <br>
-    <div class="customer_login">CUSTOMER LOG IN</div><br>
-    <div class="hint1">
-        <a class="hint_words" href="/register">Haven't register yet? Please register here</a>
-    </div>
-    <span class="input input--haruki">
-                    <label class="input__label input__label--haruki">
-						<span class="input__label-content "><img src="img/user.png" width="30" height="30"></span>
-					</label>
-					<input class="input__field input__field--username" type="text" name = "username" id="username" placeholder="DAS ID" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'DAS ID';}"/>
-    </span>
-    <span class="input input--password">
-                <label class="input__label input__label--haruki">
-                    <span class="input__label-content"><img src="img/password_logo.png" width="30" height="30"></span>
-                </label>
-                <input class="input__field input__field--username" type="password" name="password" id="password" placeholder="Password" onfocus="this.placeholder='';"onblur="if (this.placeholder == '') {this.placeholder = 'Password';}"/>
-    </span>
-    <span class="input input--submit">
-                <input class="input__field input__submit" type="button" value="Log In" onclick="login()">
-    </span>
-</form>
 </body>
-
 </html>
-
