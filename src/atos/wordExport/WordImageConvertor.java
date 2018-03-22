@@ -43,8 +43,8 @@ public class WordImageConvertor {
 
 	public static String imageToBase64(String imageSrc) throws IOException{
 		//判断文件是否存在
-		String path1 = "/Users/realmadrid/Desktop/BidLibrary/Bid_Library/out/WEB-INF/view/";
-		imageSrc =  path1 + imageSrc;
+//		String path1 = "/Users/realmadrid/Desktop/BidLibrary/Bid_Library/out/WEB-INF/view/";
+//		imageSrc =  path1 + imageSrc;
 		File file=new File(imageSrc);
 		if(!file.exists()){
 			throw new FileNotFoundException("File is not exist");
@@ -188,8 +188,8 @@ public class WordImageConvertor {
 	
 	private static String generateImageBodyBlockStyleAttr(String imageFilePath, int height,int width){
 		StringBuilder sb=new StringBuilder();
-		String path1 = "/Users/realmadrid/Desktop/BidLibrary/Bid_Library/out/WEB-INF/view/";
-		imageFilePath = path1 + imageFilePath;
+//		String path1 = "/Users/realmadrid/Desktop/BidLibrary/Bid_Library/out/WEB-INF/view/";
+//		imageFilePath = path1 + imageFilePath;
 		BufferedImage sourceImg;
 		try {
 			sourceImg = ImageIO.read(new FileInputStream(imageFilePath));

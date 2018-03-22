@@ -1,17 +1,20 @@
 package atos.controller;
 
-import atos.admain.InternalTemplate;
 import atos.admain.SectionVO;
 import atos.admain.SolutionVO;
 import atos.admain.Userjson;
 import atos.dao.SolutionDao;
 import atos.dao.UserDao;
-import atos.wordExport.ExportWord;
 import atos.exceptions.NoSearchResultException;
 import atos.wordExport.RichHtmlHandler;
 import atos.wordExport.WordGeneratorWithFreemarker;
 import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
+import org.apache.commons.io.FileUtils;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -137,10 +140,6 @@ public class UserController {
         return "staff_search";
     }
 
-    @RequestMapping(value = "success_generate", method = GET)
-    public String showSuccessGenerate(HttpServletRequest request, ModelMap model) {
-        return "success_generate";
-    }
 
     @ExceptionHandler(NoSearchResultException.class)
     public ModelAndView handleAdministerExceptionException(HttpServletRequest request, NoSearchResultException ex) {
@@ -209,7 +208,7 @@ public class UserController {
                 handler.setShapeidPrex("_x56fe_x7247_x0020");
                 handler.setSpidPrex("_x0000_i");
                 handler.setTypeid("#_x0000_t75");
-                handler.handledHtml(false);
+                handler.handledHtml(true,request);
                 String bodyBlock = handler.getHandledDocBodyBlock();
                 String handledBase64Block = "";
                 if (handler.getDocBase64BlockResults() != null
@@ -239,8 +238,9 @@ public class UserController {
                 map.put(section_name, bodyBlock);
             }
         }
-        String filePath = "/Users/realmadrid/Desktop/RichTest2.doc";
-        File f = new File(filePath);
+        String filePath = request.getSession().getServletContext().getRealPath("WEB-INF/view/download"+File.separator);
+        String fileName = "Generate.doc";
+        File f = new File(filePath+fileName);
         OutputStream out;
         try {
             out = new FileOutputStream(f);
@@ -248,21 +248,49 @@ public class UserController {
             jsonInfo.setInfo("true");
             response.add(jsonInfo);
         } catch (FileNotFoundException e) {
-
+            e.printStackTrace();
+            jsonInfo.setInfo(e.toString());
+            response.add(jsonInfo);
         } catch (MalformedTemplateNameException e) {
             e.printStackTrace();
+            jsonInfo.setInfo(e.toString());
+            response.add(jsonInfo);
+
         } catch (ParseException e) {
             e.printStackTrace();
+            jsonInfo.setInfo(e.toString());
+            response.add(jsonInfo);
         } catch (IOException e) {
             e.printStackTrace();
+            jsonInfo.setInfo(e.toString());
+            response.add(jsonInfo);
         } catch (Exception e) {
             e.printStackTrace();
-            jsonInfo.setInfo("false");
+            jsonInfo.setInfo(e.toString());
             response.add(jsonInfo);
         }
         return response;
 
     }
+
+    @RequestMapping(value = "success_generate", method = GET)
+    public ResponseEntity<byte[]> showSuccessGenerate(HttpServletRequest request, ModelMap model) {
+        String filePath = request.getSession().getServletContext().getRealPath("WEB-INF/view/download"+File.separator);
+        String fileName = "Generate.doc";
+        HttpHeaders headers = new HttpHeaders();
+        try {
+            headers.setContentDispositionFormData("myfile", fileName);
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            File doc = new File(filePath, fileName);
+            return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(doc),headers,HttpStatus.CREATED);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
+
+    }
+
 
     @RequestMapping(value = "generate_error",method = GET)
     public String showGenerateError(HttpServletRequest request,ModelMap model){

@@ -66,7 +66,7 @@
     <section id="editor">
         <form class="form-horizontal" enctype="multipart/form-data">
         <div id='edit' style="margin-top: 30px;">
-            <p>${content}</p>
+            ${content}
         </div>
         <br>
         <div class="form-group">

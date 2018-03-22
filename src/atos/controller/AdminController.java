@@ -209,9 +209,9 @@ public class AdminController {
     @ResponseBody
     public List<Userjson> uploadForEdit(HttpServletRequest request, @RequestParam String content_title, String section_name, String version, String content_detail){
         int num_version = Integer.parseInt(version);
+        System.out.println("hhhhh");
         List<Userjson> response = new ArrayList<Userjson>();
         Userjson jsonInfo = new Userjson();
-        SolutionVO content = solutionDao.selectContentByTitle(content_title);
         SectionVO latestSection = solutionDao.selectMaxVersionByTitleAndName(content_title,section_name);
         int new_version = latestSection.getSection_version() + 1;
         System.out.println(content_detail);

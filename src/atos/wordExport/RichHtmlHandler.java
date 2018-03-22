@@ -14,6 +14,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @Description:富文本Html处理器，主要处理图片及编码
  * @author:LiaoFei
@@ -131,7 +133,7 @@ public class RichHtmlHandler {
 	 * @author:LiaoFei
 	 * @date:2016-3-28 下午4:16:34
 	 */
-	public void handledHtml(boolean isWebApplication)
+	public void handledHtml(boolean isWebApplication, HttpServletRequest request)
 			throws IOException {
 		Elements imags = doc.getElementsByTag("img");
 		System.out.println("doc:\n"+doc);
@@ -151,15 +153,15 @@ public class RichHtmlHandler {
 //			String thepaths = RichHtmlHandler.class.getClassLoader().getResource("").toString();
 //			System.out.println("src="+src+"     thepaths="+thepaths);
 			if (isWebApplication) {
-//				String contentPath=RequestResponseContext.getRequest().getContextPath();
+//				String contentPath= request.getSession().getServletContext().getRealPath("WEB-INF/view"+File.separator);
 //				if(!StringUtils.isEmpty(contentPath)){
 //					if(src.startsWith(contentPath)){
-//						src=src.substring(contentPath.length());
+//						src = src.substring(contentPath.length());
 //					}
 //				}
-//				
-//				srcRealPath = RequestResponseContext.getRequest().getSession()
-//						.getServletContext().getRealPath(src);
+
+				srcRealPath = request.getSession()
+						.getServletContext().getRealPath("WEB-INF/view"+File.separator)+src;
 				
 			}
 			
@@ -239,7 +241,7 @@ public class RichHtmlHandler {
 	}
 	
 	private String wrappHtml(String html){
-		// 因为传递过来都是不完整的doc
+
 		StringBuilder sb = new StringBuilder();
 		sb.append("<html>");
 		sb.append("<body>");

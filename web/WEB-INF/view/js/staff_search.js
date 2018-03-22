@@ -41,11 +41,12 @@ function checkBoxTest(){
         dataType:"json",
         contentType:"application/x-www-form-urlencoded",
         success:function (data) {
-            if(data[0].info == "true"){
+            if(data[0].info=="true"){
                 $(location).attr('href','success_generate');
             }
             else{
-                $(location).attr('href','generate_error');
+                console.log(data[0].info);
+                // $(location).attr('href','generate_error');
             }
         },
         error:function(XMLHttpRequest, textStatus, errorThrown) {

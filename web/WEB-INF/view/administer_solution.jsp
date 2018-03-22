@@ -41,6 +41,7 @@
         }
     </style>
     <script src="js/content_action.js"></script>
+
 </head>
 <body class="page_content page_home">
 <header class="header">
@@ -61,7 +62,7 @@
             </div>
             <nav class="header_main-nav">
                 <ul class="header_main-menu">
-                    <li><a href="#">Proposal</a></li>
+                    <li><a href="/staff_search">Proposal</a></li>
                     <li><a href="#">Request</a></li>
                     <li><a href="#">Events</a></li>
                     <li><a href="/administer_solution">Contents</a></li>
@@ -87,8 +88,9 @@
                     <h1 style="text-align: left; padding-bottom: 10px;">current contents</h1>
                 </div>
             <div class="table-warpper">
-                <table class="table table-striped">
-                    <tbody>
+                <table class="table table-striped tablesorter" id="myTable">
+
+                    <thead>
                     <tr>
                         <th><b>Content Title<br></b></th>
                         <th><b>Author</b></th>
@@ -98,6 +100,9 @@
                         <th><b>Type</b></th>
                         <th class="button-th" colspan="2" width="50"><b>Action</b></th>
                     </tr>
+                    </thead>
+
+                    <tbody>
                     <c:forEach var="content_list"  items = "${content_list}">
                         <form id="class_table">
                             <tr>
@@ -113,6 +118,7 @@
                         </form>
                     </c:forEach>
                     </tbody>
+
                 </table>
             </div>
         </div>
