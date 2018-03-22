@@ -2,6 +2,7 @@ package atos.controller;
 
 import atos.admain.SectionVO;
 import atos.admain.SolutionVO;
+import atos.admain.UserVO;
 import atos.admain.Userjson;
 import atos.dao.SolutionDao;
 import atos.dao.UserDao;
@@ -58,6 +59,12 @@ public class UserController {
 
     @RequestMapping(value = "/staff_search", method = GET)
     public String staffSearchPage(HttpServletRequest request, ModelMap model) {
+        if(request.getSession().getAttribute("loginstaff")!=null) {
+            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
+            model.addAttribute("name",loginstaff.getName());
+        }else{
+            return "unlogin";
+        }
         List<SolutionVO> contentList = solutionDao.selectAll();
         if (!contentList.isEmpty()) {
             model.addAttribute("content_list", contentList);
@@ -76,6 +83,13 @@ public class UserController {
 
     @RequestMapping(value = "/search.do", method = POST)
     public String staffSearchResultPage(HttpServletRequest request, ModelMap model) {
+        if(request.getSession().getAttribute("loginstaff")!=null) {
+            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
+            model.addAttribute("name",loginstaff.getName());
+        }else{
+            return "unlogin";
+        }
+
         String searchArea = request.getParameter("tag");
         String keyword = request.getParameter("keyword");
         List<SolutionVO> resultContentList = new ArrayList<SolutionVO>();
@@ -297,4 +311,13 @@ public class UserController {
         return "generate_error";
     }
 
+    @RequestMapping(value="unlogin",method = GET)
+    public String jumpToLogin(HttpServletRequest request,ModelMap model){
+        return "unlogin";
+    }
+
+    @RequestMapping(value="unAdmin",method = GET)
+    public String unAdmin(HttpServletRequest request,ModelMap model){
+        return "unAdmin";
+    }
 }

@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/jquery.js"></script>
-    <script src="js/login.js" rel="script"></script>
+    <script src="js/login.js?t=1" rel="script"></script>
 </head>
 
 <body>
