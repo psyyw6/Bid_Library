@@ -4,6 +4,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.Version;
+import sun.misc.BASE64Encoder;
 
 import java.io.*;
 import java.util.Map;
@@ -48,6 +49,23 @@ public class ExportWord {
             }
         }
 
+    }
+
+    public String getImageStr(String imgPath){
+        String imgFile = imgPath;
+        InputStream in = null;
+        byte[] data = null;
+        try {
+            in = new FileInputStream(imgFile);
+            data = new byte[in.available()];
+            in.read();
+            in.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        BASE64Encoder encoder = new BASE64Encoder();
+        return encoder.encode(data);
     }
 
 }

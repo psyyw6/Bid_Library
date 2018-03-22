@@ -22,8 +22,11 @@ function login() {
         dataType:"json",
         contentType:"application/x-www-form-urlencoded",
         success:function (data) {
-            if(data[0].info == "true"){
+            if(data[0].info == "admin"){
                 $(location).attr('href','administer_solution');
+            }
+            else if(data[0].info == "staff"){
+                $(location).attr('href','staff_search');
             }
             else{
                alert("username or password is not correct");

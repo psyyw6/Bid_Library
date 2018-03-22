@@ -77,7 +77,6 @@ public class SolutionDao {
     public int deleteContent(String content_title){
         String sql = "delete from Content where Title = ?;";
         Object[] params = {content_title};
-        System.out.println("33333333333: " + content_title);
         try{
             return jdbcTemplate.update(sql,params);
         }catch (Exception e){
@@ -86,21 +85,9 @@ public class SolutionDao {
         }
     }
 
-    public List selectDetailOfContent(String content_title,int version){
-        String sql = "select * from Section where Title = ? and Section_Version = ?;";
-        Object[] params = {content_title,version};
-        try{
-            return jdbcTemplate.query(sql,new SectionVO(),params);
-        }
-        catch(Exception e){
-            System.out.println(e);
-            return null;
-        }
-    }
-
     public List selectNewestDetailOfContent(String content_title){
-        String sql = "select a.* from Section a inner join (select Section_Name, max(Section_Version) Section_Version from Section group by Section_Name)b on a.Section_Name = b.Section_Name and a.Section_Version = b.Section_Version where a.Title = ?;";
-        Object[] params = {content_title};
+        String sql = "select a.* from Section a inner join (select Section_Name,Title, max(Section_Version) Section_Version from Section WHERE Title = ? group by Section_Name,Title)b on a.Title = b.Title and a.Section_Name = b.Section_Name and a.Section_Version = b.Section_Version Where a.Title = ?;";
+        Object[] params = {content_title,content_title};
         try{
             return jdbcTemplate.query(sql,new SectionVO(),params);
         }
@@ -115,38 +102,6 @@ public class SolutionDao {
         Object[] params = {content_title,version,section_name};
         try{
             return jdbcTemplate.queryForObject(sql,new SectionVO(),params);
-        }
-        catch (Exception e){
-            System.out.println(e);
-            return null;
-        }
-    }
-
-    public List selectContentByKeyword(String searchArea, String keyword){
-        String sql;
-        keyword = '%'+keyword+'%';
-        if(searchArea.equals("Section_Detail") || searchArea.equals("Section_Name")){
-            sql = "SELECT DISTINCT c.* FROM Content c INNER JOIN Section s ON c.Title = s.Title WHERE s." + searchArea + " LIKE ?;";
-        }
-        else {
-            sql = "SELECT DISTINCT * FROM Content where Content." + searchArea + " LIKE ?;";
-        }
-        Object[] params = {keyword};
-
-//    public List<SolutionVO> selectSectionByName(String column, String keyword){
-//        String sql = "select * from Section, Content where Content.? = ?;";
-//        Object[] params = {column, keyword};
-//        try{
-//            return jdbcTemplate.query(sql,new SolutionVO(), params);
-//        }
-//        catch (Exception e){
-//            System.out.println(e);
-//            return null;
-//        }
-//    }
-
-        try{
-            return jdbcTemplate.query(sql,new SolutionVO(), params);
         }
         catch (Exception e){
             System.out.println(e);
@@ -178,21 +133,9 @@ public class SolutionDao {
         }
     }
 
-    public List<SectionVO> searchBySectionName(String keyword){
-        String sql = "select * from Section where Section_Name like ?";
-        Object[] params = {keyword};
-        try {
-            return jdbcTemplate.query(sql,new SectionVO(),params);
-        }
-        catch (Exception e){
-            System.out.println(e);
-            return null;
-        }
-    }
-
     public SectionVO selectMaxVersionByTitleAndName(String content_title,String section_name){
-        String sql = "select a.* from Section a inner join (select Section_Name, max(Section_Version) Section_Version from Section group by Section_Name)b on a.Section_Name = b.Section_Name and a.Section_Version = b.Section_Version where a.Title = ? and a.Section_Name = ?;";
-        Object[] params = {content_title,section_name};
+        String sql = "select a.* from Section a inner join (select Section_Name,Title, max(Section_Version) Section_Version from Section WHERE Title = ? group by Section_Name,Title)b on a.Title = b.Title and  a.Section_Name = b.Section_Name and a.Section_Version = b.Section_Version Where a.Title = ? and a.Section_Name = ?;";
+        Object[] params = {content_title,content_title,section_name};
         try{
             return jdbcTemplate.queryForObject(sql,new SectionVO(),params);
         }
@@ -203,8 +146,8 @@ public class SolutionDao {
     }
 
     public List<SectionVO> searchMaxVersionByName(String section_name){
-        String sql = "select a.* from Section a inner join (select Section_Name, max(Section_Version) Section_Version from Section group by Section_Name)b on a.Section_Name = b.Section_Name and a.Section_Version = b.Section_Version where a.Section_Name = ?;";
-        Object[] params = {section_name};
+        String sql = "select a.* from Section a inner join (select Title,Section_Name, max(Section_Version) Section_Version from Section WHERE Section_Name like ? group by Title,Section_Name)b on a.Title = b.Title and a.Section_Name = b.Section_Name and a.Section_Version = b.Section_Version Where a.Section_Name like ?;";
+        Object[] params = {section_name,section_name};
         try{
             return jdbcTemplate.query(sql,new SectionVO(),params);
         }
@@ -212,6 +155,17 @@ public class SolutionDao {
             return null;
         }
 
+    }
+
+    public List<SectionVO> searchMaxVersionByDetails(String details){
+        String sql = "select a.* from Section a inner join (select Section_Name,Title,max(Section_Version) Section_Version from Section group by Section_Name,Title)b on a.Title = b.Title and a.Section_Name = b.Section_Name and a.Section_Version = b.Section_Version Where a.Section_Detail like ?;";
+        Object[] params = {details};
+        try{
+            return jdbcTemplate.query(sql,new SectionVO(),params);
+        }
+        catch (Exception e){
+            return null;
+        }
     }
 
     public int DeleteSection(String content_title,String section_name,int version){

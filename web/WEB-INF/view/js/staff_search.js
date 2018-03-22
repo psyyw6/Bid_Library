@@ -8,6 +8,13 @@ function checkBoxTest(){
     var allContent = document.getElementsByName("select_box");
     var checkedContent = new Array();
     var nameList = new Array();
+    var template_options = document.getElementsByName("template_option");
+    var selected_template = "";
+    for(var i = 0; i < template_options.length;i++){
+        if(template_options[i].checked){
+            selected_template = template_options[i].value;
+        }
+    }
     var name = "";
     for(var i = 0;i < allContent.length;i++)
     {
@@ -19,18 +26,27 @@ function checkBoxTest(){
         name = $(checkedContent[i]).parents("tr").find("#content_title").val();
         nameList.push(name);
     }
+    if(nameList.length == 0){
+        alert("Please Select the Content!");
+        return;
+    }
+    if(selected_template==""){
+        alert("Please Select a Template!");
+        return;
+    }
     $.ajax({
         url:"/export_word",
-        data:{list:nameList},
+        data:{list:nameList,"selected_template":selected_template},
         type:"post",
         dataType:"json",
         contentType:"application/x-www-form-urlencoded",
         success:function (data) {
-            if(data[0].info == "true"){
+            if(data[0].info=="true"){
                 $(location).attr('href','success_generate');
             }
             else{
-                $(location).attr('href','error');
+                console.log(data[0].info);
+                // $(location).attr('href','generate_error');
             }
         },
         error:function(XMLHttpRequest, textStatus, errorThrown) {

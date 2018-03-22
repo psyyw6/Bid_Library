@@ -58,6 +58,7 @@ public class AdminController {
         return false;
     }
 
+
     private String convertSqlDate(String date){
         String[] temp = date.split("/",3);
         String day = temp[1];
@@ -71,7 +72,13 @@ public class AdminController {
     public String showSolution(HttpServletRequest request, ModelMap model) {
         if(request.getSession().getAttribute("loginstaff")!=null) {
             UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
+            if(!loginstaff.getRole()){
+                return "unAdmin";
+            }
             model.addAttribute("name",loginstaff.getName());
+        }
+        else{
+            return "unlogin";
         }
         List<SolutionVO> content_list = solutionDao.selectAll();
         model.addAttribute("content_list",content_list);
@@ -82,7 +89,13 @@ public class AdminController {
     public String modifySolution(HttpServletRequest request, ModelMap model) {
         if(request.getSession().getAttribute("loginstaff")!=null) {
             UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
+            if(!loginstaff.getRole()){
+                return "unAdmin";
+            }
             model.addAttribute("name",loginstaff.getName());
+        }
+        else{
+            return "unlogin";
         }
         return "modify";
     }
@@ -91,8 +104,14 @@ public class AdminController {
     public String addSolutionPage(HttpServletRequest request,ModelMap model) throws Exception{
         if(request.getSession().getAttribute("loginstaff")!=null) {
             UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
+            if(!loginstaff.getRole()){
+                return "unAdmin";
+            }
             model.addAttribute("name",loginstaff.getName());
 
+        }
+        else{
+            return "unlogin";
         }
         return "add_solution";
     }
@@ -121,6 +140,12 @@ public class AdminController {
         if(request.getSession().getAttribute("loginstaff")!=null) {
             UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
             author = loginstaff.getName();
+            if(!loginstaff.getRole()){
+                return "unAdmin";
+            }
+        }
+        else{
+            return "unlogin";
         }
         String fileName = myfile.getOriginalFilename();
         String content_title = request.getParameter("solution_title");
@@ -147,14 +172,14 @@ public class AdminController {
                     if(!lineText.equals("")){
                         if(lineText.charAt(0) == '*') {
                             if (!section_name.equals("") && !section_details.equals("")) {
-                                    solutionDao.storeSectionDetail(content_title, section_name, version, section_details);
+//                                section_details = section_details.substring(0,section_details.length()-2);
+                                solutionDao.storeSectionDetail(content_title, section_name, version, section_details);
                             }
                             section_name = lineText.substring(1);
                             section_details = "";
                         }
                         else{
-                            section_details += lineText;
-                            section_details += "\n";
+                            section_details += "<p>"+lineText+"</p>";
                         }
                     }
                 }
@@ -176,7 +201,13 @@ public class AdminController {
     public String viewContentDetail(HttpServletRequest request,ModelMap model){
         if(request.getSession().getAttribute("loginstaff")!=null) {
             UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
+            if(!loginstaff.getRole()){
+                return "unAdmin";
+            }
             model.addAttribute("name",loginstaff.getName());
+        }
+        else{
+            return "unlogin";
         }
         String content_title = request.getParameter("content_title");
         List<SectionVO>section_list = solutionDao.selectNewestDetailOfContent(content_title);
@@ -187,13 +218,23 @@ public class AdminController {
 
     @RequestMapping(value = "/edit",method = GET)
     public String editSolution(HttpServletRequest request,ModelMap model){
+        if(request.getSession().getAttribute("loginstaff")!=null) {
+            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
+            if(!loginstaff.getRole()){
+                return "unAdmin";
+            }
+            model.addAttribute("name",loginstaff.getName());
+        }
+        else{
+            return "unlogin";
+        }
         String content_title = request.getParameter("content_title");
         String section_name = request.getParameter("section_name");
         int version = Integer.parseInt(request.getParameter("version"));
 
         SectionVO section_detail = solutionDao.selectSectionByName(content_title,section_name,version);
         if(section_detail!=null){
-            String details = section_detail.getSection_details().replaceAll("\n","</p><p>");
+            String details = section_detail.getSection_details();
             model.addAttribute("section_name",section_name);
             model.addAttribute("content_title",content_title);
             model.addAttribute("version",version);
@@ -211,11 +252,9 @@ public class AdminController {
         int num_version = Integer.parseInt(version);
         List<Userjson> response = new ArrayList<Userjson>();
         Userjson jsonInfo = new Userjson();
-        SolutionVO content = solutionDao.selectContentByTitle(content_title);
         SectionVO latestSection = solutionDao.selectMaxVersionByTitleAndName(content_title,section_name);
         int new_version = latestSection.getSection_version() + 1;
-        content_detail = content_detail.substring(3,content_detail.length()-4);
-        content_detail = content_detail.replaceAll("</p><p>","\n");
+        System.out.println(content_detail);
         solutionDao.storeSectionDetail(content_title,section_name,new_version,content_detail);
         jsonInfo.setInfo("true");
         response.add(jsonInfo);
@@ -224,6 +263,16 @@ public class AdminController {
 
     @RequestMapping(value="section_history",method = GET)
     public String showHistory(HttpServletRequest request, ModelMap model){
+        if(request.getSession().getAttribute("loginstaff")!=null) {
+            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
+            if(!loginstaff.getRole()){
+                return "unAdmin";
+            }
+            model.addAttribute("name",loginstaff.getName());
+        }
+        else{
+            return "unlogin";
+        }
         String content_title = request.getParameter("content_title");
         String section_name = request.getParameter("section_name");
         model.addAttribute("section_name",section_name);
@@ -273,13 +322,9 @@ public class AdminController {
         String filename = file.getOriginalFilename();
         String name = filename.substring(0,filename.indexOf("."));
         String suffix = filename.substring(filename.lastIndexOf("."));
-        Calendar date = Calendar.getInstance();
-        File dateDirs = new File(date.get(Calendar.YEAR)
-                + File.separator + (date.get(Calendar.MONTH) + 1));
         String path1 = request.getSession().getServletContext().getRealPath("WEB-INF/view/upload"+File.separator);
         String path = path1+filename;
         File descFile = new File(path);
-        System.out.println(path);
         int i = 1;
         String newFilename = filename;
         while (descFile.exists()) {
@@ -294,7 +339,6 @@ public class AdminController {
         file.transferTo(descFile);
         String fileUrl = "upload/" + newFilename;
         String[] data = {fileUrl};
-//        response.add(new EditorUploadVO(0,data));
         return ResponseEntity.ok().body(new EditorUploadVO(0,data));
     }
 

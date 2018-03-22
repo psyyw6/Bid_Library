@@ -49,7 +49,12 @@ public class LoginController {
         List<Userjson> staffjson = new ArrayList<Userjson>();
         Userjson response_json = new Userjson();
         if(loginvo!=null){
-            response_json.setInfo("true");
+            if(loginvo.getRole()){
+                response_json.setInfo("admin");
+            }
+            else{
+                response_json.setInfo("staff");
+            }
             request.getSession().setAttribute("loginstaff",loginvo);
         }
         else{

@@ -74,7 +74,7 @@
                             <th><b>Content Title<br></b></th>
                             <th><b>Section Name</b></th>
                             <th><b>Version</b></th>
-                            <th colspan="3"><b>Action</b></th>
+                            <th colspan="2"><b>Action</b></th>
                         </tr>
                         <c:forEach var="section_list"  items = "${section_list}">
                             <form id="class_table">
@@ -84,7 +84,6 @@
                                     <td>${section_list.section_version}<input type="hidden" name="version" value="${section_list.section_version}"></td>
                                     <td class="button-td"><input type="submit" class="btn btn-info" id="edit-button" value="EDIT" onclick="this.form.action='/edit'"></td>
                                     <td class="button-td"><input type = "submit" class="btn btn-warning" value="HISTORY" onclick="this.form.action='/section_history'"></td>
-                                    <td class="button-td"><input type = "submit" class="btn btn-primary" value="UPLOAD IMAGE" onclick="this.form.action='/upload_image'"></td>
                                 </tr>
                             </form>
                         </c:forEach>
