@@ -23,9 +23,10 @@
     <link rel="stylesheet" type="text/css" href="css/login.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script src="js/jquery.js"></script>
     <script src="js/jquery-ui.js"></script>
     <script src="js/jquery-ui.min.js"></script>
-    <script src="js/register.js"></script>
+    <script src="js/register.js?t=1"></script>
 
 </head>
 <body>
@@ -45,25 +46,28 @@
 
             <form class="login100-form validate-form p-b-33 p-t-5">
 
-                <div class="wrap-input100 validate-input" data-validate = "Enter username">
-                    <input class="input100" type="text" name="username" placeholder="DAS ID">
+                <div class="wrap-input100 validate-input" data-validate = "Username is invalid or already exist">
+                    <input class="input100" type="text" name="username" id="username" placeholder="DAS ID">
                     <span class="focus-input100" data-placeholder="&#xe82a;"></span>
                 </div>
 
-                <div class="wrap-input100 validate-input" data-validate="Enter password">
-                    <input class="input100" type="password" name="password" placeholder="Password">
+                <div class="wrap-input100 validate-input" data-validate="Invalid password">
+                    <input class="input100" type="password" name="password" id="password" placeholder="Password">
                     <span class="focus-input100" data-placeholder="&#xe80f;"></span>
                 </div>
 
-                <div class="wrap-input100 validate-input" data-validate="Enter password">
-                    <input class="input100" type="password" name="password" placeholder="Confirm Password">
+                <div class="wrap-input100 validate-input" data-validate="Two input password must be consistent">
+                    <input class="input100" type="password" name="password" id="cf-password" placeholder="Confirm Password">
                     <span class="focus-input100" data-placeholder="&#xe80f;"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Invalid Email">
+                    <input class="input100" type="email" name="email" id="email" placeholder="Email">
+                    <span class="focus-input100" data-placeholder="&#xe818;"></span>
                 </div>
 
                 <div class="container-login100-form-btn m-t-32">
-                    <button class="login100-form-btn">
-                        Register
-                    </button>
+                    <input type="button" class="login100-form-btn" value="Register" onclick="register_user()">
                 </div>
                 <div class="text-center p-t-20">
                     <a class="txt2" href="/login">

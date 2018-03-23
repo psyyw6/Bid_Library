@@ -1,40 +1,69 @@
 $(document).ready(function() {
-    $("#email,#username").click(function () {
-        var password = $("#password").val();
-        var cf_password = $('#cf-password').val();
-        if(password == "") {
-            $("#password_hint_one").css("visibility","visible");
-            $("#password_hint_one").html("Password can not be empty");
-        }
-        if(password!="") {
-            $("#password_hint_one").css("visibility","hidden");
-            if(password!=cf_password) {
-                $("#password_hint").css("visibility","visible");
+    $('.input100').each(function(){
+        $(this).on('blur', function(){
+            if($(this).val().trim() != "") {
+                $(this).addClass('has-val');
             }
-            else{
-                $("#password_hint").css("visibility","hidden");
+            else {
+                $(this).removeClass('has-val');
             }
-        }
-        else{
-            $("#password_hint").css("visibility","hidden");
-        }
+        })
     });
 
+    $('.validate-form .input100').each(function(){
+        $(this).focus(function(){
+            hideValidate(this);
+        });
+    });
 
 });
 
-function checkUsername() {
+function showValidate(input) {
+    var thisAlert = $(input).parent();
+
+    $(thisAlert).addClass('alert-validate');
+}
+
+function hideValidate(input) {
+    var thisAlert = $(input).parent();
+
+    $(thisAlert).removeClass('alert-validate');
+}
+function validate (input) {
+    if($(input).attr('type') == 'email' || $(input).attr('name') == 'email') {
+        if($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
+            return false;
+        }
+    }
+    else {
+        if($(input).val().trim() == ''){
+            return false;
+        }
+    }
+}
+
+function register_user(){
+
     var username = $("#username").val();
-    var user_hint  = $("#username_hint");
-    if(username == "") {
-        $("#username_hint").css("visibility","visible");
-        user_hint.html("Username can not be empty");
+    var pwd = $("#password").val();
+    var cf_pwd = $("#cf-password").val();
+    var input = $('.validate-input .input100');
+    var check = true;
+    var usernameCheck = false;
+    for (var i = 0; i < input.length; i++) {
+        if (validate(input[i]) == false) {
+            showValidate(input[i]);
+            check = false;
+        }
+    }
+    if(check == false){
         return false;
     }
-    else{
-        user_hint.html("xxxxx");
-        $("#username_hint").css("visibility","hidden");
+    if(cf_pwd!=pwd) {
+        showValidate($("#cf-password"));
+        return false;
     }
+    var email = $("#email").val();
     $.ajax({
             url:"checkUser.do",
             data:{"username":username},
@@ -44,12 +73,11 @@ function checkUsername() {
                 var response = data;
                 if(response[0].info == "yes")
                 {
-                    $("#username_hint").css("visibility","visible");
-                    user_hint.html("Duplicate username!");
+                    showValidate($("#username"));
+                    usernameCheck = false;
                 }
                 else{
-                    $("#username_hint").css("visibility","hidden");
-                    user_hint.html("xxxxxxx");
+                    usernameCheck = true;
                 }
             },
             error:function(XMLHttpRequest, textStatus, errorThrown){
@@ -57,20 +85,9 @@ function checkUsername() {
             }
 
         }
-    )
-}
+    );
 
-function register_user(){
-    var username = $("#username").val();
-    var pwd = $("#password").val();
-    var cf_pwd = $("#cf-password").val();
-    if(cf_pwd!=pwd) {
-        alert("fail to register");
-        $(location).attr('href','register');
-        return false;
-    }
-    var email = $("#email").val();
-    if(username == ""||pwd==""||email=="") {
+    if(usernameCheck == false){
         return false;
     }
 

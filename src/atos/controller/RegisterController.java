@@ -50,7 +50,6 @@ public class RegisterController {
     @RequestMapping(value = "/reg.do",method = POST)
         @ResponseBody
         public List<Userjson> register_user(@RequestParam String username,String pwd,String email)throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        System.out.println("hhhhh");
         List<Userjson> userList = new ArrayList<Userjson>();
         Userjson re_info = new Userjson();
             String new_pwd = this.EncoderByMd5(pwd);
@@ -73,7 +72,6 @@ public class RegisterController {
         public List<Userjson> CheckUser(@RequestParam String username) {
             List<Userjson> userList = new ArrayList<Userjson>();
             Userjson re_info = new Userjson();
-            System.out.println("hhhhh");
             if(userDao.checkDuplicate(username)!=null)
             {
                 re_info.setInfo("yes");
