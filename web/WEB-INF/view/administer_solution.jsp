@@ -62,9 +62,9 @@
             </div>
             <nav class="header_main-nav">
                 <ul class="header_main-menu">
-                    <li><a href="/staff_search">Proposal</a></li>
+                    <li><a href="/staff_search">Search</a></li>
                     <li><a href="#">Request</a></li>
-                    <li><a href="#">Events</a></li>
+                    <li><a href="#">Log</a></li>
                     <li><a href="/administer_solution">Contents</a></li>
                 </ul>
             </nav>
@@ -82,6 +82,12 @@
             <div class = "button-warpper">
                 <a class="button-white" href="add_solution">ADD NEW CONTENT</a>
             </div>
+            <form class="form-inline" id="search-form" method="post" action="search.do">
+                <div class="form-group">
+                    <input type="text" style="width: 280px" id="search-box" class="form-control cf" placeholder="Type your keyword here" name="keyword">
+                </div>
+                <input type="submit" id="search-button" class="btn btn-primary" value="Search">
+            </form>
         </div>
         <div class="section page_main_content">
                 <div class="table-title">

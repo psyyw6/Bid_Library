@@ -1,7 +1,15 @@
+$(document).ready(function(){
+    var role = $("#role").text();
+    if(role == "Admin"){
+        $("#Manage").css("visibility","visible");
+    }
+});
+
 function viewSection(obj){
     var target = $(".section_div");
     var index = $(obj).parents("tr").find("#index").val();
     $(target[index]).toggle(500);
+
 }
 
 function checkBoxTest(){

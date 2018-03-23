@@ -1,8 +1,9 @@
 
 body{
-    background-image: url("https://atos.net/wp-content/uploads/2016/06/Scientific-Community-banner.jpg");
+    /*background-image: url("https://atos.net/wp-content/uploads/2016/06/Scientific-Community-banner.jpg");*/
     /*width: 1000px;*/
-    background-size: 100% 100%;
+    background-color: #eceaf1;
+    background-size: cover;
 }
 #header-id{
     height: 200px;!important;
@@ -10,16 +11,17 @@ body{
 .header_main-menu{
     /*border: 1px solid;*/
     /*margin-left: 70%;!important;*/
-    width: 350px !important;
+    width: 400px !important;
 }
 #main-menu{
-    margin-left: 70%;
+    margin-left: 63%;
 }
 .blank-area{
     height: 200px;
 }
 
 .search-box-wrapper{
+    padding-top: 40px;
     text-align: center;
 
 }
@@ -41,18 +43,21 @@ body{
     padding-left: 6%;
     padding-top: 1px;
     padding-bottom: 3px;
+    border-bottom: 3px solid #197FBA;
     text-transform: uppercase;
 }
 .result-table-wrapper{
-    padding: 0 6% 0 6%;
+    padding: 30px 6% 0 6%;
 }
 .generate-button-wrapper{
-    padding-left: 6%;
+    margin-left: 6%;
+    margin-right: 6%;
     margin-bottom: 20px;
 }
 
 .tr-td{
-    background: white;
+    background: #e6ecee;
+    border-bottom:1px solid #f1e9e9;
     text-align: center !important;
 }
 
@@ -85,7 +90,8 @@ font-size: 20px;
 
 #template_area{
     margin-top: 10px;
-    padding-right: 6%;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .template_name{

@@ -62,6 +62,13 @@ public class UserController {
         if(request.getSession().getAttribute("loginstaff")!=null) {
             UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
             model.addAttribute("name",loginstaff.getName());
+            if(loginstaff.getRole()){
+                model.addAttribute("role","Admin");
+            }
+            else{
+                model.addAttribute("role","User");
+            }
+
         }else{
             return "unlogin";
         }

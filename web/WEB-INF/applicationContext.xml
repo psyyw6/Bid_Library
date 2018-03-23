@@ -8,6 +8,10 @@
         <property name="url" value="jdbc:mysql://psyyw6db.cbttxpsjpqkg.eu-west-2.rds.amazonaws.com:3306/bidlibrary?useSSL=false"/>
         <property name="username" value="bidlibrary"/>
         <property name="password" value="dhqxiao159"/>
+        <!--<property name="url" value="jdbc:mysql://localhost:3306/bid_library?useSSL=false"/>-->
+        <!--<property name="username" value="root"/>-->
+        <!--<property name="password" value="dhqxiao"/>-->
+
     </bean>
 
 

@@ -49,14 +49,14 @@
         <ul class="we-create animated fadeInUp delay-1s">
           <li>Group 12</li>
         </ul>
-        <a class="link animated fadeInUp delay-1s servicelink" href="http://localhost:8080/login">log in</a>
-        <a class="link animated fadeInUp delay-1s servicelink" href="http://localhost:8080/register">regitser</a>
+        <a class="link animated fadeInUp delay-1s servicelink" href="/login">log in</a>
+        <a class="link animated fadeInUp delay-1s servicelink" href="/register">register</a>
       </div>
     </div>
   </div>
 </header>
 <!--header-end-->
-
+it
 </body>
 
 </html>

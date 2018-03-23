@@ -19,7 +19,7 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="icon" type="image/png" href="img/ato_icon.png" sizes="200x200">
     <link rel="stylesheet" href="css/staff_search.css">
-    <script src="js/staff_search.js?t=2" rel="script"></script>
+    <script src="js/staff_search.js?t=3" rel="script"></script>
     <link rel="stylesheet" href="css/add_solution.css">
     <link rel="stylesheet" id="js_composer_front-css" href="https://atos.net/wp-content/plugins/js_composer/assets/css/js_composer.min.css" type="text/css" media="all">
     <link rel="stylesheet" href="css/jquery-ui.css">
@@ -31,7 +31,7 @@
     <div class="wrapper">
         <div class="header_pre cf">
             <ul class="header_pre-institutional">
-                <li><p>Welcome ${name}</p></li>
+                <li><p>Welcome ${name}&nbsp;&nbsp;(Role: <span id="role">${role}</span>)</p></li>
             </ul>
             <ul class="header_pre-external">
                 <li><a href="/logout">Logout</a>
@@ -45,39 +45,44 @@
             </div>
             <nav class="header_main-nav">
                 <ul class="header_main-menu" id="main-menu">
+                    <li><a href="/administer_solution" id="Manage" style="visibility:hidden">Manage</a></li>
                     <li><a href="#">Home</a></li>
                     <li><a href="#">Search</a></li>
                 </ul>
             </nav>
         </div>
     </div>
+
+    <div class="search-box-wrapper">
+        <form class="form-inline" id="search-form" method="post" action="search.do">
+            <div class="form-group">
+                <input type="text" id="search-box" class="form-control cf" placeholder="Type your keyword here" name="keyword">
+            </div>
+            <input type="submit" id="search-button" class="btn btn-primary" value="Search">
+            <select class="form-control" id="search-select" name="tag">
+                <option value="Default">Default</option>
+                <option value="Content Title">Content Title</option>
+                <option value="Author">Author</option>
+                <option value="Customer">Customer</option>
+                <option value="Type">External/Internal</option>
+                <option value="Section Name">Section Name</option>
+            </select>
+        </form>
+    </div>
 </header>
 <main role="main">
     <section class="section page">
-        <header class="page_header-blank">
-            <div class="blank-area">
-            </div>
-        </header>
-        <div class="search-box-wrapper">
-            <form class="form-inline" id="search-form" method="post" action="search.do">
-                <div class="form-group">
-                    <input type="text" id="search-box" class="form-control cf" placeholder="Type your keyword here" name="keyword">
+
+            <header class="page_header-large">
+                <div class="page_header-image cf" style="background-image: url(https://atos.net/wp-content/uploads/2016/07/Atos-Codex-1.jpg);">
+
                 </div>
-                <input type="submit" id="search-button" class="btn btn-primary" value="Search">
-                <select class="form-control" id="search-select" name="tag">
-                    <option value="Default">Default</option>
-                    <option value="Content Title">Content Title</option>
-                    <option value="Author">Author</option>
-                    <option value="Customer">Customer</option>
-                    <option value="Type">External/Internal</option>
-                    <option value="Section Name">Section Name</option>
-                </select>
-            </form>
-        </div>
+            </header>
+
 
         <div class="search-result-wrapper">
             <div class="search-table-title">
-                <h2 style="color:white">Result Contents:</h2>
+                <h2 style="color:black">Result Contents:</h2>
             </div>
         </div>
         <div class="result-table-wrapper">
@@ -129,12 +134,12 @@
                     <div class="col-md-4" style="text-align: center">
                         <input type="radio" name="template_option" value="Template1">&nbsp;&nbsp;&nbsp;<img src="img/template1.jpg" alt="template1" class="img-rounded " width="150" height="200" >
                         <br><br>
-                        <p class="template_name">Template1</p>
+                        <span class="template_name">Template1</span>
                     </div>
                     <div class="col-md-4"  style="text-align: center">
                         <input type="radio" name="template_option" value="Template2">&nbsp;&nbsp;&nbsp;<img src="img/template2.jpg" alt="template2" class="img-rounded" width="150" height="200">
                         <br><br>
-                        <p class="template_name">Template2</p>
+                        <span class="template_name">Template2</span>
                     </div>
                 </div>
             </div>

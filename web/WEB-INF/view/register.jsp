@@ -4,24 +4,12 @@
     <title>Register</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
     <link rel="stylesheet" type="text/css" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
-
-    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-
-    <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-
-    <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
-
-    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-
-    <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
-
+    <link rel="icon" type="image/png" href="img/ato_icon.png" sizes="200x200">
+    <meta name="msapplication-TileImage" content="img/favicon/mstile-144x144.png">
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/login.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <script src="js/jquery.js"></script>
     <script src="js/jquery-ui.js"></script>

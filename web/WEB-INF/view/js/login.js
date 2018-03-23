@@ -51,7 +51,6 @@ function login() {
     var input = $('.validate-input .input100');
     var check = true;
     for (var i = 0; i < input.length; i++) {
-        // alert(input.length);
         if (validate(input[i]) == false) {
             showValidate(input[i]);
             check = false;

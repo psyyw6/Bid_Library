@@ -27,7 +27,7 @@
     <div class="wrapper">
         <div class="header_pre cf">
             <ul class="header_pre-institutional">
-                <li><p>Welcome ${name}</p></li>
+                <li><p>Welcome ${name} </p></li>
             </ul>
             <ul class="header_pre-external">
                 <li><a href="/logout">Logout</a>
