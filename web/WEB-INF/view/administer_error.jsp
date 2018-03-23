@@ -1,30 +1,32 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: lishanshan
-  Date: 18/1/30
-  Time: 下午4:08
-  To change this template use File | Settings | File Templates.
---%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!--
+Created by IntelliJ IDEA.
+User: lishanshan
+Date: 18/1/30
+Time: 下午4:08
+To change this template use File | Settings | File Templates.
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> -->
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Error</title>
-    <meta name="description" content="A free html template with Sketch design made with Bootstrap">
-    <meta name="keywords" content="free html template, bootstrap, ui kit, sass"/>
-    <meta name="author" content="Codrops"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="img/ato_icon.png" sizes="200x200">
-    <meta name="msapplication-TileColor" content="#66e0e5">
-    <meta name="msapplication-TileImage" content="img/favicon/mstile-144x144.png">
-    <meta name="msapplication-config" content="img/favicon/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="css/solution.css">
     <script src="js/jquery.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" id="atos_css-css" href="https://atos.net/wp-content/themes/atos/style.css" type="text/css" media="screen">
-    <link rel="stylesheet" id="js_composer_front-css" href="https://atos.net/wp-content/plugins/js_composer/assets/css/js_composer.min.css" type="text/css" media="all">
+    <!-- SEO keywords -->
+    <meta name="keywords" content="React, React Primer, Reactprimer, React-Primer, Developer Tool, Javascript, ES6, Chrome, Developer, React Developer, Create React App, Learn programming, Visualization, React 16, React 15, React fiber, fiber, redux, react redux, router, react router, browser router, redux store, react visualizer, component visualizer, react component visualizer, react component"
+    />
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="shortcut icon" href="favicon.ico" type="img/x-icon">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,800italic,700italic,600italic,400italic,300italic,800,700,600'
+          rel='stylesheet' type='text/css'>
+    <link href="css/error.css" rel="stylesheet" type="text/css">
+    <link href="css/responsive.css" rel="stylesheet" type="text/css">
+    <link href="css/animate.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
 </head>
 <body class="page_content page_home">
 <header class="header">
@@ -58,32 +60,39 @@
     <section class="section page">
         <header class="page_header-large">
             <div class="page_header-image cf" style="background-image: url(https://atos.net/wp-content/uploads/2016/06/About-us-1.png);">
-
             </div>
         </header>
-        <div class="section page_main_content">
-            <div class="grid-row">
-                <div class="grid-col-12">
-                    <div class="panel panel-danger">
-                        <div class="panel-heading">
-                            <c:if test="${not empty errCode}">
-                                <h1  style="color : darkred;"><span class="glyphicon glyphicon-warning-sign"></span> ${errCode}</h1>
-                            </c:if>
-                            <c:if test="${empty errCode}">
-                                <h1  style="color : darkred;">System Errors</h1>
-                            </c:if>
-                        </div>
-                        <div class="panel-body">
-                            <c:if test="${not empty errMsg}">
-                                <h2  style="color : darkred;">${errMsg}</h2>
-                            </c:if>
-                        </div>
-                        <button type="button" id="button-green" style = "" onclick="window.location.href='/administer_solution'">Go back</button>
-                    </div>
+
+        <div class="contain_header" id="header">
+            <div class="container">
+
+                <div class="panel-body">
+                    <figure class="logo animated fadeInDown delay-07s">
+                        <img src="img/warning-icon.png" alt="icon">
+                    </figure>
+                    <br>
+
+                    <c:if test="${not empty errCode}">
+                        <h1 class="animated fadeInDown delay-07s" style="color: red;">${errCode}</h1>
+                    </c:if>
+                    <c:if test="${empty errCode}">
+                        <h1 class="animated fadeInDown delay-07s" style="color: red;">System Errors</h1>
+                    </c:if>
+                    <br>
+                    <c:if test="${not empty errMsg}">
+                        <h3 class="animated fadeInDown delay-07s" style="color: red;">${errMsg}</h3>
+                    </c:if>
+                    <br><br>
+                    <a class="content_link animated fadeInUp delay-1s servicelink" style="background: red;" href="/administer_solution">Go Back</a>
                 </div>
+
             </div>
         </div>
     </section>
 </main>
 </body>
 </html>
+
+
+
+
