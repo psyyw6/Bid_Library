@@ -119,7 +119,7 @@ public class AdminController {
     @ExceptionHandler(DuplicateKeyException.class)
     public ModelAndView handleDuplicateKeyException(HttpServletRequest request, DuplicateKeyException ex){
 
-        System.out.println(ex.getContentTitle());
+//        System.out.println(ex.getContentTitle());
         if(ex.getContentTitle()!=null) {
             solutionDao.deleteContent(ex.getContentTitle());
         }
@@ -172,7 +172,6 @@ public class AdminController {
                     if(!lineText.equals("")){
                         if(lineText.charAt(0) == '*') {
                             if (!section_name.equals("") && !section_details.equals("")) {
-//                                section_details = section_details.substring(0,section_details.length()-2);
                                 solutionDao.storeSectionDetail(content_title, section_name, version, section_details);
                             }
                             section_name = lineText.substring(1);
