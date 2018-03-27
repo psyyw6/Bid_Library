@@ -22,7 +22,7 @@ public class SolutionDao {
 
     public int storeContent(String content_title,String author,String customer,String expired_date,String upload_date,String isExternal){
 
-        String sql = "INSERT INTO Content VALUES(?,?,?,?,?,?);";
+        String sql = "INSERT INTO Content VALUES(?,?,?,?,?,?)";
         Object[] params = {content_title,isExternal,author,expired_date,upload_date,customer};
         try{
         return jdbcTemplate.update(sql,params);
@@ -36,9 +36,9 @@ public class SolutionDao {
         }
     }
 
-    public int storeSectionDetail(String content_title,String section_name,int version,String section_detail){
-        String sql = "INSERT INTO Section Values(?,?,?,?);";
-        Object[] params = {section_name,content_title,section_detail,version};
+    public int storeSectionDetail(String content_title,String section_name,int version,String section_detail,boolean inUse){
+        String sql = "INSERT INTO Section Values(?,?,?,?,?);";
+        Object[] params = {section_name,content_title,section_detail,version,true};
         try{
             return jdbcTemplate.update(sql,params);
         }
@@ -85,20 +85,8 @@ public class SolutionDao {
         }
     }
 
-    public List selectNewestDetailOfContent(String content_title){
-        String sql = "select a.* from Section a inner join (select Section_Name,Title, max(Section_Version) Section_Version from Section WHERE Title = ? group by Section_Name,Title)b on a.Title = b.Title and a.Section_Name = b.Section_Name and a.Section_Version = b.Section_Version Where a.Title = ?;";
-        Object[] params = {content_title,content_title};
-        try{
-            return jdbcTemplate.query(sql,new SectionVO(),params);
-        }
-        catch (Exception e){
-            System.out.println(e);
-            return null;
-        }
-    }
-//
     public SectionVO selectSectionByName(String content_title,String section_name,int version){
-        String sql = "select * from Section where Title = ? and Section_Version = ? and Section_Name = ?;";
+        String sql = "select * from Section where Title = ? and Section_Version = ? and Section_Name = ?";
         Object[] params = {content_title,version,section_name};
         try{
             return jdbcTemplate.queryForObject(sql,new SectionVO(),params);
@@ -110,7 +98,7 @@ public class SolutionDao {
     }
 
     public List<SectionVO> selectAllHistory(String content_title,String section_name){
-        String sql = "select * from Section where Title = ? and Section_Name = ?;";
+        String sql = "select * from Section where Title = ? and Section_Name = ?";
         Object[] params = {content_title,section_name};
         try{
             return jdbcTemplate.query(sql,new SectionVO(),params);
@@ -122,7 +110,7 @@ public class SolutionDao {
     }
 
     public List<SolutionVO> selectByDefault(String keyword){
-        String sql = "select * from Content where Title LIKE ? or Author like ?  or Customer like ? or IsExternal like ?;";
+        String sql = "select * from Content where Title LIKE ? or Author like ?  or Customer like ? or IsExternal like ?";
         Object[] params = {keyword,keyword,keyword,keyword};
         try{
             return jdbcTemplate.query(sql,new SolutionVO(),params);
@@ -145,9 +133,9 @@ public class SolutionDao {
 
     }
 
-    public List<SectionVO> searchMaxVersionByName(String section_name){
-        String sql = "select a.* from Section a inner join (select Title,Section_Name, max(Section_Version) Section_Version from Section WHERE Section_Name like ? group by Title,Section_Name)b on a.Title = b.Title and a.Section_Name = b.Section_Name and a.Section_Version = b.Section_Version Where a.Section_Name like ?;";
-        Object[] params = {section_name,section_name};
+    public List<SectionVO> searchInUseSectionByName(String section_name){
+        String sql = "select * from Section where Section_Name like ? and InUse = true";
+        Object[] params = {section_name};
         try{
             return jdbcTemplate.query(sql,new SectionVO(),params);
         }
@@ -157,8 +145,8 @@ public class SolutionDao {
 
     }
 
-    public List<SectionVO> searchMaxVersionByDetails(String details){
-        String sql = "select a.* from Section a inner join (select Section_Name,Title,max(Section_Version) Section_Version from Section group by Section_Name,Title)b on a.Title = b.Title and a.Section_Name = b.Section_Name and a.Section_Version = b.Section_Version Where a.Section_Detail like ?;";
+    public List<SectionVO> searchInUseSectionByDetails(String details){
+        String sql = "select * from Section where Section_Detail like ? and InUse = true";
         Object[] params = {details};
         try{
             return jdbcTemplate.query(sql,new SectionVO(),params);
@@ -169,7 +157,7 @@ public class SolutionDao {
     }
 
     public int DeleteSection(String content_title,String section_name,int version){
-        String sql = "delete from Section where Title = ? and Section_Name = ? and Section_Version = ?;";
+        String sql = "delete from Section where Title = ? and Section_Name = ? and Section_Version = ?";
         Object[] params = {content_title,section_name,version};
         try{
             return jdbcTemplate.update(sql,params);
@@ -181,7 +169,7 @@ public class SolutionDao {
     }
 
     public List<SolutionVO> searchByTitle(String keyword){
-        String sql = "select * from Content where Title like ?;";
+        String sql = "select * from Content where Title like ?";
         Object[] params = {keyword};
         try{
             return jdbcTemplate.query(sql,new SolutionVO(),params);
@@ -193,7 +181,7 @@ public class SolutionDao {
     }
 
     public List<SolutionVO> searchByAuthor(String keyword){
-        String sql = "select * from Content where Author like ?;";
+        String sql = "select * from Content where Author like ?";
         Object[] params = {keyword};
         try{
             return jdbcTemplate.query(sql,new SolutionVO(),params);
@@ -206,7 +194,7 @@ public class SolutionDao {
     }
 
     public List<SolutionVO> searchByType(String keyword){
-        String sql = "select * from Content where IsExternal like ?;";
+        String sql = "select * from Content where IsExternal like ?";
         Object[] params = {keyword};
         try{
             return jdbcTemplate.query(sql,new SolutionVO(),params);
@@ -218,7 +206,7 @@ public class SolutionDao {
     }
 
     public List<SolutionVO> searchByCustomer(String keyword){
-        String sql = "select * from Content where Customer like ?;";
+        String sql = "select * from Content where Customer like ?";
         Object[] params = {keyword};
         try{
             return jdbcTemplate.query(sql,new SolutionVO(),params);
@@ -228,4 +216,55 @@ public class SolutionDao {
             return null;
         }
     }
+
+    public int updateInUseVersionToFalse(String content_title,String section_name){
+        String sql = "UPDATE Section SET InUse = false where Title = ? and Section_Name = ? and InUse = true;";
+        Object[] params = {content_title,section_name};
+        try {
+            return jdbcTemplate.update(sql,params);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+            return 0;
+        }
+    }
+
+    public List<SectionVO>selectInUseSection(String content_title)
+    {
+        String sql = "Select * from Section where Title = ? and InUse = true;";
+        Object[] params = {content_title};
+        try{
+            return jdbcTemplate.query(sql,new SectionVO(),params);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public SectionVO selectInUseSectionByTilteAndName(String content_title,String section_name)
+    {
+        String sql = "Select * from Section where Title = ? and Section_Name = ? and InUse = true;";
+        Object[] params = {content_title,section_name};
+        try {
+            return jdbcTemplate.queryForObject(sql,new SectionVO(),params);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public int updateInUseVersionToTrue(String content_title,String section_name,int version){
+        String sql = "UPDATE Section SET InUse = true where Title = ? and Section_Name = ? and Section_Version = ?;";
+        Object[] params = {content_title,section_name,version};
+        try {
+            return jdbcTemplate.update(sql,params);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+            return 0;
+        }
+    }
+
 }

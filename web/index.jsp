@@ -35,8 +35,7 @@
 </head>
 
 <body>
-<!--header-start-->
-<header class="header" id="header">
+<div class="header" id="header">
   <div class="container">
     <div class="panel panel-default panel-resize">
       <div class="panel-body">
@@ -54,9 +53,7 @@
       </div>
     </div>
   </div>
-</header>
-<!--header-end-->
-it
+</div>
 </body>
 
 </html>

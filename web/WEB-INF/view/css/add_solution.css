@@ -160,6 +160,9 @@ body{
 .table-warpper{
 	margin: 20px 10% 0 10%;
 }
+.user-table-warpper{
+	margin: 20px 15% 0 15%;
+}
 .button-th{
 	text-align: center;
 }
@@ -179,8 +182,8 @@ body{
 	/*font-size: 20px;*/
 
 /*}*/
-#myModal{
-	top:30%;
+.modal{
+	top:30% !important;
 	text-align: center;
 }
 .modal-body{
@@ -220,4 +223,10 @@ body{
 	float:right;
 	margin-top: -40px;
 	margin-right: 30px;
+}
+#InUseBlock{
+	/*border: 1px solid;*/
+	float: right;
+	margin-top: -60px;
+	margin-right: 6%;
 }

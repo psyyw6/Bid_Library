@@ -5,6 +5,7 @@ CREATE TABLE Section(
 	Title VARCHAR(50) NOT NULL,
 	Section_Detail TEXT NOT NULL,
 	Section_Version INT NOT NULL,
+	InUse BOOL NOT NULL,
 	CONSTRAINT se_pk
 	PRIMARY KEY (Section_Name, Title, Section_Version),
 	CONSTRAINT se_fk

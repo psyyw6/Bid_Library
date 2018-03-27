@@ -14,7 +14,7 @@
     <script src="js/jquery.js"></script>
     <script src="js/jquery-ui.js"></script>
     <script src="js/jquery-ui.min.js"></script>
-    <script src="js/register.js?t=1"></script>
+    <script src="js/register.js?t=2"></script>
 
 </head>
 <body>

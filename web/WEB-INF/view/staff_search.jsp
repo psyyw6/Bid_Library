@@ -21,10 +21,7 @@
     <link rel="stylesheet" href="css/staff_search.css">
     <script src="js/staff_search.js?t=3" rel="script"></script>
     <link rel="stylesheet" href="css/add_solution.css">
-    <link rel="stylesheet" id="js_composer_front-css" href="https://atos.net/wp-content/plugins/js_composer/assets/css/js_composer.min.css" type="text/css" media="all">
-    <link rel="stylesheet" href="css/jquery-ui.css">
-    <link rel="stylesheet" href="css/jquery-ui.theme.css">
-    <link rel="stylesheet" href="css/jquery-ui.structure.css">
+    <%--<link rel="stylesheet" id="js_composer_front-css" href="https://atos.net/wp-content/plugins/js_composer/assets/css/js_composer.min.css" type="text/css" media="all">--%>
 </head>
 <body class="page_content page_home">
 <header class="header" id="header-id">
@@ -52,9 +49,8 @@
             </nav>
         </div>
     </div>
-
     <div class="search-box-wrapper">
-        <form class="form-inline" id="search-form" method="post" action="search.do">
+        <form class="form-inline" method="post" action="search.do">
             <div class="form-group">
                 <input type="text" id="search-box" class="form-control cf" placeholder="Type your keyword here" name="keyword">
             </div>
@@ -69,6 +65,8 @@
             </select>
         </form>
     </div>
+
+
 </header>
 <main role="main">
     <section class="section page">

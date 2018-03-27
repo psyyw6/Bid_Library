@@ -42,7 +42,7 @@ function editSection(){
         contentType:"application/x-www-form-urlencoded",
         success:function (data) {
             if(data[0].info == "true"){
-                $(location).attr('href','success_upload');
+                $(location).attr('href','admin_view_detail?content_title'+content_title);
             }
             else{
                 $(location).attr('href','error');
