@@ -84,7 +84,7 @@
             </div>
             <form class="form-inline" id="search-form" method="post" action="admin_search.do">
                 <div class="form-group">
-                    <input type="text" style="width: 280px" id="search-box" class="form-control cf" placeholder="Type your keyword here" name="keyword">
+                    <input type="text" style="width: 280px" id="search-box" class="form-control cf" value="${keyword}" placeholder="Type your keyword here" name="keyword">
                 </div>
                 <input type="submit" id="search-button" class="btn btn-primary" value="Search">
             </form>

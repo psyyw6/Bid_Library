@@ -52,7 +52,7 @@
     <div class="search-box-wrapper">
         <form class="form-inline" method="post" action="search.do">
             <div class="form-group">
-                <input type="text" id="search-box" class="form-control cf" placeholder="Type your keyword here" name="keyword">
+                <input type="text" id="search-box" class="form-control cf" value="${keyword}" placeholder="Type your keyword here" name="keyword">
             </div>
             <input type="submit" id="search-button" class="btn btn-primary" value="Search">
             <select class="form-control" id="search-select" name="tag">

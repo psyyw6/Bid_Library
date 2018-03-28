@@ -441,6 +441,7 @@ public class AdminController {
             }
         }
         model.addAttribute("content_list",resultContentList);
+        model.addAttribute("keyword",keyword);
         return "administer_solution";
     }
 }

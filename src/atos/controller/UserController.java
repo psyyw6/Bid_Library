@@ -157,7 +157,7 @@ public class UserController {
         } else {
             throw new NoSearchResultException("No Result", "Sorry, there is no matched result, please try another keyword");
         }
-
+        model.addAttribute("keyword",keyword);
         return "staff_search";
     }
 
