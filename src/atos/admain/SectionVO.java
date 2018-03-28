@@ -11,6 +11,7 @@ public class SectionVO implements RowMapper<SectionVO>, Serializable {
     private String title;
     private int section_version;
     private String section_details;
+    private boolean inUse;
 
     public String getSection_name() {
         return section_name;
@@ -44,6 +45,14 @@ public class SectionVO implements RowMapper<SectionVO>, Serializable {
         this.section_details = section_details;
     }
 
+    public boolean isInUse() {
+        return inUse;
+    }
+
+    public void setInUse(boolean inUse) {
+        this.inUse = inUse;
+    }
+
     @Override
     public SectionVO mapRow(ResultSet resultSet, int i) throws SQLException {
         SectionVO sectionVO = new SectionVO();
@@ -51,7 +60,9 @@ public class SectionVO implements RowMapper<SectionVO>, Serializable {
         sectionVO.setSection_name(resultSet.getString("Section_Name"));
         sectionVO.setSection_version(resultSet.getInt("Section_Version"));
         sectionVO.setSection_details(resultSet.getString("Section_Detail"));
-
+        sectionVO.setInUse(resultSet.getBoolean("InUse"));
         return sectionVO;
     }
+
+
 }

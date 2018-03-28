@@ -69,6 +69,7 @@ function register_user(){
             data:{"username":username},
             type:"post",
             dataType:"json",
+            async: false,
             success:function(data) {
                 var response = data;
                 if(response[0].info == "yes")

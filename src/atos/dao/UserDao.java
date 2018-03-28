@@ -27,6 +27,15 @@ public class UserDao {
         return jdbcTemplate.query(sql,new UserVO());
     }
 
+    public List<UserVO> selectAllUsers(){
+        String sql = "select * from Users where ROLE = false";
+        try{
+            return jdbcTemplate.query(sql,new UserVO());
+        }
+        catch (Exception e){
+            return null;
+        }
+    }
 
     public UserVO selectByName(String name,String pwd)
     {
@@ -63,6 +72,17 @@ public class UserDao {
         }
     }
 
+    public int upgradeUser(String username){
+        String sql = "update Users set ROLE = true where Username = ?";
+        Object[] params = {username};
+        try{
+            return jdbcTemplate.update(sql,params);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
 
 
 }

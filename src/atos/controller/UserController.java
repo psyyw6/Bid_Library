@@ -80,7 +80,7 @@ public class UserController {
         }
         for (int i = 0; i < contentList.size(); i++) {
             String content_title = contentList.get(i).getContent_title();
-            List<SectionVO> sectionList = solutionDao.selectNewestDetailOfContent(content_title);
+            List<SectionVO> sectionList = solutionDao.selectInUseSection(content_title);
             model.addAttribute("section" + i, sectionList);
         }
 
@@ -106,8 +106,8 @@ public class UserController {
         switch (searchArea) {
             case "Default":
                 resultContentList = solutionDao.selectByDefault(keyword);
-                resultSectionList = solutionDao.searchMaxVersionByName(keyword);
-                resultSectionList2 = solutionDao.searchMaxVersionByDetails(keyword);
+                resultSectionList = solutionDao.searchInUseSectionByName(keyword);
+                resultSectionList2 = solutionDao.searchInUseSectionByDetails(keyword);
                 finalSectionList.addAll(resultSectionList);
                 finalSectionList.addAll(resultSectionList2);
                 for (SectionVO resultS : finalSectionList) {
@@ -137,7 +137,7 @@ public class UserController {
                 resultContentList = solutionDao.searchByCustomer(keyword);
                 break;
             case "Section Name":
-                resultSectionList = solutionDao.searchMaxVersionByName(keyword);
+                resultSectionList = solutionDao.searchInUseSectionByName(keyword);
                 for (SectionVO resultS : resultSectionList) {
 
                     SolutionVO newContent = solutionDao.selectContentByTitle(resultS.getTitle());
@@ -151,7 +151,7 @@ public class UserController {
 
             for (int i = 0; i < resultContentList.size(); i++) {
                 String content_title = resultContentList.get(i).getContent_title();
-                List<SectionVO> sectionList = solutionDao.selectNewestDetailOfContent(content_title);
+                List<SectionVO> sectionList = solutionDao.selectInUseSection(content_title);
                 model.addAttribute("section" + i, sectionList);
             }
         } else {
@@ -203,7 +203,7 @@ public class UserController {
             targetContents.add(temp);
         }
         for (SolutionVO temp : targetContents) {
-            List<SectionVO> sectionList = solutionDao.selectNewestDetailOfContent(temp.getContent_title());
+            List<SectionVO> sectionList = solutionDao.selectInUseSection(temp.getContent_title());
             map.put("CustomerName",temp.getCustomer());
             for (SectionVO sectionTemp : sectionList) {
                 String data = sectionTemp.getSection_details();

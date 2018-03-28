@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="js/content_action.js"></script>
+    <script src="js/content_action.js?t=3"></script>
     <style>
         th{
             text-align: center !important;
@@ -60,10 +60,10 @@
             </div>
             <nav class="header_main-nav">
                 <ul class="header_main-menu">
-                    <li><a href="/staff_search">Proposal</a></li>
-                    <li><a href="#">Request</a></li>
-                    <li><a href="#">Events</a></li>
-                    <li><a href="/administer_solution">Solution</a></li>
+                    <li><a href="/staff_search">Search</a></li>
+                    <li><a href="#">Upgrade</a></li>
+                    <li><a href="#">Logs</a></li>
+                    <li><a href="/administer_solution">Contents</a></li>
                 </ul>
             </nav>
         </div>
@@ -89,6 +89,17 @@
                     <h1 style="text-align: left; padding-bottom: 10px;">current contents</h1>
                 </div>
 
+                <div id="InUseBlock">
+                    <span style="font-size: 20px;font-weight:bold;">Current In Use Version </span>&nbsp;
+                    <input type="button" value="<-" class="btn btn-primary" onclick="showDialog2()">
+                    &nbsp;&nbsp;&nbsp;
+                    <span id="current_version" style="font-weight: bold">${InUseVersion}</span>
+                    &nbsp;&nbsp;&nbsp;
+                    <input type="button" value="->" class="btn btn-primary" onclick="showDialog3()">
+                    <input type="hidden" id="c_title" value="${content_title}">
+                    <input type="hidden" id="s_name" value="${section_name}">
+                </div>
+
                 <div class="table-warpper">
                     <table class="table table-striped">
                         <tbody>
@@ -96,7 +107,8 @@
                             <th><b>Content Title<br></b></th>
                             <th><b>Section Name</b></th>
                             <th><b>Version<br></b></th>
-                            <th class="button-th" colspan="3"><b>Action</b></th>
+                            <th class="button-th" colspan="2"><b>Action</b></th>
+                            <th><b>In Use</b></th>
                         </tr>
                         <c:forEach var="section_list"  items = "${allSections}">
                             <form id="class_table">
@@ -106,6 +118,7 @@
                                     <td>${section_list.section_version} <input type="hidden" id="version" name="version" value="${section_list.section_version}"></td>
                                     <td class="button-td"><input type="submit" class="btn btn-info" id="button-blue" value="EDIT" onclick="this.form.action='/edit'" style="width: 85px"></td>
                                     <td class="button-td"><input type="button" class="btn btn-danger" id="button-red" value="DELETE" onclick="showDialog(this)"></td>
+                                    <td class="InUse" style="text-transform: uppercase;">${section_list.inUse}</td>
                                 </tr>
                             </form>
                         </c:forEach>
@@ -132,6 +145,45 @@
             </div>
         </div>
 
+        <div class="modal fade" id="rollbackModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Save</h4>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure to roll back?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-info" onclick="RollBack()">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="forwardModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Save</h4>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure to use next version?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-info" onclick="Forward()">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
 </main>
+
 </body>
 </html>

@@ -119,7 +119,7 @@ public class AdminController {
     @ExceptionHandler(DuplicateKeyException.class)
     public ModelAndView handleDuplicateKeyException(HttpServletRequest request, DuplicateKeyException ex){
 
-        System.out.println(ex.getContentTitle());
+//        System.out.println(ex.getContentTitle());
         if(ex.getContentTitle()!=null) {
             solutionDao.deleteContent(ex.getContentTitle());
         }
@@ -172,8 +172,7 @@ public class AdminController {
                     if(!lineText.equals("")){
                         if(lineText.charAt(0) == '*') {
                             if (!section_name.equals("") && !section_details.equals("")) {
-//                                section_details = section_details.substring(0,section_details.length()-2);
-                                solutionDao.storeSectionDetail(content_title, section_name, version, section_details);
+                                solutionDao.storeSectionDetail(content_title, section_name, version, section_details,true);
                             }
                             section_name = lineText.substring(1);
                             section_details = "";
@@ -184,7 +183,7 @@ public class AdminController {
                     }
                 }
                 if(!section_name.equals("")&&!section_details.equals("")){
-                    solutionDao.storeSectionDetail(content_title, section_name, version, section_details);
+                    solutionDao.storeSectionDetail(content_title, section_name, version, section_details,true);
                 }
                 return "success_upload";
             }
@@ -210,7 +209,7 @@ public class AdminController {
             return "unlogin";
         }
         String content_title = request.getParameter("content_title");
-        List<SectionVO>section_list = solutionDao.selectNewestDetailOfContent(content_title);
+        List<SectionVO>section_list = solutionDao.selectInUseSection(content_title);
         model.addAttribute("section_list",section_list);
         model.addAttribute("content_title",content_title);
         return "admin_view_detail";
@@ -253,9 +252,9 @@ public class AdminController {
         List<Userjson> response = new ArrayList<Userjson>();
         Userjson jsonInfo = new Userjson();
         SectionVO latestSection = solutionDao.selectMaxVersionByTitleAndName(content_title,section_name);
+        solutionDao.updateInUseVersionToFalse(content_title,section_name);
         int new_version = latestSection.getSection_version() + 1;
-        System.out.println(content_detail);
-        solutionDao.storeSectionDetail(content_title,section_name,new_version,content_detail);
+        solutionDao.storeSectionDetail(content_title,section_name,new_version,content_detail,true);
         jsonInfo.setInfo("true");
         response.add(jsonInfo);
         return response;
@@ -277,6 +276,10 @@ public class AdminController {
         String section_name = request.getParameter("section_name");
         model.addAttribute("section_name",section_name);
         List<SectionVO> allSections = solutionDao.selectAllHistory(content_title,section_name);
+        SectionVO inUseSection = solutionDao.selectInUseSectionByTilteAndName(content_title,section_name);
+        model.addAttribute("InUseVersion",inUseSection.getSection_version());
+        model.addAttribute("content_title",content_title);
+        model.addAttribute("section_name",section_name);
         if(allSections!=null){
             model.addAttribute("allSections",allSections);
         }
@@ -342,4 +345,102 @@ public class AdminController {
         return ResponseEntity.ok().body(new EditorUploadVO(0,data));
     }
 
+    @RequestMapping(value="/rollback.do",method = POST)
+    @ResponseBody
+    List<Userjson> rollBackVersion(HttpServletRequest request,ModelMap model,@RequestParam String content_title,String section_name){
+        List<Userjson> jsonList = new ArrayList<Userjson>();
+        Userjson jsonInfo = new Userjson();
+        SectionVO currentUse = solutionDao.selectInUseSectionByTilteAndName(content_title,section_name);
+        int currentVersion = currentUse.getSection_version();
+        if(currentVersion == 1){
+            jsonInfo.setInfo("false");
+        }
+        else{
+            currentVersion--;
+            solutionDao.updateInUseVersionToFalse(content_title,section_name);
+            solutionDao.updateInUseVersionToTrue(content_title,section_name,currentVersion);
+            jsonInfo.setInfo("true");
+        }
+        jsonList.add(jsonInfo);
+        return jsonList;
+    }
+
+    @RequestMapping(value="/forward.do",method = POST)
+    @ResponseBody
+    List<Userjson> forwardVersion(HttpServletRequest request,ModelMap model,@RequestParam String content_title,String section_name){
+        List<Userjson> jsonList = new ArrayList<Userjson>();
+        Userjson jsonInfo = new Userjson();
+        SectionVO currentUse = solutionDao.selectInUseSectionByTilteAndName(content_title,section_name);
+        int maxVersion = solutionDao.selectMaxVersionByTitleAndName(content_title,section_name).getSection_version();
+        int currentVersion = currentUse.getSection_version();
+        if(currentVersion == maxVersion){
+            jsonInfo.setInfo("false");
+        }
+        else{
+            currentVersion++;
+            solutionDao.updateInUseVersionToFalse(content_title,section_name);
+            solutionDao.updateInUseVersionToTrue(content_title,section_name,currentVersion);
+            jsonInfo.setInfo("true");
+        }
+        jsonList.add(jsonInfo);
+        return jsonList;
+    }
+
+    @RequestMapping(value="/upgrade",method = GET)
+    public String upgrdePage(HttpServletRequest request,ModelMap model){
+        if(request.getSession().getAttribute("loginstaff")!=null) {
+            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
+            if(!loginstaff.getRole()){
+                return "unAdmin";
+            }
+            model.addAttribute("name",loginstaff.getName());
+        }
+        else{
+            return "unlogin";
+        }
+        List<UserVO> user_list = userDao.selectAllUsers();
+        model.addAttribute("user_list",user_list);
+        return "upgrade";
+    }
+
+    @RequestMapping(value="/upgradeUser.do",method = POST)
+    @ResponseBody
+    List<Userjson> upgradeUser(HttpServletRequest request,ModelMap model,@RequestParam String username){
+        List<Userjson> jsonList = new ArrayList<Userjson>();
+        Userjson jsonInfo = new Userjson();
+        userDao.upgradeUser(username);
+        jsonInfo.setInfo("true");
+        jsonList.add(jsonInfo);
+        return jsonList;
+    }
+
+    @RequestMapping(value = "admin_search.do",method = POST)
+    public String adminSearch(HttpServletRequest request,ModelMap model)
+    {
+        String keyword = request.getParameter("keyword");
+        List<SolutionVO> resultContentList = new ArrayList<SolutionVO>();
+        List<SectionVO> resultSectionList = new ArrayList<SectionVO>();
+        List<SectionVO> resultSectionList2 = new ArrayList<SectionVO>();
+        List<SectionVO> finalSectionList = new ArrayList<SectionVO>();
+        resultContentList = solutionDao.selectByDefault(keyword);
+        resultSectionList = solutionDao.searchInUseSectionByName(keyword);
+        resultSectionList2 = solutionDao.searchInUseSectionByDetails(keyword);
+        finalSectionList.addAll(resultSectionList);
+        finalSectionList.addAll(resultSectionList2);
+        for (SectionVO resultS : finalSectionList) {
+            int isExist = 0;
+            for (SolutionVO resultC : resultContentList) {
+                if (resultS.getTitle().equals(resultC.getContent_title())) {
+                    isExist = 1;
+                    break;
+                }
+            }
+            if (isExist == 0) {
+                SolutionVO newContent = solutionDao.selectContentByTitle(resultS.getTitle());
+                resultContentList.add(newContent);
+            }
+        }
+        model.addAttribute("content_list",resultContentList);
+        return "administer_solution";
+    }
 }
