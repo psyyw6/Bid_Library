@@ -61,8 +61,9 @@
             <nav class="header_main-nav">
                 <ul class="header_main-menu">
                     <li><a href="/staff_search">Search</a></li>
-                    <li><a href="#">Upgrade</a></li>
-                    <li><a href="#">Logs</a></li>
+                    <li><a href="/upgrade">Upgrade</a></li>
+                    <li><a href="template">Templates</a></li>
+                    <li><a href="/download_log">Logs</a></li>
                     <li><a href="/administer_solution">Contents</a></li>
                 </ul>
             </nav>

@@ -46,8 +46,7 @@
             <nav class="header_main-nav">
                 <ul class="header_main-menu" id="main-menu">
                     <li><a href="/administer_solution" id="Manage" style="visibility:hidden">Manage</a></li>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Search</a></li>
+                    <li><a href="/staff_search">Search</a></li>
                 </ul>
             </nav>
         </div>
