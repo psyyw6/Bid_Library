@@ -1,15 +1,15 @@
 <%--
   Created by IntelliJ IDEA.
   User: yutong
-  Date: 11/02/2018
-  Time: 15:05
+  Date: 2018/3/30
+  Time: 17:02
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Success Upload</title>
-    <meta http-equiv="refresh" content="3;url=/administer_solution">
+    <meta http-equiv="refresh" content="3;url=/template">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, maximum-scale=1">
@@ -35,7 +35,7 @@
                 <img src="img/tick.png" alt="">
             </figure>
             <br>
-            <h3 class="animated fadeInDown delay-07s">The contents is successfully upload</h3>
+            <h3 class="animated fadeInDown delay-07s">The template is successfully upload</h3>
             <br>
             <%--<a class="link animated fadeInUp delay-1s servicelink" style="background: green;" href="/administer_solution">Go Back</a>--%>
         </div>

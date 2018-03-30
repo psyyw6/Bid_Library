@@ -148,3 +148,27 @@ function deleteTemplate() {
 
     })
 }
+
+function deleteDoc(){
+    var download_id = click_obj.parents("tr").find("#download_id").val();
+    var file_name = click_obj.parents("tr").find("#file_name").val();
+    $.ajax({
+        url:"delete_doc.do",
+        type:"post",
+        data:{"download_id":download_id,"file_name":file_name},
+        dataType:"json",
+        contentType:"application/x-www-form-urlencoded",
+        success:function (data) {
+            if(data[0].info == "true"){
+                window.location.href = 'download_log';
+            }
+            else{
+                $(location).attr('href','error');
+            }
+        },
+        error:function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest.status);
+        }
+
+    })
+}

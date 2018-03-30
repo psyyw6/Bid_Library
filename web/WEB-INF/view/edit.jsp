@@ -43,7 +43,8 @@
                 <ul class="header_main-menu">
                     <li><a href="/staff_search">Search</a></li>
                     <li><a href="/upgrade">Upgrade</a></li>
-                    <li><a href="#">Log</a></li>
+                    <li><a href="template">Templates</a></li>
+                    <li><a href="download_log">Log</a></li>
                     <li><a href="/administer_solution">Contents</a></li>
                 </ul>
             </nav>

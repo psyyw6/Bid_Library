@@ -61,3 +61,23 @@ function removeHint(obj) {
     $(error_info).removeClass('has-error');
     $(obj).parent().find('.help-block').css("display","none");
 }
+
+function modify_testValid() {
+    var template_name = $("#Template_Name").val();
+    var src_prefix_location = $("#DocSrcPrefixLocation").val();
+    var next_part_id = $("#NextPartId").val();
+    var doc_src_parent = $("#DocSrcParent").val();
+    var textInput = $(".form-control")
+    textInput.each(function(){
+        var text = $(this).val();
+        if(text == ""){
+            var error_info = $(this).parent().parent();
+            $(error_info).addClass("has-error");
+            $(this).parent().find('.help-block').css("display","block");
+        }
+    });
+    if(template_name==""||src_prefix_location==""||next_part_id==""||doc_src_parent==""){
+        return false;
+    }
+
+}

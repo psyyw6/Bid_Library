@@ -448,6 +448,16 @@ public class AdminController {
     @RequestMapping(value = "template",method = GET)
     public String templatePage(HttpServletRequest request,ModelMap model)
     {
+        if(request.getSession().getAttribute("loginstaff")!=null) {
+            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
+            if(!loginstaff.getRole()){
+                return "unAdmin";
+            }
+            model.addAttribute("name",loginstaff.getName());
+        }
+        else{
+            return "unlogin";
+        }
         List<TemplateVO> allTemplates = solutionDao.selectAllTemplates();
         model.addAttribute("allTemplates",allTemplates);
         return "template";
@@ -456,6 +466,16 @@ public class AdminController {
     @RequestMapping(value = "add_template",method = GET)
     public String AddtemplatePage(HttpServletRequest request,ModelMap model)
     {
+        if(request.getSession().getAttribute("loginstaff")!=null) {
+            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
+            if(!loginstaff.getRole()){
+                return "unAdmin";
+            }
+            model.addAttribute("name",loginstaff.getName());
+        }
+        else{
+            return "unlogin";
+        }
         return "add_template";
     }
 
@@ -499,7 +519,7 @@ public class AdminController {
         String next_part_id = request.getParameter("NextPartId");
         String doc_src_parent = request.getParameter("DocSrcParent");
         if(solutionDao.insertTemplate(template_name,doc_src_prefix_location,next_part_id,doc_src_parent,imageUrl)==1){
-            return "success_upload";
+            return "template_success";
         }
         else{
             return "error";
@@ -535,5 +555,81 @@ public class AdminController {
         jsonList.add(jsonInfo);
         return jsonList;
     }
+
+    @RequestMapping(value="modify_template",method = GET)
+    public String modifyTemplatePage(HttpServletRequest request,ModelMap model){
+        if(request.getSession().getAttribute("loginstaff")!=null) {
+            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
+            if(!loginstaff.getRole()){
+                return "unAdmin";
+            }
+            model.addAttribute("name",loginstaff.getName());
+        }
+        else{
+            return "unlogin";
+        }
+        String template_name = request.getParameter("template_name");
+        TemplateVO template = solutionDao.selectTemplateByName(template_name);
+        model.addAttribute("template_name",template.getTemplate_name());
+        model.addAttribute("doc_src_prefix_location",template.getDoc_src_prefix_location());
+        model.addAttribute("next_part_id",template.getNext_part_id());
+        model.addAttribute("doc_src_parent",template.getDoc_src_parent());
+        return "modify_template";
+    }
+
+    @RequestMapping(value = "modify_template.do",method = POST)
+    public String modifyTemplate(HttpServletRequest request,ModelMap model){
+        String template_name = request.getParameter("Template_name");
+        String doc_src_prefix_location = request.getParameter("DocSrcPrefixLocation");
+        String next_part_id = request.getParameter("NextPartId");
+        String doc_src_parent = request.getParameter("DocSrcParent");
+        if(solutionDao.modifyTemplate(template_name,doc_src_prefix_location,next_part_id,doc_src_parent)==1)
+        {
+            return "template_success";
+        }
+        else{
+            return "error";
+        }
+    }
+
+
+    @RequestMapping(value="download_log",method=GET)
+    public String downloadLogPage(HttpServletRequest request,ModelMap model){
+        if(request.getSession().getAttribute("loginstaff")!=null) {
+            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
+            if(!loginstaff.getRole()){
+                return "unAdmin";
+            }
+            model.addAttribute("name",loginstaff.getName());
+        }
+        else{
+            return "unlogin";
+        }
+        List<DownloadLogVO> logs = solutionDao.selectAllLogs();
+        model.addAttribute("logs",logs);
+        return "download_log";
+    }
+
+    @RequestMapping(value="delete_doc.do",method = POST)
+    @ResponseBody
+    public List<Userjson> deleteDoc(HttpServletRequest request,ModelMap model,@RequestParam String download_id,String file_name){
+        List<Userjson> jsonList = new ArrayList<Userjson>();
+        Userjson jsonInfo = new Userjson();
+        if(solutionDao.deleteLog(download_id)==1){
+            String path = request.getSession().getServletContext().getRealPath("WEB-INF/view/download")+File.separator;
+            String file_real_path = path + file_name;
+            File doc_file = new File(file_real_path);
+            if(doc_file.exists()){
+                doc_file.delete();
+            }
+            jsonInfo.setInfo("true");
+
+        }else{
+            jsonInfo.setInfo("false");
+        }
+        jsonList.add(jsonInfo);
+        return jsonList;
+    }
+
 
 }

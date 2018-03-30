@@ -22,10 +22,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -100,6 +98,9 @@ public class UserController {
         }else{
             return "unlogin";
         }
+
+        List<TemplateVO> allTemplates = solutionDao.selectAllTemplates();
+        model.addAttribute("allTemplates",allTemplates);
 
         String searchArea = request.getParameter("tag");
         String keyword = request.getParameter("keyword");
@@ -196,7 +197,11 @@ public class UserController {
     @RequestMapping(value = "export_word", method = POST)
     @ResponseBody
     public List<Userjson> exportWord(HttpServletRequest request, ModelMap model, @RequestParam(required = false, value = "list[]") List<String> list,String selected_template) throws IOException {
-
+        UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
+        String user = loginstaff.getName();
+        Date now = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String download_time =  dateFormat.format(now);
         List<SolutionVO> targetContents = new ArrayList<SolutionVO>();
         List<Userjson> response = new ArrayList<Userjson>();
         Userjson jsonInfo = new Userjson();
@@ -257,7 +262,7 @@ public class UserController {
             }
         }
         String filePath = request.getSession().getServletContext().getRealPath("WEB-INF/view/download"+File.separator);
-        String fileName = selected_template+" Generate.doc";
+        String fileName = selected_template+"_Generate.doc";
         File f = new File(filePath+fileName);
         int i = 1;
         String new_file_name = fileName;
@@ -266,10 +271,16 @@ public class UserController {
             f = new File(new_file_name);
             i++;
         }
+        String selected_content = "";
+        for(String temp : list){
+            selected_content += temp + "/";
+        }
+        request.getSession().setAttribute("download_file",new_file_name);
         OutputStream out;
         try {
             out = new FileOutputStream(f);
             WordGeneratorWithFreemarker.createDoc(map,selected_template+".ftl", out);
+            solutionDao.storeDownloadLog(new_file_name,selected_content,selected_template,download_time,user);
             jsonInfo.setInfo("true");
             response.add(jsonInfo);
         } catch (FileNotFoundException e) {
@@ -301,7 +312,8 @@ public class UserController {
     @RequestMapping(value = "success_generate", method = GET)
     public ResponseEntity<byte[]> showSuccessGenerate(HttpServletRequest request, ModelMap model) {
         String filePath = request.getSession().getServletContext().getRealPath("WEB-INF/view/download"+File.separator);
-        String fileName = "Generate.doc";
+        String fileName = (String) request.getSession().getAttribute("download_file");
+        request.getSession().removeAttribute("download_file");
         HttpHeaders headers = new HttpHeaders();
         try {
             headers.setContentDispositionFormData("myfile", fileName);

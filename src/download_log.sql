@@ -1,0 +1,17 @@
+DROP TABLE IF EXISTS DownloadLog;
+
+CREATE TABLE DownloadLog(
+  Download_ID int NOT NULL AUTO_INCREMENT,
+  Download_Name VARCHAR(50) NOT NULL,
+  Selected_Contents VARCHAR(60) NOT NULL,
+  Selected_Template VARCHAR(60) NOT NULL,
+  Download_Time VARCHAR(60) NOT NULL,
+  User VARCHAR(50) BINARY NOT NULL,
+  CONSTRAINT dl_pk
+  PRIMARY KEY (Download_ID),
+  CONSTRAINT dl_fk
+  FOREIGN KEY (User)
+  REFERENCES Users(Username)
+  ON UPDATE CASCADE
+  ON DELETE CASCADE
+)ENGINE=InnoDB;

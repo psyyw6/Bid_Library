@@ -47,10 +47,11 @@ To change this template use File | Settings | File Templates.
             </div>
             <nav class="header_main-nav">
                 <ul class="header_main-menu">
-                    <li><a href="#">Proposal</a></li>
-                    <li><a href="#">Request</a></li>
-                    <li><a href="#">Events</a></li>
-                    <li><a href="/administer_solution">Solution</a></li>
+                    <li><a href="staff_search">Search</a></li>
+                    <li><a href="upgrade">Upgrade</a></li>
+                    <li><a href="template">Templates</a></li>
+                    <li><a href="download_log">Log</a></li>
+                    <li><a href="administer_solution">Contents</a></li>
                 </ul>
             </nav>
         </div>

@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: yutong
-  Date: 2/1/18
-  Time: 20:20
+  Date: 2018/3/30
+  Time: 14:12
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Add Solution</title>
+    <title>Modify Template</title>
     <link rel="icon" type="image/png" href="img/ato_icon.png" sizes="200x200">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
@@ -19,7 +19,7 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" type="text/css" href="css/add_solution.css">
     <script src="js/jquery.js"></script>
-    <script src="js/add_solution.js?t=1"></script>
+    <script src="js/add_template.js"></script>
     <link rel="stylesheet" href="css/jquery-ui.css">
     <link rel="stylesheet" href="css/jquery-ui.theme.css">
     <link rel="stylesheet" href="css/jquery-ui.structure.css">
@@ -28,6 +28,7 @@
     <script src="js/jquery-ui.min.js"></script>
 </head>
 <body class="page_content page_home">
+
 <header class="header">
     <div class="wrapper">
         <div class="header_pre cf">
@@ -63,67 +64,46 @@
             </div>
         </header>
         <div class = "title_header">
-            <p class = "title_word">Upload New Content</p>
+            <p class = "title_word">Upload New Template</p>
         </div>
     </section>
     <section class="upload_form">
-        <form class="form-horizontal" action="/upload.do" method="post" enctype="multipart/form-data" onsubmit="return checkValid()">
-            <div class="form-group">
-                <label for="fileInput" class="col-sm-2 control-label">New Content</label>
+        <form class="form-horizontal" action="/modify_template.do" method="post" enctype="multipart/form-data" onsubmit="return modify_testValid()">
+            <div id="template_name_control" class="form-group">
+                <label for="Template_Name" class="col-sm-2 control-label">Template Name</label>
                 <div class="col-sm-10">
-                    <button type="button" class="btn btn-default" id="file_button" value="Browse" onclick="fileInput.click()">Browse</button>
-                    &nbsp;&nbsp; <span id="file_name">No file chosen</span>&nbsp;&nbsp;
-                    <span id="file-info-hint" style="color:red;display: none">File type is invalid!&nbsp;&nbsp;txt file is required!</span>
-                </div>
-                <div>
-                    <input type="file" id="fileInput" name="myfile" style="display: none">
+                    <input type="text" class="form-control" id="Template_Name" name="Template_name" placeholder="Template Name" value="${template_name}" onclick="removeHint(this)">
+                    <span class="help-block" style="display: none">Template name can not be empty!</span>
                 </div>
             </div>
             <div class="form-group">
-                <label for="Content_Title" class="col-sm-2 control-label">Content Title</label>
+                <label for="DocSrcPrefixLocation" class="col-sm-2 control-label">DocSrcPrefixLocation</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="Content_Title" name="solution_title" placeholder="Content Title" onclick="removeHint(this)">
-                    <span class="help-block" style="display: none">Content title can not be empty!</span>
+                    <input type="text" class="form-control" id="DocSrcPrefixLocation" name="DocSrcPrefixLocation" value = "${doc_src_prefix_location}" placeholder="DocSrcPrefixLocation" onclick="removeHint(this)">
+                    <span class="help-block" style="display: none">DocSrcPrefixLocation name can not be empty!</span>
                 </div>
             </div>
             <div class="form-group">
-                <label for="Author" class="col-sm-2 control-label">Author</label>
+                <label for="NextPartId" class="col-sm-2 control-label">NextPartId</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="Author" name="creator" value="${name}" placeholder="Author" disabled>
+                    <input type="text" class="form-control" id="NextPartId" name="NextPartId" placeholder="NextPartId" value="${next_part_id}" onclick="removeHint(this)">
+                    <span class="help-block" style="display: none">NextPartId name can not be empty!</span>
                 </div>
             </div>
             <div class="form-group">
-                <label for="Customer" class="col-sm-2 control-label">Customer Name</label>
+                <label for="DocSrcParent" class="col-sm-2 control-label">DocSrcParent</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="Customer" name="customer_name" placeholder="Customer Name" onclick="removeHint(this)">
-                    <span class="help-block" style="display: none">Customer name can not be empty!</span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="expired_date" class="col-sm-2 control-label">Expired Date</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="expired_date" name="expired_date" placeholder="Expired Date" onclick="removeHint(this)">
-                    <span class="help-block" style="display: none">Expired Date can not be empty!</span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="type" class="col-sm-2 control-label">Type</label>
-                <div class="col-sm-10" id="type">
-                    <select class="form-control" name="isExternal">
-                        <option value="External">External</option>
-                        <option value="Internal">Internal</option>
-                    </select>
+                    <input type="text" class="form-control" id="DocSrcParent" name="DocSrcParent" placeholder="DocSrcParent"  value="${doc_src_parent}" onclick="removeHint(this)">
+                    <span class="help-block" style="display: none">DocSrcParent name can not be empty!</span>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" id="upload_button" class="btn btn-primary" disabled="disabled">Upload</button>
+                    <input type="submit" id="upload_button" class="btn btn-primary" value="Upload">
                 </div>
             </div>
         </form>
     </section>
 </main>
 </body>
-</html>
-
 </html>

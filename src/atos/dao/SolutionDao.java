@@ -1,5 +1,6 @@
 package atos.dao;
 
+import atos.admain.DownloadLogVO;
 import atos.admain.SectionVO;
 import atos.admain.SolutionVO;
 import atos.admain.TemplateVO;
@@ -312,6 +313,54 @@ public class SolutionDao {
         catch (Exception e){
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public int storeDownloadLog(String download_name,String selected_contents,String selected_template,String download_time,String user){
+        String sql = "insert into DownloadLog (Download_Name,Selected_Contents,Selected_Template,Download_Time,User) values (?,?,?,?,?)";
+        Object[] params = {download_name,selected_contents,selected_template,download_time,user};
+        try{
+            return jdbcTemplate.update(sql,params);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int modifyTemplate(String template_name,String doc_src_prefix_location,String next_part_id,String doc_src_parent){
+        String sql = "UPDATE Template Set DocSrcPrefixLocation = ?,NextPartId = ?,DocSrcParent = ? WHERE Template_Name = ?";
+        Object[] params = {doc_src_prefix_location,next_part_id,doc_src_parent,template_name};
+        try{
+            return jdbcTemplate.update(sql,params);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+            return 0;
+        }
+    }
+
+    public List<DownloadLogVO> selectAllLogs(){
+        String sql = "select * from DownloadLog";
+        try{
+            return jdbcTemplate.query(sql,new DownloadLogVO());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return  null;
+        }
+    }
+
+    public int deleteLog(String download_id){
+        String sql = "delete from DownloadLog where Download_ID = ?";
+        Object[] params = {download_id};
+        try{
+            return jdbcTemplate.update(sql,params);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return 0;
         }
     }
 }

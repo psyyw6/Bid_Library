@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="css/staff_search.css">
     <script src="js/staff_search.js?t=3" rel="script"></script>
     <link rel="stylesheet" href="css/add_solution.css">
-    <%--<link rel="stylesheet" id="js_composer_front-css" href="https://atos.net/wp-content/plugins/js_composer/assets/css/js_composer.min.css" type="text/css" media="all">--%>
 </head>
 <body class="page_content page_home">
 <header class="header" id="header-id">
@@ -43,8 +42,7 @@
             <nav class="header_main-nav">
                 <ul class="header_main-menu" id="main-menu">
                     <li><a href="/administer_solution" id="Manage" style="visibility:hidden">Manage</a></li>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Search</a></li>
+                    <li><a href="/staff_search">Search</a></li>
                 </ul>
             </nav>
         </div>
