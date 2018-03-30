@@ -91,6 +91,48 @@
 <script type="text/javascript">
     var E = window.wangEditor;
     var editor = new E('#edit');
+    editor.customConfig.menus = [
+        'head',
+        'bold',
+        'italic',
+        'underline',
+        'strikeThrough',
+        'list',
+        'justify',
+        'image',
+        'table',
+        'undo',
+        'redo'
+    ]
+    editor.customConfig.lang = {
+        '设置标题': 'Title',
+        '正文': 'p',
+        '链接文字': 'link text',
+        '链接': 'link',
+        '上传图片': 'Upload image',
+        '上传': 'Upload',
+        '创建': 'Init',
+        '网络图片':'Internet Image',
+        '图片':'Image',
+        '插入表格':'Insert Table',
+        '插入':'Insert',
+        '字号':'Font-size',
+        '字体':'Font-style',
+        '文字颜色': 'Font-color',
+        '设置列表':'List-setting',
+        '对齐方式':'Text-align',
+        '有序列表':'Ordered',
+        '无序列表':'Unordered',
+        '靠左':'Left',
+        '靠右':'Right',
+        '居中':'Center'
+        // 还可自定添加更多
+    };
+    editor.customConfig.fontNames = [
+        'Arial',
+        'Tahoma',
+        'Verdana'
+    ]
     editor.create();
     editor.$textElem.attr('contenteditable', false);
 

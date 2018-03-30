@@ -1,9 +1,6 @@
 package atos.controller;
 
-import atos.admain.SectionVO;
-import atos.admain.SolutionVO;
-import atos.admain.UserVO;
-import atos.admain.Userjson;
+import atos.admain.*;
 import atos.dao.SolutionDao;
 import atos.dao.UserDao;
 import atos.exceptions.NoSearchResultException;
@@ -83,7 +80,8 @@ public class UserController {
             List<SectionVO> sectionList = solutionDao.selectInUseSection(content_title);
             model.addAttribute("section" + i, sectionList);
         }
-
+        List<TemplateVO> allTemplates = solutionDao.selectAllTemplates();
+        model.addAttribute("allTemplates",allTemplates);
         return "staff_search";
 
     }
@@ -93,6 +91,12 @@ public class UserController {
         if(request.getSession().getAttribute("loginstaff")!=null) {
             UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
             model.addAttribute("name",loginstaff.getName());
+            if(loginstaff.getRole()){
+                model.addAttribute("role","Admin");
+            }
+            else{
+                model.addAttribute("role","User");
+            }
         }else{
             return "unlogin";
         }
@@ -214,18 +218,11 @@ public class UserController {
                     orginalData = (String) map.get(section_name);
                     data = orginalData + data;
                 }
-
                 RichHtmlHandler handler = new RichHtmlHandler(data);
-                if(selected_template.equals("Template1")){
-                    handler.setDocSrcLocationPrex("file:///C:/26F25CD1");
-                    handler.setNextPartId("01D3BFBC.2F868BE0");
-                    handler.setDocSrcParent("Template1.fld");
-                }
-                else if(selected_template.equals("Template2")){
-                    handler.setDocSrcLocationPrex("file:///C:/26F25CD1");
-                    handler.setNextPartId("01D3BFAE.E2495DB0");
-                    handler.setDocSrcParent("Template1.fld");
-                }
+                TemplateVO template = solutionDao.selectTemplateByName(selected_template);
+                handler.setDocSrcLocationPrex(template.getDoc_src_prefix_location());
+                handler.setNextPartId(template.getNext_part_id());
+                handler.setDocSrcParent(template.getDoc_src_parent());
                 handler.setShapeidPrex("_x56fe_x7247_x0020");
                 handler.setSpidPrex("_x0000_i");
                 handler.setTypeid("#_x0000_t75");
@@ -260,8 +257,15 @@ public class UserController {
             }
         }
         String filePath = request.getSession().getServletContext().getRealPath("WEB-INF/view/download"+File.separator);
-        String fileName = "Generate.doc";
+        String fileName = selected_template+" Generate.doc";
         File f = new File(filePath+fileName);
+        int i = 1;
+        String new_file_name = fileName;
+        while(f.exists()){
+            new_file_name = filePath + selected_template + "Generate("+i+").doc";
+            f = new File(new_file_name);
+            i++;
+        }
         OutputStream out;
         try {
             out = new FileOutputStream(f);

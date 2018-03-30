@@ -1,8 +1,12 @@
 package atos.controller;
 
+import atos.admain.SectionVO;
+import atos.admain.SolutionVO;
 import atos.admain.UserVO;
 import atos.admain.Userjson;
+import atos.dao.SolutionDao;
 import atos.dao.UserDao;
+import atos.exceptions.NoSearchResultException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +30,15 @@ public class LoginController {
     @Resource
     private UserDao userDao;
 
+    @Resource
+    private SolutionDao solutionDao;
+
+    public void setSolutionDao(SolutionDao solutionDao) {this.solutionDao = solutionDao;}
+
+    public SolutionDao getSolutionDao() {
+        return solutionDao;
+    }
+
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }
@@ -36,8 +49,30 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/login",method = GET)
-    public String showLogin()
+    public String showLogin(HttpServletRequest request,ModelMap model)
     {
+        if(request.getSession().getAttribute("loginstaff")!=null) {
+                UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
+                 model.addAttribute("name",loginstaff.getName());
+                if(!loginstaff.getRole()){
+                    model.addAttribute("role","User");
+                    List<SolutionVO> contentList = solutionDao.selectAll();
+                    if (!contentList.isEmpty()) {
+                        model.addAttribute("content_list", contentList);
+                    } else {
+                        throw new NoSearchResultException("No Available Content", "Sorry, there is no content now");
+                    }
+                    for (int i = 0; i < contentList.size(); i++) {
+                        String content_title = contentList.get(i).getContent_title();
+                        List<SectionVO> sectionList = solutionDao.selectInUseSection(content_title);
+                        model.addAttribute("section" + i, sectionList);
+                    }
+                    return "staff_search";
+                }
+            List<SolutionVO> content_list = solutionDao.selectAll();
+            model.addAttribute("content_list",content_list);
+            return "administer_solution";
+        }
         return "login";
     }
 

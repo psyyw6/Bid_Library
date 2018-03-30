@@ -41,10 +41,10 @@
             </div>
             <nav class="header_main-nav">
                 <ul class="header_main-menu">
-                    <li><a href="#">Proposal</a></li>
-                    <li><a href="#">Request</a></li>
-                    <li><a href="#">Events</a></li>
-                    <li><a href="/administer_solution">Solution</a></li>
+                    <li><a href="/staff_search">Search</a></li>
+                    <li><a href="/upgrade">Upgrade</a></li>
+                    <li><a href="#">Log</a></li>
+                    <li><a href="/administer_solution">Contents</a></li>
                 </ul>
             </nav>
         </div>
@@ -113,19 +113,48 @@
 
         }
     };
+    editor.customConfig.menus = [
+        'head',
+        'bold',
+        'italic',
+        'underline',
+        'strikeThrough',
+        'list',
+        'justify',
+        'image',
+        'table',
+        'undo',
+        'redo'
+    ]
     editor.customConfig.lang = {
-        '设置标题': 'title',
+        '设置标题': 'Title',
         '正文': 'p',
         '链接文字': 'link text',
         '链接': 'link',
         '上传图片': 'Upload image',
-        '上传': 'upload',
-        '创建': 'init',
+        '上传': 'Upload',
+        '创建': 'Init',
         '网络图片':'Internet Image',
         '图片':'Image',
-        '插入':'Insert'
+        '插入表格':'Insert Table',
+        '插入':'Insert',
+        '字号':'Font-size',
+        '字体':'Font-style',
+        '文字颜色': 'Font-color',
+        '设置列表':'List-setting',
+        '对齐方式':'Text-align',
+        '有序列表':'Ordered',
+        '无序列表':'Unordered',
+        '靠左':'Left',
+        '靠右':'Right',
+        '居中':'Center'
         // 还可自定添加更多
     };
+    editor.customConfig.fontNames = [
+        'Arial',
+        'Tahoma',
+        'Verdana'
+    ]
     editor.create();
 </script>
 

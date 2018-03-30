@@ -124,3 +124,27 @@ function Forward(){
     })
 
 }
+
+function deleteTemplate() {
+    var template_name = click_obj.parents("tr").find("#template_name").val();
+    var image_url = click_obj.parents("tr").find("#image_url").val();
+    $.ajax({
+        url:"delete_template.do",
+        type:"post",
+        data:{"template_name":template_name,"image_url":image_url},
+        dataType:"json",
+        contentType:"application/x-www-form-urlencoded",
+        success:function (data) {
+            if(data[0].info == "true"){
+                window.location.href = 'template';
+            }
+            else{
+                $(location).attr('href','error');
+            }
+        },
+        error:function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest.status);
+        }
+
+    })
+}

@@ -54,7 +54,7 @@
     </div>
 
     <div class="search-box-wrapper">
-        <form class="form-inline" id="search-form" method="post" action="search.do">
+        <form class="form-inline" method="post" action="search.do">
             <div class="form-group">
                 <input type="text" id="search-box" class="form-control cf" placeholder="Type your keyword here" name="keyword">
             </div>

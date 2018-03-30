@@ -136,7 +136,7 @@ public class AdminController {
 
     @RequestMapping(value = "/upload.do",method = POST)
     public String upLoadFile(@RequestParam MultipartFile myfile,HttpServletRequest request) throws Exception{
-        String author = "yutong";
+        String author;
         if(request.getSession().getAttribute("loginstaff")!=null) {
             UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
             author = loginstaff.getName();
@@ -418,9 +418,9 @@ public class AdminController {
     public String adminSearch(HttpServletRequest request,ModelMap model)
     {
         String keyword = request.getParameter("keyword");
-        List<SolutionVO> resultContentList = new ArrayList<SolutionVO>();
-        List<SectionVO> resultSectionList = new ArrayList<SectionVO>();
-        List<SectionVO> resultSectionList2 = new ArrayList<SectionVO>();
+        List<SolutionVO> resultContentList;
+        List<SectionVO> resultSectionList;
+        List<SectionVO> resultSectionList2;
         List<SectionVO> finalSectionList = new ArrayList<SectionVO>();
         resultContentList = solutionDao.selectByDefault(keyword);
         resultSectionList = solutionDao.searchInUseSectionByName(keyword);
@@ -444,4 +444,96 @@ public class AdminController {
         model.addAttribute("keyword",keyword);
         return "administer_solution";
     }
+
+    @RequestMapping(value = "template",method = GET)
+    public String templatePage(HttpServletRequest request,ModelMap model)
+    {
+        List<TemplateVO> allTemplates = solutionDao.selectAllTemplates();
+        model.addAttribute("allTemplates",allTemplates);
+        return "template";
+    }
+
+    @RequestMapping(value = "add_template",method = GET)
+    public String AddtemplatePage(HttpServletRequest request,ModelMap model)
+    {
+        return "add_template";
+    }
+
+    @RequestMapping(value="upload_template.do",method= POST)
+    public String uploadTemplate(HttpServletRequest request,ModelMap model,@RequestParam("files") MultipartFile[] files) throws IOException {
+        String imageUrl = "";
+        if(files!=null&&files.length==2){
+            for(int i = 0;i<files.length;i++){
+                MultipartFile file = files[i];
+                String filename;
+                if(i==0){
+                     filename = request.getParameter("Template_name")+".ftl";
+                     String path1 = request.getSession().getServletContext().getRealPath("WEB-INF/classes/atos/ftl")+File.separator;
+                     String path = path1 + filename;
+                     File descFile = new File(path);
+                     file.transferTo(descFile);
+                }
+                if(i==1){
+                    filename = file.getOriginalFilename();
+
+                    String path1 = request.getSession().getServletContext().getRealPath("WEB-INF/view/coverimage")+File.separator;
+                    String path = path1 + filename;
+                    String name = filename.substring(0,filename.indexOf("."));
+                    String suffix = filename.substring(filename.lastIndexOf("."));
+                    File descFile = new File(path);
+                    int count = 1;
+                    String newFilename = filename;
+                    while(descFile.exists()) {
+                        newFilename = name + "("+count+")"+suffix;
+                        String parentPath = descFile.getParent();
+                        descFile = new File(parentPath + File.separator + newFilename);
+                        count++;
+                    }
+                    file.transferTo(descFile);
+                    imageUrl = "coverimage/"+newFilename;
+            }
+        }
+    }
+        String template_name = request.getParameter("Template_name");
+        String doc_src_prefix_location = request.getParameter("DocSrcPrefixLocation");
+        String next_part_id = request.getParameter("NextPartId");
+        String doc_src_parent = request.getParameter("DocSrcParent");
+        if(solutionDao.insertTemplate(template_name,doc_src_prefix_location,next_part_id,doc_src_parent,imageUrl)==1){
+            return "success_upload";
+        }
+        else{
+            return "error";
+        }
+
+
+
+    }
+
+    @RequestMapping(value="delete_template.do",method = POST)
+    @ResponseBody
+    public List<Userjson> deleteTemplate(HttpServletRequest request,ModelMap model,@RequestParam String template_name,String image_url){
+        List<Userjson> jsonList = new ArrayList<Userjson>();
+        Userjson jsonInfo = new Userjson();
+        if(solutionDao.deleteTemplate(template_name)==1){
+            String path = request.getSession().getServletContext().getRealPath("WEB-INF/classes/atos/ftl")+File.separator;
+            String template_real_path = path + template_name + ".ftl";
+            String image_path = request.getSession().getServletContext().getRealPath("WEB-INF/view")+File.separator;
+            String image_real_path = image_path + image_url;
+            File template_file = new File(template_real_path);
+            File image_file = new File(image_real_path);
+            if(template_file.exists()){
+                template_file.delete();
+            }
+            if(image_file.exists()){
+                image_file.delete();
+            }
+            jsonInfo.setInfo("true");
+
+        }else{
+            jsonInfo.setInfo("false");
+        }
+        jsonList.add(jsonInfo);
+        return jsonList;
+    }
+
 }

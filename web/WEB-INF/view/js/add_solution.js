@@ -16,7 +16,34 @@ $(document).ready(function(){
              upload_button.attr("disabled",false);
          }
     });
+
 });
+
+function checkValid() {
+    var filename = $("#file_name").html();
+    var content_title = $("#Content_Title").val();
+    var customer_name = $("#Customer").val();
+    var expired_date = $("#expired_date").val();
+    var textInput = $(".form-control")
+    textInput.each(function(){
+        var text = $(this).val();
+        if(text == ""){
+            var error_info = $(this).parent().parent();
+            $(error_info).addClass("has-error");
+            $(this).parent().find('.help-block').css("display","block");
+        }
+    });
+
+    if(filename==""||content_title==""||customer_name==""||expired_date==""){
+        return false;
+    }
+}
+
+function removeHint(obj) {
+    var error_info =  $(obj).parent().parent();
+    $(error_info).removeClass('has-error');
+    $(obj).parent().find('.help-block').css("display","none");
+}
 
 $(function () {
    $("#expired_date").datepicker({

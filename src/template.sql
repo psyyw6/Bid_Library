@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS Template;
+
+CREATE TABLE Template(
+  Template_Name VARCHAR(50) NOT NULL,
+  DocSrcPrefixLocation VARCHAR(60) NOT NULL,
+  NextPartId VARCHAR(50) NOT NULL,
+  DocSrcParent VARCHAR(50) NOT NULL,
+  CoverImage VARCHAR(50) NOT NULL,
+  CONSTRAINT te_pk
+  PRIMARY KEY (Template_Name)
+  ON UPDATE CASCADE
+  ON DELETE CASCADE
+)ENGINE=InnoDB;

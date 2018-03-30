@@ -2,6 +2,7 @@ package atos.dao;
 
 import atos.admain.SectionVO;
 import atos.admain.SolutionVO;
+import atos.admain.TemplateVO;
 import atos.exceptions.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -267,4 +268,50 @@ public class SolutionDao {
         }
     }
 
+    public int insertTemplate(String template_name,String doc_src_prefix_location,String next_part_id,String doc_src_parent,String image_url){
+        String sql = "insert into Template values(?,?,?,?,?)";
+        Object[] params = {template_name,doc_src_prefix_location,next_part_id,doc_src_parent,image_url};
+        try{
+            return jdbcTemplate.update(sql,params);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public List<TemplateVO> selectAllTemplates(){
+        String sql = "select * from Template";
+        try{
+            return jdbcTemplate.query(sql,new TemplateVO());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public int deleteTemplate(String template_name){
+        String sql = "delete from Template where Template_Name = ?";
+        Object[] params = {template_name};
+        try{
+            return jdbcTemplate.update(sql,params);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public TemplateVO selectTemplateByName(String template_name){
+        String sql = "select * from Template where Template_Name = ?";
+        Object[] params = {template_name};
+        try{
+            return jdbcTemplate.queryForObject(sql,new TemplateVO(),params);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

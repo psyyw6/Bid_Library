@@ -19,7 +19,7 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" type="text/css" href="css/add_solution.css">
     <script src="js/jquery.js"></script>
-    <script src="js/add_solution.js"></script>
+    <script src="js/add_solution.js?t=1"></script>
     <link rel="stylesheet" href="css/jquery-ui.css">
     <link rel="stylesheet" href="css/jquery-ui.theme.css">
     <link rel="stylesheet" href="css/jquery-ui.structure.css">
@@ -62,11 +62,11 @@
             </div>
         </header>
         <div class = "title_header">
-            <p class = "title_word">Update New Content</p>
+            <p class = "title_word">Upload New Content</p>
         </div>
     </section>
     <section class="upload_form">
-        <form class="form-horizontal" action="/upload.do" method="post" enctype="multipart/form-data">
+        <form class="form-horizontal" action="/upload.do" method="post" enctype="multipart/form-data" onsubmit="return checkValid()">
             <div class="form-group">
                 <label for="fileInput" class="col-sm-2 control-label">New Content</label>
                 <div class="col-sm-10">
@@ -81,7 +81,8 @@
             <div class="form-group">
                 <label for="Content_Title" class="col-sm-2 control-label">Content Title</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="Content_Title" name="solution_title" placeholder="Solution Title">
+                    <input type="text" class="form-control" id="Content_Title" name="solution_title" placeholder="Content Title" onclick="removeHint(this)">
+                    <span class="help-block" style="display: none">Content title can not be empty!</span>
                 </div>
             </div>
             <div class="form-group">
@@ -93,13 +94,15 @@
             <div class="form-group">
                 <label for="Customer" class="col-sm-2 control-label">Customer Name</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="Customer" name="customer_name" placeholder="Customer Name">
+                    <input type="text" class="form-control" id="Customer" name="customer_name" placeholder="Customer Name" onclick="removeHint(this)">
+                    <span class="help-block" style="display: none">Customer name can not be empty!</span>
                 </div>
             </div>
             <div class="form-group">
                 <label for="expired_date" class="col-sm-2 control-label">Expired Date</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="expired_date" name="expired_date" placeholder="Expired Date">
+                    <input type="text" class="form-control" id="expired_date" name="expired_date" placeholder="Expired Date" onclick="removeHint(this)">
+                    <span class="help-block" style="display: none">Expired Date can not be empty!</span>
                 </div>
             </div>
             <div class="form-group">

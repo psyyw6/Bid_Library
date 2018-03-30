@@ -129,16 +129,14 @@
             </button>
             <div class="collapse" id="template_area">
                 <div class="well row">
+                    <c:forEach var="template"  items = "${allTemplates}">
                     <div class="col-md-4" style="text-align: center">
-                        <input type="radio" name="template_option" value="Template1">&nbsp;&nbsp;&nbsp;<img src="img/template1.jpg" alt="template1" class="img-rounded " width="150" height="200" >
+                        <input type="radio" name="template_option" value="${template.template_name}">&nbsp;&nbsp;&nbsp;<img src="${template.cover_image}" alt="template1" class="img-rounded " width="150" height="200" >
                         <br><br>
-                        <span class="template_name">Template1</span>
+                        <span class="template_name">${template.template_name}</span>
                     </div>
-                    <div class="col-md-4"  style="text-align: center">
-                        <input type="radio" name="template_option" value="Template2">&nbsp;&nbsp;&nbsp;<img src="img/template2.jpg" alt="template2" class="img-rounded" width="150" height="200">
-                        <br><br>
-                        <span class="template_name">Template2</span>
-                    </div>
+                    </c:forEach>
+
                 </div>
             </div>
         </div>
