@@ -389,4 +389,15 @@ public class SolutionDao {
             return null;
         }
     }
+
+    public SectionVO selectSectionByTitleAndName(String content_title,String section_name,int version,String type){
+        String sql = "select * from Section where Title = ? and Section_Name = ? and Section_Version = ? and IsExternal = ?";
+        Object[] params = {content_title,section_name,version,type};
+        try {
+            return jdbcTemplate.queryForObject(sql,new SectionVO(),params);
+        }
+        catch (Exception e) {
+            return null;
+        }
+    }
 }

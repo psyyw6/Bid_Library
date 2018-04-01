@@ -210,6 +210,9 @@ public class AdminController {
         }
         String content_title = request.getParameter("content_title");
         String type = request.getParameter("isExternal");
+        if(content_title.equals("")||type.equals("")){
+            return "administer_solution";
+        }
         List<SectionVO>section_list = solutionDao.selectInUseSection(content_title,type);
         model.addAttribute("section_list",section_list);
         model.addAttribute("content_title",content_title);
@@ -319,6 +322,9 @@ public class AdminController {
         if(solutionDao.DeleteSection(content_title,section_name,num_version,type) == 1){
             if(inuse_version == num_version){
                 int new_inuse_version = num_version - 1;
+                while(solutionDao.selectSectionByTitleAndName(content_title,section_name,new_inuse_version,type)==null){
+                    new_inuse_version--;
+                }
                 solutionDao.updateInUseVersionToTrue(content_title,section_name,new_inuse_version,type);
             }
             jsonInfo.setInfo("true");
@@ -369,6 +375,9 @@ public class AdminController {
         }
         else{
             currentVersion--;
+            while (solutionDao.selectSectionByTitleAndName(content_title,section_name,currentVersion,type)==null){
+                currentVersion--;
+            }
             solutionDao.updateInUseVersionToFalse(content_title,section_name,type);
             solutionDao.updateInUseVersionToTrue(content_title,section_name,currentVersion,type);
             jsonInfo.setInfo("true");
@@ -390,6 +399,9 @@ public class AdminController {
         }
         else{
             currentVersion++;
+            while (solutionDao.selectSectionByTitleAndName(content_title,section_name,currentVersion,type)==null){
+                currentVersion++;
+            }
             solutionDao.updateInUseVersionToFalse(content_title,section_name,type);
             solutionDao.updateInUseVersionToTrue(content_title,section_name,currentVersion,type);
             jsonInfo.setInfo("true");

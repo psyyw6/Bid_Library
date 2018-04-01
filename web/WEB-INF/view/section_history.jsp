@@ -81,7 +81,7 @@
 
         <div class="section page_main_content">
                 <div class="table-title">
-                    <h1 style="text-align: left; padding-bottom: 10px;">${section_name} History</h1>
+                    <h1 style="text-align: left; padding-bottom: 10px;"><a href="/admin_view_detail?content_title=${content_title}&isExternal=${type}">${section_name}</a>&nbsp;History</h1>
                 </div>
 
                 <div id="InUseBlock">
