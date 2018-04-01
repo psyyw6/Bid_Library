@@ -79,15 +79,9 @@
             </div>
         </header>
 
-        <div class="section page_button">
-            <div class = "button-warpper">
-                <a class="button-white" href="add_solution">Add New Solution</a>
-            </div>
-        </div>
-
         <div class="section page_main_content">
                 <div class="table-title">
-                    <h1 style="text-align: left; padding-bottom: 10px;">current contents</h1>
+                    <h1 style="text-align: left; padding-bottom: 10px;">${section_name} History</h1>
                 </div>
 
                 <div id="InUseBlock">

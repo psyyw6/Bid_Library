@@ -316,6 +316,8 @@ public class AdminController {
         Userjson jsonInfo = new Userjson();
         int num_version = Integer.parseInt(version);
         if(solutionDao.DeleteSection(content_title,section_name,num_version,type) == 1){
+            int new_inuse_version = num_version - 1;
+            solutionDao.updateInUseVersionToTrue(content_title,section_name,new_inuse_version,type);
             jsonInfo.setInfo("true");
         }
         else{

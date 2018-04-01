@@ -56,6 +56,10 @@ function  deleteSection() {
     var section_name = click_obj.parents("tr").find("#section_name").val();
     var version = click_obj.parents("tr").find("#version").val();
     var type = click_obj.parents("tr").find("#isExternal").val();
+    if(version == 1){
+        alert("Version 1 can not be deleted!")
+        return false;
+    }
     $.ajax({
         url:"delete_section.do",
         type:"post",
@@ -64,7 +68,7 @@ function  deleteSection() {
         contentType:"application/x-www-form-urlencoded",
         success:function (data) {
             if(data[0].info == "true"){
-                window.location.href = 'section_history?content_title='+content_title+"&section_name="+section_name;
+                window.location.href = 'section_history?content_title='+content_title+"&section_name="+section_name+'&isExternal='+type;
             }
             else{
                 $(location).attr('href','error');
