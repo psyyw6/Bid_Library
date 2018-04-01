@@ -29,10 +29,11 @@ function showDialog3() {
 
 function deleteContent(){
     var content_title = click_obj.parents("tr").find("#content_title").val();
+    var type = click_obj.parents("tr").find("#isExternal").val();
     $.ajax({
         url:"delete_content.do",
         type:"post",
-        data:{"content_title":content_title},
+        data:{"content_title":content_title,"type":type},
         dataType:"json",
         contentType:"application/x-www-form-urlencoded",
         success:function (data) {

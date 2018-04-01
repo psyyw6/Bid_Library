@@ -30,7 +30,7 @@ public class SolutionDao {
         return jdbcTemplate.update(sql,params);
         }
         catch(org.springframework.dao.DuplicateKeyException e){
-            throw new DuplicateKeyException(null, "Existed Content Title", "'"+content_title+ "' have already existed, "+"please choose another content title");
+            throw new DuplicateKeyException(null, "Existed Content Title", "'"+content_title+ "' have already existed, "+"please choose another content title",isExternal);
         }
         catch(Exception e){
             System.out.println(e);
@@ -45,7 +45,7 @@ public class SolutionDao {
             return jdbcTemplate.update(sql,params);
         }
         catch (org.springframework.dao.DuplicateKeyException e){
-            throw new DuplicateKeyException(content_title,"Duplicate Section Name in the '" + content_title+"' ", "'"+section_name+"' have already existed, please check your uploaded file");
+            throw new DuplicateKeyException(content_title,"Duplicate Section Name in the '" + content_title+"' ", "'"+section_name+"' have already existed, please check your uploaded file",type);
         }
         catch (Exception e){
             System.out.println(e);
@@ -76,9 +76,9 @@ public class SolutionDao {
         }
     }
 
-    public int deleteContent(String content_title){
-        String sql = "delete from Content where Title = ?;";
-        Object[] params = {content_title};
+    public int deleteContent(String content_title,String type){
+        String sql = "delete from Content where Title = ? and IsExternal = ?";
+        Object[] params = {content_title,type};
         try{
             return jdbcTemplate.update(sql,params);
         }catch (Exception e){

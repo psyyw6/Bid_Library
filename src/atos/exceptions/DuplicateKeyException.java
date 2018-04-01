@@ -10,11 +10,13 @@ public class DuplicateKeyException extends RuntimeException {
     private String errCode;
     private String errMsg;
     private String content_title;
+    private String isExternal;
 
-    public DuplicateKeyException(String content_title, String errCode, String errMsg) {
+    public DuplicateKeyException(String content_title, String errCode, String errMsg,String isExternal) {
         this.errCode = errCode;
         this.errMsg = errMsg;
         this.content_title = content_title;
+        this.isExternal = isExternal;
     }
 
     public String getErrCode() {
@@ -42,5 +44,11 @@ public class DuplicateKeyException extends RuntimeException {
     }
 
 
+    public String getIsExternal() {
+        return isExternal;
+    }
 
+    public void setIsExternal(String isExternal) {
+        this.isExternal = isExternal;
+    }
 }

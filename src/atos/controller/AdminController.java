@@ -121,7 +121,7 @@ public class AdminController {
 
 //        System.out.println(ex.getContentTitle());
         if(ex.getContentTitle()!=null) {
-            solutionDao.deleteContent(ex.getContentTitle());
+            solutionDao.deleteContent(ex.getContentTitle(),ex.getIsExternal());
         }
         ModelAndView modelAndView = new ModelAndView("administer_error");
         modelAndView.addObject("errCode", ex.getErrCode());
@@ -157,7 +157,7 @@ public class AdminController {
         String upload_date = df.format(today);
         int version =1;
         if(!checkFile(fileName)||fileName == ""){
-            throw new DuplicateKeyException(null, "Wrong File Format", "Please upload again");
+            throw new DuplicateKeyException(null, "Wrong File Format", "Please upload again",type);
         }
         else {
             InputStream file = myfile.getInputStream();
@@ -188,7 +188,7 @@ public class AdminController {
                 return "success_upload";
             }
             else{
-                solutionDao.deleteContent(content_title);
+                solutionDao.deleteContent(content_title,type);
                 return "error";
             }
         }
@@ -295,11 +295,11 @@ public class AdminController {
 
     @RequestMapping(value="delete_content.do",method= POST)
     @ResponseBody
-    public List<Userjson> deleteContent(HttpServletRequest request,ModelMap model,@RequestParam String content_title){
+    public List<Userjson> deleteContent(HttpServletRequest request,ModelMap model,@RequestParam String content_title,String type){
 
         List<Userjson> jsonList = new ArrayList<Userjson>();
         Userjson jsonInfo = new Userjson();
-        if(solutionDao.deleteContent(content_title)==1){
+        if(solutionDao.deleteContent(content_title,type)==1){
             jsonInfo.setInfo("true");
 
         }else{
