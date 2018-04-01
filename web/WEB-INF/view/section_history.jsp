@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="js/content_action.js?t=3"></script>
+    <script src="js/content_action.js?t=4"></script>
     <style>
         th{
             text-align: center !important;
@@ -99,6 +99,7 @@
                     <input type="button" value="->" class="btn btn-primary" onclick="showDialog3()">
                     <input type="hidden" id="c_title" value="${content_title}">
                     <input type="hidden" id="s_name" value="${section_name}">
+                    <input type="hidden" id="type" value="${type}">
                 </div>
 
                 <div class="table-warpper">
@@ -108,6 +109,7 @@
                             <th><b>Content Title<br></b></th>
                             <th><b>Section Name</b></th>
                             <th><b>Version<br></b></th>
+                            <th><b>Modify Time</b></th>
                             <th class="button-th" colspan="2"><b>Action</b></th>
                             <th><b>In Use</b></th>
                         </tr>
@@ -117,6 +119,7 @@
                                     <td>${section_list.title} <input type="hidden" id= "content_title" name="content_title" value="${section_list.title}"></td>
                                     <td>${section_list.section_name}<input type="hidden" id="section_name" name="section_name" value="${section_list.section_name}"></td>
                                     <td>${section_list.section_version} <input type="hidden" id="version" name="version" value="${section_list.section_version}"></td>
+                                    <td>${section_list.modify_time}</td><input type="hidden" id="isExternal" name="isExternal" value="${section_list.isExternal}">
                                     <td class="button-td"><input type="submit" class="btn btn-info" id="button-blue" value="EDIT" onclick="this.form.action='/edit'" style="width: 85px"></td>
                                     <td class="button-td"><input type="button" class="btn btn-danger" id="button-red" value="DELETE" onclick="showDialog(this)"></td>
                                     <td class="InUse" style="text-transform: uppercase;">${section_list.inUse}</td>
@@ -181,8 +184,6 @@
                 </div>
             </div>
         </div>
-
-
 
 </main>
 

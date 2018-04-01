@@ -8,7 +8,7 @@ CREATE TABLE Content(
 	UploadDate DATE NOT NULL,
 	Customer VARCHAR(50) NOT NULL,
 	CONSTRAINT so_pk
-	PRIMARY KEY (Title),
+	PRIMARY KEY (Title,IsExternal),
 	CONSTRAINT so_fk
 	FOREIGN KEY (Author)
 	REFERENCES Users(Username)

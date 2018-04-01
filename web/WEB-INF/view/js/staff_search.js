@@ -16,6 +16,7 @@ function checkBoxTest(){
     var allContent = document.getElementsByName("select_box");
     var checkedContent = new Array();
     var nameList = new Array();
+    var typeList = new Array();
     var template_options = document.getElementsByName("template_option");
     var selected_template = "";
     for(var i = 0; i < template_options.length;i++){
@@ -24,6 +25,7 @@ function checkBoxTest(){
         }
     }
     var name = "";
+    var type = "";
     for(var i = 0;i < allContent.length;i++)
     {
         if(allContent[i].checked){
@@ -32,7 +34,10 @@ function checkBoxTest(){
     }
     for(var i = 0;i<checkedContent.length;i++){
         name = $(checkedContent[i]).parents("tr").find("#content_title").val();
+        type = $(checkedContent[i]).parents("tr").find("#type").val();
         nameList.push(name);
+        typeList.push(type);
+
     }
     if(nameList.length == 0){
         alert("Please Select the Content!");
@@ -44,7 +49,7 @@ function checkBoxTest(){
     }
     $.ajax({
         url:"/export_word",
-        data:{list:nameList,"selected_template":selected_template},
+        data:{list:nameList,list2:typeList,"selected_template":selected_template},
         type:"post",
         dataType:"json",
         contentType:"application/x-www-form-urlencoded",

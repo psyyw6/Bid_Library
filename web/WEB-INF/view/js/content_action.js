@@ -54,10 +54,12 @@ function  deleteSection() {
     var content_title = click_obj.parents("tr").find("#content_title").val();
     var section_name = click_obj.parents("tr").find("#section_name").val();
     var version = click_obj.parents("tr").find("#version").val();
+    var type = click_obj.parents("tr").find("#isExternal").val();
     $.ajax({
         url:"delete_section.do",
         type:"post",
-        data:{"content_title":content_title,"section_name":section_name,"version":version},dataType:"json",
+        data:{"content_title":content_title,"section_name":section_name,"version":version,"type":type},
+        dataType:"json",
         contentType:"application/x-www-form-urlencoded",
         success:function (data) {
             if(data[0].info == "true"){
@@ -78,15 +80,16 @@ function  deleteSection() {
 function RollBack(){
     var content_title = $("#c_title").val();
     var section_name = $("#s_name").val();
+    var type = $("#type").val();
     $.ajax({
         url:"rollback.do",
         type:"post",
-        data:{"content_title":content_title,"section_name":section_name},
+        data:{"content_title":content_title,"section_name":section_name,"type":type},
         dataType:"json",
         contentType:"application/x-www-form-urlencoded",
         success:function (data) {
             if(data[0].info == "true"){
-                window.location.href = 'section_history?content_title='+content_title+"&section_name="+section_name;
+                window.location.href = 'section_history?content_title='+content_title+"&section_name="+section_name+"&isExternal="+type;
             }
             else{
                 alert("Can not roll back from version 1");
@@ -103,15 +106,16 @@ function RollBack(){
 function Forward(){
     var content_title = $("#c_title").val();
     var section_name = $("#s_name").val();
+    var type = $("#type").val();
     $.ajax({
         url:"forward.do",
         type:"post",
-        data:{"content_title":content_title,"section_name":section_name},
+        data:{"content_title":content_title,"section_name":section_name,"type":type},
         dataType:"json",
         contentType:"application/x-www-form-urlencoded",
         success:function (data) {
             if(data[0].info == "true"){
-                window.location.href = 'section_history?content_title='+content_title+"&section_name="+section_name;
+                window.location.href = 'section_history?content_title='+content_title+"&section_name="+section_name+"&isExternal="+type;
             }
             else{
                 alert("Already the latest version");

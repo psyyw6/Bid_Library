@@ -33,16 +33,16 @@ function editSection(){
     var content_title = $("#content_title").val();
     var version = $("#version").val();
     var section_name = $("#section_name").val();
-
+    var type = $("#type").val();
     $.ajax({
         url:"edit_upload.do",
-        data:{"content_title":content_title,"section_name":section_name,"version":version,"content_detail":content},
+        data:{"content_title":content_title,"section_name":section_name,"version":version,"content_detail":content,"type":type},
         type:"post",
         dataType:"json",
         contentType:"application/x-www-form-urlencoded",
         success:function (data) {
             if(data[0].info == "true"){
-                $(location).attr('href','admin_view_detail?content_title='+content_title);
+                $(location).attr('href','admin_view_detail?content_title='+content_title+"&isExternal="+type);
             }
             else{
                 $(location).attr('href','error');

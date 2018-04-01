@@ -117,7 +117,7 @@
                                 <td>${content_list.upload_date}</td>
                                 <td>${content_list.customer}</td>
                                 <td>${content_list.expired_date}</td>
-                                <td>${content_list.isExternal}</td>
+                                <td>${content_list.isExternal} <input type="hidden" id="isExternal" name="isExternal" value="${content_list.isExternal}"> </td>
                                 <td class="button-td"><input type="submit" class="btn btn-info" id="button-blue" value="DETAILS" onclick="this.form.action='/admin_view_detail'"></td>
                                 <td class="button-td"><input type="button" class="btn btn-danger" id="button-red" value="DELETE" onclick="showDialog(this)"></td>
                             </tr>

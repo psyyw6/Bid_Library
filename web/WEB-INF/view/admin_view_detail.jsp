@@ -75,6 +75,7 @@
                             <th><b>Content Title<br></b></th>
                             <th><b>Section Name</b></th>
                             <th><b>Version</b></th>
+                            <th><b>Modify Time</b></th>
                             <th colspan="2"><b>Action</b></th>
                         </tr>
                         <c:forEach var="section_list"  items = "${section_list}">
@@ -83,6 +84,7 @@
                                     <td>${section_list.title} <input type="hidden" name="content_title" value="${section_list.title}"></td>
                                     <td>${section_list.section_name}<input type="hidden" name="section_name" value="${section_list.section_name}"></td>
                                     <td>${section_list.section_version}<input type="hidden" name="version" value="${section_list.section_version}"></td>
+                                    <td>${section_list.modify_time}</td><input type="hidden" id="isExternal" name="isExternal" value="${section_list.isExternal}">
                                     <td class="button-td"><input type="submit" class="btn btn-info" id="edit-button" value="EDIT" onclick="this.form.action='/edit'"></td>
                                     <td class="button-td"><input type = "submit" class="btn btn-warning" value="HISTORY" onclick="this.form.action='/section_history'"></td>
                                 </tr>

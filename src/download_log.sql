@@ -2,9 +2,9 @@ DROP TABLE IF EXISTS DownloadLog;
 
 CREATE TABLE DownloadLog(
   Download_ID int NOT NULL AUTO_INCREMENT,
-  Download_Name VARCHAR(50) NOT NULL,
-  Selected_Contents VARCHAR(60) NOT NULL,
-  Selected_Template VARCHAR(60) NOT NULL,
+  Download_Name VARCHAR(255) NOT NULL,
+  Selected_Contents VARCHAR(255) NOT NULL,
+  Selected_Template VARCHAR(255) NOT NULL,
   Download_Time VARCHAR(60) NOT NULL,
   User VARCHAR(50) BINARY NOT NULL,
   CONSTRAINT dl_pk

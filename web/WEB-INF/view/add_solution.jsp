@@ -19,7 +19,7 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" type="text/css" href="css/add_solution.css">
     <script src="js/jquery.js"></script>
-    <script src="js/add_solution.js?t=1"></script>
+    <script src="js/add_solution.js?t=3"></script>
     <link rel="stylesheet" href="css/jquery-ui.css">
     <link rel="stylesheet" href="css/jquery-ui.theme.css">
     <link rel="stylesheet" href="css/jquery-ui.structure.css">
@@ -84,6 +84,7 @@
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="Content_Title" name="solution_title" placeholder="Content Title" onclick="removeHint(this)">
                     <span class="help-block" style="display: none">Content title can not be empty!</span>
+                    <span class="help-block" id="duplicate_hint" style="display: none">Content title already exists!</span>
                 </div>
             </div>
             <div class="form-group">
@@ -109,7 +110,7 @@
             <div class="form-group">
                 <label for="type" class="col-sm-2 control-label">Type</label>
                 <div class="col-sm-10" id="type">
-                    <select class="form-control" name="isExternal">
+                    <select class="form-control" name="isExternal" id="isExternal">
                         <option value="External">External</option>
                         <option value="Internal">Internal</option>
                     </select>

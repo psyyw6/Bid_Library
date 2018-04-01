@@ -11,6 +11,8 @@ public class SectionVO implements RowMapper<SectionVO>, Serializable {
     private String title;
     private int section_version;
     private String section_details;
+    private String modify_time;
+    private String isExternal;
     private boolean inUse;
 
     public String getSection_name() {
@@ -59,10 +61,27 @@ public class SectionVO implements RowMapper<SectionVO>, Serializable {
         sectionVO.setTitle(resultSet.getString("Title"));
         sectionVO.setSection_name(resultSet.getString("Section_Name"));
         sectionVO.setSection_version(resultSet.getInt("Section_Version"));
+        sectionVO.setModify_time(resultSet.getString("Modify_Time"));
+        sectionVO.setIsExternal(resultSet.getString("IsExternal"));
         sectionVO.setSection_details(resultSet.getString("Section_Detail"));
         sectionVO.setInUse(resultSet.getBoolean("InUse"));
         return sectionVO;
     }
 
 
+    public String getModify_time() {
+        return modify_time;
+    }
+
+    public void setModify_time(String modify_time) {
+        this.modify_time = modify_time;
+    }
+
+    public String getIsExternal() {
+        return isExternal;
+    }
+
+    public void setIsExternal(String isExternal) {
+        this.isExternal = isExternal;
+    }
 }

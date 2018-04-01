@@ -64,7 +64,8 @@ public class LoginController {
                     }
                     for (int i = 0; i < contentList.size(); i++) {
                         String content_title = contentList.get(i).getContent_title();
-                        List<SectionVO> sectionList = solutionDao.selectInUseSection(content_title);
+                        String type = contentList.get(i).getIsExternal();
+                        List<SectionVO> sectionList = solutionDao.selectInUseSection(content_title,type);
                         model.addAttribute("section" + i, sectionList);
                     }
                     return "staff_search";

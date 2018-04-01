@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="css/edit.css">
     <script src="js/jquery-ui.js"></script>
     <script src="js/jquery-ui.min.js"></script>
-    <script src="js/edit.js?t=2"></script>
+    <script src="js/edit.js?t=3"></script>
     <link rel="stylesheet" id="js_composer_front-css" href="https://atos.net/wp-content/plugins/js_composer/assets/css/js_composer.min.css" type="text/css" media="all">
 </head>
 <body>
@@ -61,6 +61,7 @@
             <p class = "title_word">${content_title}: ${section_name}</p><input type="hidden" id="content_title" value="${content_title}">
             <p class= "title_word">Version: ${version}</p><input type="hidden" id="section_name" value="${section_name}">
                                                             <input type="hidden" id="version" value="${version}">
+                                                            <input type="hidden" id="type" value="${type}">
         </div>
     </section>
 

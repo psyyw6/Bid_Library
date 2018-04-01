@@ -172,7 +172,7 @@ public class AdminController {
                     if(!lineText.equals("")){
                         if(lineText.charAt(0) == '*') {
                             if (!section_name.equals("") && !section_details.equals("")) {
-                                solutionDao.storeSectionDetail(content_title, section_name, version, section_details,true);
+                                solutionDao.storeSectionDetail(content_title, section_name,type, version, section_details,true,upload_date);
                             }
                             section_name = lineText.substring(1);
                             section_details = "";
@@ -183,7 +183,7 @@ public class AdminController {
                     }
                 }
                 if(!section_name.equals("")&&!section_details.equals("")){
-                    solutionDao.storeSectionDetail(content_title, section_name, version, section_details,true);
+                    solutionDao.storeSectionDetail(content_title, section_name,type,version, section_details,true,upload_date);
                 }
                 return "success_upload";
             }
@@ -209,7 +209,8 @@ public class AdminController {
             return "unlogin";
         }
         String content_title = request.getParameter("content_title");
-        List<SectionVO>section_list = solutionDao.selectInUseSection(content_title);
+        String type = request.getParameter("isExternal");
+        List<SectionVO>section_list = solutionDao.selectInUseSection(content_title,type);
         model.addAttribute("section_list",section_list);
         model.addAttribute("content_title",content_title);
         return "admin_view_detail";
@@ -230,14 +231,15 @@ public class AdminController {
         String content_title = request.getParameter("content_title");
         String section_name = request.getParameter("section_name");
         int version = Integer.parseInt(request.getParameter("version"));
-
-        SectionVO section_detail = solutionDao.selectSectionByName(content_title,section_name,version);
+        String type = request.getParameter("isExternal");
+        SectionVO section_detail = solutionDao.selectSectionByName(content_title,section_name,version,type);
         if(section_detail!=null){
             String details = section_detail.getSection_details();
             model.addAttribute("section_name",section_name);
             model.addAttribute("content_title",content_title);
             model.addAttribute("version",version);
             model.addAttribute("content",details);
+            model.addAttribute("type",type);
             return "edit";
         }
         else{
@@ -247,14 +249,17 @@ public class AdminController {
 
     @RequestMapping(value="/edit_upload.do",method = POST)
     @ResponseBody
-    public List<Userjson> uploadForEdit(HttpServletRequest request, @RequestParam String content_title, String section_name, String version, String content_detail){
+    public List<Userjson> uploadForEdit(HttpServletRequest request, @RequestParam String content_title, String section_name, String version, String content_detail,String type){
         int num_version = Integer.parseInt(version);
+        Date today = new Date();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String modify_time = df.format(today);
         List<Userjson> response = new ArrayList<Userjson>();
         Userjson jsonInfo = new Userjson();
-        SectionVO latestSection = solutionDao.selectMaxVersionByTitleAndName(content_title,section_name);
-        solutionDao.updateInUseVersionToFalse(content_title,section_name);
+        SectionVO latestSection = solutionDao.selectMaxVersionByTitleAndName(content_title,section_name,type);
+        solutionDao.updateInUseVersionToFalse(content_title,section_name,type);
         int new_version = latestSection.getSection_version() + 1;
-        solutionDao.storeSectionDetail(content_title,section_name,new_version,content_detail,true);
+        solutionDao.storeSectionDetail(content_title,section_name,type,new_version,content_detail,true,modify_time);
         jsonInfo.setInfo("true");
         response.add(jsonInfo);
         return response;
@@ -274,12 +279,14 @@ public class AdminController {
         }
         String content_title = request.getParameter("content_title");
         String section_name = request.getParameter("section_name");
+        String type = request.getParameter("isExternal");
         model.addAttribute("section_name",section_name);
-        List<SectionVO> allSections = solutionDao.selectAllHistory(content_title,section_name);
-        SectionVO inUseSection = solutionDao.selectInUseSectionByTilteAndName(content_title,section_name);
+        List<SectionVO> allSections = solutionDao.selectAllHistory(content_title,section_name,type);
+        SectionVO inUseSection = solutionDao.selectInUseSectionByTilteAndName(content_title,section_name,type);
         model.addAttribute("InUseVersion",inUseSection.getSection_version());
         model.addAttribute("content_title",content_title);
         model.addAttribute("section_name",section_name);
+        model.addAttribute("type",type);
         if(allSections!=null){
             model.addAttribute("allSections",allSections);
         }
@@ -304,11 +311,11 @@ public class AdminController {
 
     @RequestMapping(value="delete_section.do",method = POST)
     @ResponseBody
-    public List<Userjson> deleteSection(HttpServletRequest request,ModelMap model,@RequestParam String content_title,String section_name,String version){
+    public List<Userjson> deleteSection(HttpServletRequest request,ModelMap model,@RequestParam String content_title,String section_name,String version,String type){
         List<Userjson> jsonList = new ArrayList<Userjson>();
         Userjson jsonInfo = new Userjson();
         int num_version = Integer.parseInt(version);
-        if(solutionDao.DeleteSection(content_title,section_name,num_version) == 1){
+        if(solutionDao.DeleteSection(content_title,section_name,num_version,type) == 1){
             jsonInfo.setInfo("true");
         }
         else{
@@ -347,18 +354,18 @@ public class AdminController {
 
     @RequestMapping(value="/rollback.do",method = POST)
     @ResponseBody
-    List<Userjson> rollBackVersion(HttpServletRequest request,ModelMap model,@RequestParam String content_title,String section_name){
+    List<Userjson> rollBackVersion(HttpServletRequest request,ModelMap model,@RequestParam String content_title,String section_name,String type){
         List<Userjson> jsonList = new ArrayList<Userjson>();
         Userjson jsonInfo = new Userjson();
-        SectionVO currentUse = solutionDao.selectInUseSectionByTilteAndName(content_title,section_name);
+        SectionVO currentUse = solutionDao.selectInUseSectionByTilteAndName(content_title,section_name,type);
         int currentVersion = currentUse.getSection_version();
         if(currentVersion == 1){
             jsonInfo.setInfo("false");
         }
         else{
             currentVersion--;
-            solutionDao.updateInUseVersionToFalse(content_title,section_name);
-            solutionDao.updateInUseVersionToTrue(content_title,section_name,currentVersion);
+            solutionDao.updateInUseVersionToFalse(content_title,section_name,type);
+            solutionDao.updateInUseVersionToTrue(content_title,section_name,currentVersion,type);
             jsonInfo.setInfo("true");
         }
         jsonList.add(jsonInfo);
@@ -367,19 +374,19 @@ public class AdminController {
 
     @RequestMapping(value="/forward.do",method = POST)
     @ResponseBody
-    List<Userjson> forwardVersion(HttpServletRequest request,ModelMap model,@RequestParam String content_title,String section_name){
+    List<Userjson> forwardVersion(HttpServletRequest request,ModelMap model,@RequestParam String content_title,String section_name,String type){
         List<Userjson> jsonList = new ArrayList<Userjson>();
         Userjson jsonInfo = new Userjson();
-        SectionVO currentUse = solutionDao.selectInUseSectionByTilteAndName(content_title,section_name);
-        int maxVersion = solutionDao.selectMaxVersionByTitleAndName(content_title,section_name).getSection_version();
+        SectionVO currentUse = solutionDao.selectInUseSectionByTilteAndName(content_title,section_name,type);
+        int maxVersion = solutionDao.selectMaxVersionByTitleAndName(content_title,section_name,type).getSection_version();
         int currentVersion = currentUse.getSection_version();
         if(currentVersion == maxVersion){
             jsonInfo.setInfo("false");
         }
         else{
             currentVersion++;
-            solutionDao.updateInUseVersionToFalse(content_title,section_name);
-            solutionDao.updateInUseVersionToTrue(content_title,section_name,currentVersion);
+            solutionDao.updateInUseVersionToFalse(content_title,section_name,type);
+            solutionDao.updateInUseVersionToTrue(content_title,section_name,currentVersion,type);
             jsonInfo.setInfo("true");
         }
         jsonList.add(jsonInfo);
@@ -430,13 +437,13 @@ public class AdminController {
         for (SectionVO resultS : finalSectionList) {
             int isExist = 0;
             for (SolutionVO resultC : resultContentList) {
-                if (resultS.getTitle().equals(resultC.getContent_title())) {
+                if (resultS.getTitle().equals(resultC.getContent_title())&&resultS.getIsExternal().equals(resultC.getIsExternal())) {
                     isExist = 1;
                     break;
                 }
             }
             if (isExist == 0) {
-                SolutionVO newContent = solutionDao.selectContentByTitle(resultS.getTitle());
+                SolutionVO newContent = solutionDao.selectContentByTitle(resultS.getTitle(),resultS.getIsExternal());
                 resultContentList.add(newContent);
             }
         }
@@ -630,6 +637,39 @@ public class AdminController {
         jsonList.add(jsonInfo);
         return jsonList;
     }
+
+    @RequestMapping(value="/checkDuplicateContent",method=POST)
+    @ResponseBody
+    public List<Userjson> checkDuplicateContent(HttpServletRequest request,ModelMap model,@RequestParam String content_title,String isExternal) {
+        List<Userjson> jsonList = new ArrayList<Userjson>();
+        Userjson jsonInfo = new Userjson();
+        if(solutionDao.checkDuplicateContent(content_title,isExternal)!=null){
+            jsonInfo.setInfo("true");
+        }
+        else{
+            jsonInfo.setInfo("false");
+        }
+        jsonList.add(jsonInfo);
+        return jsonList;
+
+    }
+
+    @RequestMapping(value="/checkDuplicateTemplate",method=POST)
+    @ResponseBody
+    public List<Userjson> checkDuplicateTemplate(HttpServletRequest request,ModelMap model,@RequestParam String template_name) {
+        List<Userjson> jsonList = new ArrayList<Userjson>();
+        Userjson jsonInfo = new Userjson();
+        if(solutionDao.checkDuplicateTemplate(template_name)!=null){
+            jsonInfo.setInfo("true");
+        }
+        else{
+            jsonInfo.setInfo("false");
+        }
+        jsonList.add(jsonInfo);
+        return jsonList;
+
+    }
+
 
 
 }

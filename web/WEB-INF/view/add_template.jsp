@@ -19,7 +19,7 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" type="text/css" href="css/add_solution.css">
     <script src="js/jquery.js"></script>
-    <script src="js/add_template.js"></script>
+    <script src="js/add_template.js?t=1"></script>
     <link rel="stylesheet" href="css/jquery-ui.css">
     <link rel="stylesheet" href="css/jquery-ui.theme.css">
     <link rel="stylesheet" href="css/jquery-ui.structure.css">
@@ -95,6 +95,7 @@
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="Template_Name" name="Template_name" placeholder="Template Name" onclick="removeHint(this)">
                     <span class="help-block" style="display: none">Template name can not be empty!</span>
+                    <span class="help-block" id="duplicate_hint" style="display: none">Template name already exists!</span>
                 </div>
             </div>
             <div class="form-group">

@@ -19,7 +19,7 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="icon" type="image/png" href="img/ato_icon.png" sizes="200x200">
     <link rel="stylesheet" href="css/staff_search.css">
-    <script src="js/staff_search.js?t=3" rel="script"></script>
+    <script src="js/staff_search.js?t=4" rel="script"></script>
     <link rel="stylesheet" href="css/add_solution.css">
 </head>
 <body class="page_content page_home">
@@ -101,7 +101,7 @@
                     <td>${content_list.upload_date}</td>
                     <td>${content_list.customer}</td>
                     <td>${content_list.expired_date}</td><input type="hidden" id="index" value="${status.index}">
-                    <td>${content_list.isExternal}</td>
+                    <td>${content_list.isExternal} <input type="hidden" id="type" value="${content_list.isExternal}"></td>
                     <td><input type="button" class="btn btn-info" value="Details" onclick="viewSection(this)"></td>
                 </tr>
                     <c:set value="${'section'}${status.index}" var="option1"></c:set>
@@ -112,6 +112,7 @@
                                 <td colspan="3">${section_list.section_name}</td><input type="hidden" name="section_name" value="${section_list.section_name}">
                                 <td colspan="3">Version: ${section_list.section_version}</td><input type="hidden" name="version" value="${section_list.section_version}">
                                 <input type="hidden" name="content_title" value=${content_list.content_title}>
+                                <input type="hidden" name="isExternal" value="${content_list.isExternal}">
                                 <td colspan="2"><input type="submit" class="btn btn-primary button-view" value="View" onclick="this.form.action ='/userViewDetail.do'"></td>
                             </tr>
                          </form>

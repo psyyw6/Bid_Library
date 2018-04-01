@@ -75,7 +75,8 @@ public class UserController {
         }
         for (int i = 0; i < contentList.size(); i++) {
             String content_title = contentList.get(i).getContent_title();
-            List<SectionVO> sectionList = solutionDao.selectInUseSection(content_title);
+            String type = contentList.get(i).getIsExternal();
+            List<SectionVO> sectionList = solutionDao.selectInUseSection(content_title,type);
             model.addAttribute("section" + i, sectionList);
         }
         List<TemplateVO> allTemplates = solutionDao.selectAllTemplates();
@@ -118,13 +119,13 @@ public class UserController {
                 for (SectionVO resultS : finalSectionList) {
                     int isExist = 0;
                     for (SolutionVO resultC : resultContentList) {
-                        if (resultS.getTitle().equals(resultC.getContent_title())) {
+                        if (resultS.getTitle().equals(resultC.getContent_title())&&resultS.getIsExternal().equals(resultC.getIsExternal())) {
                             isExist = 1;
                             break;
                         }
                     }
                     if (isExist == 0) {
-                        SolutionVO newContent = solutionDao.selectContentByTitle(resultS.getTitle());
+                        SolutionVO newContent = solutionDao.selectContentByTitle(resultS.getTitle(),resultS.getIsExternal());
                         resultContentList.add(newContent);
                     }
                 }
@@ -145,7 +146,7 @@ public class UserController {
                 resultSectionList = solutionDao.searchInUseSectionByName(keyword);
                 for (SectionVO resultS : resultSectionList) {
 
-                    SolutionVO newContent = solutionDao.selectContentByTitle(resultS.getTitle());
+                    SolutionVO newContent = solutionDao.selectContentByTitle(resultS.getTitle(),resultS.getIsExternal());
                     resultContentList.add(newContent);
                 }
 
@@ -156,7 +157,8 @@ public class UserController {
 
             for (int i = 0; i < resultContentList.size(); i++) {
                 String content_title = resultContentList.get(i).getContent_title();
-                List<SectionVO> sectionList = solutionDao.selectInUseSection(content_title);
+                String type = resultContentList.get(i).getIsExternal();
+                List<SectionVO> sectionList = solutionDao.selectInUseSection(content_title,type);
                 model.addAttribute("section" + i, sectionList);
             }
         } else {
@@ -180,11 +182,12 @@ public class UserController {
         String content_title = request.getParameter("content_title");
         String section_name = request.getParameter("section_name");
         String str_version = request.getParameter("version");
+        String type = request.getParameter("isExternal");
         if (content_title == null || section_name == null || str_version == null) {
             return "staff_search";
         }
         int version = Integer.parseInt(str_version);
-        SectionVO requestSection = solutionDao.selectSectionByName(content_title, section_name, version);
+        SectionVO requestSection = solutionDao.selectSectionByName(content_title, section_name, version,type);
         String details = requestSection.getSection_details().replaceAll("\n", "</p><p>");
         model.addAttribute("content_title", content_title);
         model.addAttribute("version", version);
@@ -196,7 +199,7 @@ public class UserController {
 
     @RequestMapping(value = "export_word", method = POST)
     @ResponseBody
-    public List<Userjson> exportWord(HttpServletRequest request, ModelMap model, @RequestParam(required = false, value = "list[]") List<String> list,String selected_template) throws IOException {
+    public List<Userjson> exportWord(HttpServletRequest request, ModelMap model, @RequestParam(required = false, value = "list[]") List<String> list, @RequestParam(required = false, value = "list2[]") List<String> list2, String selected_template) throws IOException {
         UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
         String user = loginstaff.getName();
         Date now = new Date();
@@ -207,12 +210,12 @@ public class UserController {
         Userjson jsonInfo = new Userjson();
         response.add(jsonInfo);
         HashMap<String, Object> map = new HashMap<String, Object>();
-        for (String content_title : list) {
-            SolutionVO temp = solutionDao.selectContentByTitle(content_title);
+        for (int i = 0;i<list.size();i++) {
+            SolutionVO temp = solutionDao.selectContentByTitle(list.get(i),list2.get(i));
             targetContents.add(temp);
         }
         for (SolutionVO temp : targetContents) {
-            List<SectionVO> sectionList = solutionDao.selectInUseSection(temp.getContent_title());
+            List<SectionVO> sectionList = solutionDao.selectInUseSection(temp.getContent_title(),temp.getIsExternal());
             map.put("CustomerName",temp.getCustomer());
             for (SectionVO sectionTemp : sectionList) {
                 String data = sectionTemp.getSection_details();
@@ -267,8 +270,8 @@ public class UserController {
         int i = 1;
         String new_file_name = fileName;
         while(f.exists()){
-            new_file_name = filePath + selected_template + "Generate("+i+").doc";
-            f = new File(new_file_name);
+            new_file_name = selected_template + "_Generate("+i+").doc";
+            f = new File(filePath+new_file_name);
             i++;
         }
         String selected_content = "";

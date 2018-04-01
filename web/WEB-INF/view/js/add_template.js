@@ -41,7 +41,8 @@ function testValid() {
     var src_prefix_location = $("#DocSrcPrefixLocation").val();
     var next_part_id = $("#NextPartId").val();
     var doc_src_parent = $("#DocSrcParent").val();
-    var textInput = $(".form-control")
+    var textInput = $(".form-control");
+    var ifDuplicate = false;
     textInput.each(function(){
         var text = $(this).val();
         if(text == ""){
@@ -50,6 +51,33 @@ function testValid() {
             $(this).parent().find('.help-block').css("display","block");
         }
     });
+
+    $.ajax({
+        url:"/checkDuplicateTemplate",
+        data:{"template_name":template_name},
+        dataType:"json",
+        type:"post",
+        async:false,
+        contentType:"application/x-www-form-urlencoded",
+        success:function (data) {
+            if(data[0].info == "true"){
+                ifDuplicate = true;
+            }
+
+        },
+        error:function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest.status);
+        }
+
+    });
+
+    if(ifDuplicate){
+        var error_info = $("#Template_Name").parent().parent();
+        $(error_info).addClass("has-error");
+        $("#Template_Name").parent().find('#duplicate_hint').css("display","block");
+        return false;
+    }
+
     if(filename == ""||image_name==""||template_name==""||src_prefix_location==""||next_part_id==""||doc_src_parent==""){
         return false;
     }
