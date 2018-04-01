@@ -179,6 +179,18 @@ public class UserController {
 
     @RequestMapping(value = "userViewDetail.do", method = GET)
     public String userViewDetail(HttpServletRequest request, ModelMap model) {
+        if(request.getSession().getAttribute("loginstaff")!=null) {
+            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
+            model.addAttribute("name",loginstaff.getName());
+            if(loginstaff.getRole()){
+                model.addAttribute("role","Admin");
+            }
+            else{
+                model.addAttribute("role","User");
+            }
+        }else{
+            return "unlogin";
+        }
         String content_title = request.getParameter("content_title");
         String section_name = request.getParameter("section_name");
         String str_version = request.getParameter("version");
@@ -193,7 +205,6 @@ public class UserController {
         model.addAttribute("version", version);
         model.addAttribute("section_name", section_name);
         model.addAttribute("content", details);
-
         return "UserDetail";
     }
 

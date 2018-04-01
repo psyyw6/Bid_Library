@@ -210,7 +210,7 @@ public class AdminController {
         }
         String content_title = request.getParameter("content_title");
         String type = request.getParameter("isExternal");
-        if(content_title.equals("")||type.equals("")){
+        if(content_title==null||type==null){
             return "administer_solution";
         }
         List<SectionVO>section_list = solutionDao.selectInUseSection(content_title,type);
@@ -283,6 +283,9 @@ public class AdminController {
         String content_title = request.getParameter("content_title");
         String section_name = request.getParameter("section_name");
         String type = request.getParameter("isExternal");
+        if(content_title==null||section_name==null||type==null){
+            return "administer_solution";
+        }
         model.addAttribute("section_name",section_name);
         List<SectionVO> allSections = solutionDao.selectAllHistory(content_title,section_name,type);
         SectionVO inUseSection = solutionDao.selectInUseSectionByTilteAndName(content_title,section_name,type);
