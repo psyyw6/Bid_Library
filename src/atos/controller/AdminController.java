@@ -315,9 +315,12 @@ public class AdminController {
         List<Userjson> jsonList = new ArrayList<Userjson>();
         Userjson jsonInfo = new Userjson();
         int num_version = Integer.parseInt(version);
+        int inuse_version = solutionDao.selectInUseSectionByTilteAndName(content_title,section_name,type).getSection_version();
         if(solutionDao.DeleteSection(content_title,section_name,num_version,type) == 1){
-            int new_inuse_version = num_version - 1;
-            solutionDao.updateInUseVersionToTrue(content_title,section_name,new_inuse_version,type);
+            if(inuse_version == num_version){
+                int new_inuse_version = num_version - 1;
+                solutionDao.updateInUseVersionToTrue(content_title,section_name,new_inuse_version,type);
+            }
             jsonInfo.setInfo("true");
         }
         else{
