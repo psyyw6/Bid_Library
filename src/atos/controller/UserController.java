@@ -170,8 +170,21 @@ public class UserController {
 
 
     @ExceptionHandler(NoSearchResultException.class)
-    public ModelAndView handleAdministerExceptionException(HttpServletRequest request, NoSearchResultException ex) {
+    public ModelAndView handleAdministerExceptionException(HttpServletRequest request,NoSearchResultException ex) {
         ModelAndView modelAndView = new ModelAndView("staff_error");
+        if(request.getSession().getAttribute("loginstaff")!=null) {
+            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
+            modelAndView.addObject("name",loginstaff.getName());
+            if(loginstaff.getRole()){
+                modelAndView.addObject("role","Admin");
+            }
+            else{
+                modelAndView.addObject("role","User");
+            }
+
+        }else{
+            return new ModelAndView("unlogin");
+        }
         modelAndView.addObject("errCode", ex.getErrCode());
         modelAndView.addObject("errMsg", ex.getErrMsg());
         return modelAndView;
