@@ -84,5 +84,29 @@ public class UserDao {
         }
     }
 
+    public int deleteUser(String username){
+        String sql = "delete from Users where Username = ?";
+        Object[] params = {username};
+        System.out.println("username: " + username);
+        try{
+            return jdbcTemplate.update(sql,params);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int changePassword(String username, String password){
+        String sql = "update Users set PASSWORD = ? where Username = ?";
+        Object[] params = {password, username};
+        try{
+            return jdbcTemplate.update(sql,params);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
 
 }

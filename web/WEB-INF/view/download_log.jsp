@@ -85,7 +85,7 @@
             </div>
             <div class="table-warpper">
                 <table class="table table-striped" id="myTable">
-                    <thead>
+                    <thead id="headers">
                     <tr>
                         <th><b>Download ID<br></b></th>
                         <th><b>File Name</b></th>
@@ -97,7 +97,7 @@
                     </tr>
                     </thead>
 
-                    <tbody>
+                    <tbody id="body">
                     <c:forEach var="logs"  items = "${logs}">
                         <form id="class_table">
                             <tr>
@@ -114,6 +114,12 @@
                     </tbody>
 
                 </table>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-10">
+                    <input type="button" id="upload_button" class="btn btn-primary" value="Export" onclick="exportExcel()">
+                    <%--showDialog('#changePasswordModal')--%>
+                </div>
             </div>
         </div>
     </section>

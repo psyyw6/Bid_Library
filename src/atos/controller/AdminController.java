@@ -10,6 +10,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 //import org.slf4j.Logger;
+
+import java.io.UnsupportedEncodingException;
+
+import java.security.NoSuchAlgorithmException;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -436,6 +440,63 @@ public class AdminController {
         List<Userjson> jsonList = new ArrayList<Userjson>();
         Userjson jsonInfo = new Userjson();
         userDao.upgradeUser(username);
+        jsonInfo.setInfo("true");
+        jsonList.add(jsonInfo);
+        return jsonList;
+    }
+
+    @RequestMapping(value="/delete",method = GET)
+    public String deletePage(HttpServletRequest request,ModelMap model){
+        if(request.getSession().getAttribute("loginstaff")!=null) {
+            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
+            if(!loginstaff.getRole()){
+                return "unAdmin";
+            }
+            model.addAttribute("name",loginstaff.getName());
+        }
+        else{
+            return "unlogin";
+        }
+        List<UserVO> user_list = userDao.selectAllUsers();
+        model.addAttribute("user_list",user_list);
+        return "upgrade";
+    }
+
+    @RequestMapping(value="/deleteUser.do",method = POST)
+    @ResponseBody
+    List<Userjson> deleteUser(HttpServletRequest request,ModelMap model,@RequestParam String username){
+        List<Userjson> jsonList = new ArrayList<Userjson>();
+        Userjson jsonInfo = new Userjson();
+        userDao.deleteUser(username);
+        jsonInfo.setInfo("true");
+        jsonList.add(jsonInfo);
+        return jsonList;
+    }
+
+    @RequestMapping(value="/changePassword",method = GET)
+    public String changePasswordPage(HttpServletRequest request,ModelMap model){
+        if(request.getSession().getAttribute("loginstaff")!=null) {
+            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
+            if(!loginstaff.getRole()){
+                return "unAdmin";
+            }
+            model.addAttribute("name",loginstaff.getName());
+        }
+        else{
+            return "unlogin";
+        }
+        String username = request.getParameter("username");
+        model.addAttribute("username",username);
+        return "changePassword";
+    }
+
+    @RequestMapping(value="/changePassword.do",method = POST)
+    @ResponseBody
+    List<Userjson> changePassword(HttpServletRequest request,ModelMap model,@RequestParam String username, String password)throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        List<Userjson> jsonList = new ArrayList<Userjson>();
+        Userjson jsonInfo = new Userjson();
+        String new_pwd = RegisterController.EncoderByMd5(password);
+        userDao.changePassword(username, new_pwd);
         jsonInfo.setInfo("true");
         jsonList.add(jsonInfo);
         return jsonList;

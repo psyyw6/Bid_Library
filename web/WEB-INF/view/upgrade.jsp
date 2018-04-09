@@ -93,7 +93,7 @@
                     <th><b>Username</b></th>
                     <th><b>Email</b></th>
                     <th><b>Role</b></th>
-                    <th class="button-th"><b>Action</b></th>
+                    <th class="button-th" colspan="3"><b>Action</b></th>
                 </tr>
                 </thead>
 
@@ -104,12 +104,13 @@
                             <td>${user_list.name} <input type="hidden" id="username" name="username" value="${user_list.name}"></td>
                             <td>${user_list.email}</td>
                             <td>User</td>
-                            <td class="button-td"><input type="button" class="btn btn-danger" id="button-red" value="UPGRADE" onclick="showDialog(this)"></td>
+                            <td class="button-td"><input type="button" class="btn btn-primary" id="button-upgrade" value="UPGRADE" onclick="showDialog(this, '#myModal')"></td>
+                            <td class="button-td"><input type="submit" class="btn btn-info" id="button-change" value="CHANGE PASSWORD" onclick="this.form.action='/changePassword'"></td>
+                            <td class="button-td"><input type="button" class="btn btn-danger" id="button-delete" value="DELETE" onclick="showDialog(this, '#deleteModal')"></td>
                         </tr>
                     </form>
                 </c:forEach>
                 </tbody>
-
             </table>
         </div>
     </div>
@@ -128,6 +129,24 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-info" onclick="Upgrade()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="deleteModalLabel">Save</h4>
+            </div>
+            <div class="modal-body">
+                Are you sure to delete the user?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-info" onclick="Delete()">Yes</button>
             </div>
         </div>
     </div>

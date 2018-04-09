@@ -181,3 +181,38 @@ function deleteDoc(){
 
     })
 }
+
+function exportExcel(){
+    // str="";
+    // alert("testtttttt");
+    // var myTableHead = document.getElementById('headers');
+    // var rowCountHead = myTableHead.rows.length;
+    // var colCountHead = myTableHead.getElementsByTagName("tr")[0].getElementsByTagName("th").length;
+    //
+    // var ExcelApp = new ActiveXObject("Excel.Application");
+    // var ExcelSheet = new ActiveXObject("Excel.Sheet");
+    // ExcelSheet.Application.Visible = true;
+    //
+    // for(var i=0; i<rowCountHead; i++)
+    // {
+    //     for(var j=0; j<colCountHead; j++)
+    //     {
+    //         str= myTableHead.getElementsByTagName("tr")[i].getElementsByTagName("th")[j].innerHTML;
+    //         ExcelSheet.ActiveSheet.Cells(i+1,j+1).Value = str;
+    //     }
+    // }
+    //
+    // var myTableBody = document.getElementById('body');
+    // var rowCountBody = myTableBody.rows.length;
+    // var colCountBody = myTableBody.getElementsByTagName("tr")[0].getElementsByTagName("th").length;
+    //
+    // for(var i=0; i<rowCountBody; i++)
+    // {
+    //     for(var j=0; j<colCountBody; j++)
+    //     {
+    //         str= myTableHead.getElementsByTagName("tr")[i].getElementsByTagName("th")[j].innerHTML;
+    //         ExcelSheet.ActiveSheet.Cells(i+1,j+1).Value = str;
+    //     }
+    // }
+
+}
