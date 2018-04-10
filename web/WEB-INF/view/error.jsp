@@ -33,7 +33,6 @@
             <figure class="logo animated fadeInDown delay-07s">
                 <img src="imgwarning-icon.png" alt="">
             </figure>
-            <br>
             <h3 class="animated fadeInDown delay-07s" style="color: red;">Opps, somethings error when upload file</h3>
             <br>
             <a class="link animated fadeInUp delay-1s servicelink" style="background: red;" href="/add_solution">Go Back</a>

@@ -46,7 +46,7 @@
     <div class="wrapper">
         <div class="header_pre cf">
             <ul class="header_pre-institutional">
-                <li><p>Welcome ${name}</p></li>
+                <li><p>Welcome <a href="/changePassword?username=${name}" id="login_user">${name}</a></p></li>
             </ul>
             <ul class="header_pre-external">
                 <li><a href="/logout">Logout</a>
@@ -103,7 +103,7 @@
                         <tr>
                             <td>${user_list.name} <input type="hidden" id="username" name="username" value="${user_list.name}"></td>
                             <td>${user_list.email}</td>
-                            <td>User</td>
+                            <td>${user_list.role_string} <input type="hidden" id="role" name="role" value="${user_list.role}"></td>
                             <td class="button-td"><input type="button" class="btn btn-primary" id="button-upgrade" value="UPGRADE" onclick="showDialog(this, '#myModal')"></td>
                             <td class="button-td"><input type="submit" class="btn btn-info" id="button-change" value="CHANGE PASSWORD" onclick="this.form.action='/changePassword'"></td>
                             <td class="button-td"><input type="button" class="btn btn-danger" id="button-delete" value="DELETE" onclick="showDialog(this, '#deleteModal')"></td>
@@ -146,7 +146,39 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-info" onclick="Delete()">Yes</button>
+                <button type="button" class="btn btn-danger" onclick="Delete()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="adminModalLabel">Save</h4>
+            </div>
+            <div class="modal-body">
+                Can not upgrade an administrator.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="delete_warning" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="delete_warningLabel">Save</h4>
+            </div>
+            <div class="modal-body">
+                You can not delete yourself.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

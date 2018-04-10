@@ -298,16 +298,16 @@ public class UserController {
             f = new File(filePath+new_file_name);
             i++;
         }
-        String selected_content = "";
-        for(String temp : list){
-            selected_content += temp + "/";
+        StringBuilder selected_content = new StringBuilder();
+        for(int x =0;x<list.size();x++){
+            selected_content.append(list.get(x)).append("-").append(list2.get(x)).append("/");
         }
         request.getSession().setAttribute("download_file",new_file_name);
         OutputStream out;
         try {
             out = new FileOutputStream(f);
             WordGeneratorWithFreemarker.createDoc(map,selected_template+".ftl", out);
-            solutionDao.storeDownloadLog(new_file_name,selected_content,selected_template,download_time,user);
+            solutionDao.storeDownloadLog(new_file_name, selected_content.toString(),selected_template,download_time,user);
             jsonInfo.setInfo("true");
             response.add(jsonInfo);
         } catch (FileNotFoundException e) {

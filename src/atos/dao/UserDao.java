@@ -28,7 +28,7 @@ public class UserDao {
     }
 
     public List<UserVO> selectAllUsers(){
-        String sql = "select * from Users where ROLE = false";
+        String sql = "select * from Users Order BY Role";
         try{
             return jdbcTemplate.query(sql,new UserVO());
         }

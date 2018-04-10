@@ -259,7 +259,7 @@ public class AdminController {
     public List<Userjson> uploadForEdit(HttpServletRequest request, @RequestParam String content_title, String section_name, String version, String content_detail,String type){
         int num_version = Integer.parseInt(version);
         Date today = new Date();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String modify_time = df.format(today);
         List<Userjson> response = new ArrayList<Userjson>();
         Userjson jsonInfo = new Userjson();
@@ -445,23 +445,6 @@ public class AdminController {
         return jsonList;
     }
 
-    @RequestMapping(value="/delete",method = GET)
-    public String deletePage(HttpServletRequest request,ModelMap model){
-        if(request.getSession().getAttribute("loginstaff")!=null) {
-            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
-            if(!loginstaff.getRole()){
-                return "unAdmin";
-            }
-            model.addAttribute("name",loginstaff.getName());
-        }
-        else{
-            return "unlogin";
-        }
-        List<UserVO> user_list = userDao.selectAllUsers();
-        model.addAttribute("user_list",user_list);
-        return "upgrade";
-    }
-
     @RequestMapping(value="/deleteUser.do",method = POST)
     @ResponseBody
     List<Userjson> deleteUser(HttpServletRequest request,ModelMap model,@RequestParam String username){
@@ -477,9 +460,6 @@ public class AdminController {
     public String changePasswordPage(HttpServletRequest request,ModelMap model){
         if(request.getSession().getAttribute("loginstaff")!=null) {
             UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
-            if(!loginstaff.getRole()){
-                return "unAdmin";
-            }
             model.addAttribute("name",loginstaff.getName());
         }
         else{

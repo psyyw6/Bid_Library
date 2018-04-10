@@ -115,12 +115,23 @@
 
                 </table>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="export">
                 <div class="col-sm-offset-1 col-sm-10">
-                    <input type="button" id="upload_button" class="btn btn-primary" value="Export" onclick="exportExcel()">
-                    <%--showDialog('#changePasswordModal')--%>
+                    <a class="btn btn-primary" data-type="xls" href="javascript:;">Export</a>
                 </div>
             </div>
+            <script src="js/Blob.js"></script>
+            <script src="js/FileSaver.js"></script>
+            <script src="js/tableExport.js"></script>
+            <script>
+                var $exportLink = document.getElementById('export');
+                $exportLink.addEventListener('click', function(e){
+                    e.preventDefault();
+                    if(e.target.nodeName === "A"){
+                        tableExport('myTable', 'DownloadLog', e.target.getAttribute('data-type'));
+                    }
+                }, false);
+            </script>
         </div>
     </section>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

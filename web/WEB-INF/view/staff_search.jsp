@@ -27,7 +27,7 @@
     <div class="wrapper">
         <div class="header_pre cf">
             <ul class="header_pre-institutional">
-                <li><p>Welcome ${name}&nbsp;&nbsp;(Role: <span id="role">${role}</span>)</p></li>
+                <li><p>Welcome <a href="/changePassword?username=${name}">${name}</a>&nbsp;&nbsp;(Role: <span id="role">${role}</span>)</p></li>
             </ul>
             <ul class="header_pre-external">
                 <li><a href="/logout">Logout</a>

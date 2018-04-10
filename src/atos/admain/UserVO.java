@@ -11,6 +11,7 @@ public class UserVO implements RowMapper<UserVO>, Serializable {
     private String pwd;
     private String email;
     private boolean role;
+    private String role_string;
 
 
     public String getEmail() {
@@ -52,7 +53,20 @@ public class UserVO implements RowMapper<UserVO>, Serializable {
         userVO.setName(resultSet.getString("Username"));
         userVO.setPwd(resultSet.getString("Password"));
         userVO.setRole(resultSet.getBoolean("Role"));
-
+        userVO.setRole_string(resultSet.getBoolean("Role"));
         return userVO;
+    }
+
+    public String getRole_string() {
+        return role_string;
+    }
+
+    public void setRole_string(boolean isRole) {
+        if(isRole){
+            this.role_string = "Admin";
+        }
+        else{
+            this.role_string = "User";
+        }
     }
 }

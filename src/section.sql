@@ -12,7 +12,7 @@ CREATE TABLE Section(
 	PRIMARY KEY (Section_Name, Title, Section_Version,IsExternal),
 	CONSTRAINT se_fk
 	FOREIGN KEY (Title,IsExternal)
-	REFERENCES Content(Title)
+	REFERENCES Content(Title,IsExternal)
 	ON UPDATE CASCADE
 	ON DELETE CASCADE
 )ENGINE=InnoDB;

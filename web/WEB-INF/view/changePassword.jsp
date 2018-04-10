@@ -84,7 +84,6 @@
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <input type="button" id="upload_button" class="btn btn-primary" value="Change" onclick="changePassword()">
-                    <%--showDialog('#changePasswordModal')--%>
                 </div>
             </div>
         </form>
