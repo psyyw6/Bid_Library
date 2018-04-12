@@ -72,50 +72,36 @@ public class AdminController {
         return sql_date;
     }
 
-    @RequestMapping(value="/administer_solution", method = GET)
-    public String showSolution(HttpServletRequest request, ModelMap model) {
+    //Test if the user has login before
+    private String testIfLogin(HttpServletRequest request,ModelMap model){
         if(request.getSession().getAttribute("loginstaff")!=null) {
             UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
             if(!loginstaff.getRole()){
                 return "unAdmin";
             }
             model.addAttribute("name",loginstaff.getName());
+            return "true";
         }
         else{
             return "unlogin";
+        }
+
+    }
+
+    @RequestMapping(value="/administer_solution", method = GET)
+    public String showSolution(HttpServletRequest request, ModelMap model) {
+        if(!testIfLogin(request,model).equals("true")){
+            return testIfLogin(request,model);
         }
         List<SolutionVO> content_list = solutionDao.selectAll();
         model.addAttribute("content_list",content_list);
         return "administer_solution";
     }
 
-    @RequestMapping(value="/modify", method = GET)
-    public String modifySolution(HttpServletRequest request, ModelMap model) {
-        if(request.getSession().getAttribute("loginstaff")!=null) {
-            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
-            if(!loginstaff.getRole()){
-                return "unAdmin";
-            }
-            model.addAttribute("name",loginstaff.getName());
-        }
-        else{
-            return "unlogin";
-        }
-        return "modify";
-    }
-
     @RequestMapping(value = "/add_solution",method = GET)
     public String addSolutionPage(HttpServletRequest request,ModelMap model) throws Exception{
-        if(request.getSession().getAttribute("loginstaff")!=null) {
-            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
-            if(!loginstaff.getRole()){
-                return "unAdmin";
-            }
-            model.addAttribute("name",loginstaff.getName());
-
-        }
-        else{
-            return "unlogin";
+        if(!testIfLogin(request,model).equals("true")){
+            return testIfLogin(request,model);
         }
         return "add_solution";
     }
@@ -123,7 +109,6 @@ public class AdminController {
     @ExceptionHandler(DuplicateKeyException.class)
     public ModelAndView handleDuplicateKeyException(HttpServletRequest request, DuplicateKeyException ex){
 
-//        System.out.println(ex.getContentTitle());
         if(ex.getContentTitle()!=null) {
             solutionDao.deleteContent(ex.getContentTitle(),ex.getIsExternal());
         }
@@ -202,15 +187,8 @@ public class AdminController {
 
     @RequestMapping(value="/admin_view_detail",method = GET)
     public String viewContentDetail(HttpServletRequest request,ModelMap model){
-        if(request.getSession().getAttribute("loginstaff")!=null) {
-            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
-            if(!loginstaff.getRole()){
-                return "unAdmin";
-            }
-            model.addAttribute("name",loginstaff.getName());
-        }
-        else{
-            return "unlogin";
+        if(!testIfLogin(request,model).equals("true")){
+            return testIfLogin(request,model);
         }
         String content_title = request.getParameter("content_title");
         String type = request.getParameter("isExternal");
@@ -225,15 +203,8 @@ public class AdminController {
 
     @RequestMapping(value = "/edit",method = GET)
     public String editSolution(HttpServletRequest request,ModelMap model){
-        if(request.getSession().getAttribute("loginstaff")!=null) {
-            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
-            if(!loginstaff.getRole()){
-                return "unAdmin";
-            }
-            model.addAttribute("name",loginstaff.getName());
-        }
-        else{
-            return "unlogin";
+        if(!testIfLogin(request,model).equals("true")){
+            return testIfLogin(request,model);
         }
         String content_title = request.getParameter("content_title");
         String section_name = request.getParameter("section_name");
@@ -274,15 +245,8 @@ public class AdminController {
 
     @RequestMapping(value="section_history",method = GET)
     public String showHistory(HttpServletRequest request, ModelMap model){
-        if(request.getSession().getAttribute("loginstaff")!=null) {
-            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
-            if(!loginstaff.getRole()){
-                return "unAdmin";
-            }
-            model.addAttribute("name",loginstaff.getName());
-        }
-        else{
-            return "unlogin";
+        if(!testIfLogin(request,model).equals("true")){
+            return testIfLogin(request,model);
         }
         String content_title = request.getParameter("content_title");
         String section_name = request.getParameter("section_name");
@@ -419,15 +383,8 @@ public class AdminController {
 
     @RequestMapping(value="/upgrade",method = GET)
     public String upgrdePage(HttpServletRequest request,ModelMap model){
-        if(request.getSession().getAttribute("loginstaff")!=null) {
-            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
-            if(!loginstaff.getRole()){
-                return "unAdmin";
-            }
-            model.addAttribute("name",loginstaff.getName());
-        }
-        else{
-            return "unlogin";
+        if(!testIfLogin(request,model).equals("true")){
+            return testIfLogin(request,model);
         }
         List<UserVO> user_list = userDao.selectAllUsers();
         model.addAttribute("user_list",user_list);
@@ -516,15 +473,8 @@ public class AdminController {
     @RequestMapping(value = "template",method = GET)
     public String templatePage(HttpServletRequest request,ModelMap model)
     {
-        if(request.getSession().getAttribute("loginstaff")!=null) {
-            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
-            if(!loginstaff.getRole()){
-                return "unAdmin";
-            }
-            model.addAttribute("name",loginstaff.getName());
-        }
-        else{
-            return "unlogin";
+        if(!testIfLogin(request,model).equals("true")){
+            return testIfLogin(request,model);
         }
         List<TemplateVO> allTemplates = solutionDao.selectAllTemplates();
         model.addAttribute("allTemplates",allTemplates);
@@ -534,15 +484,8 @@ public class AdminController {
     @RequestMapping(value = "add_template",method = GET)
     public String AddtemplatePage(HttpServletRequest request,ModelMap model)
     {
-        if(request.getSession().getAttribute("loginstaff")!=null) {
-            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
-            if(!loginstaff.getRole()){
-                return "unAdmin";
-            }
-            model.addAttribute("name",loginstaff.getName());
-        }
-        else{
-            return "unlogin";
+        if(!testIfLogin(request,model).equals("true")){
+            return testIfLogin(request,model);
         }
         return "add_template";
     }
@@ -663,15 +606,8 @@ public class AdminController {
 
     @RequestMapping(value="download_log",method=GET)
     public String downloadLogPage(HttpServletRequest request,ModelMap model){
-        if(request.getSession().getAttribute("loginstaff")!=null) {
-            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
-            if(!loginstaff.getRole()){
-                return "unAdmin";
-            }
-            model.addAttribute("name",loginstaff.getName());
-        }
-        else{
-            return "unlogin";
+        if(!testIfLogin(request,model).equals("true")){
+            return testIfLogin(request,model);
         }
         List<DownloadLogVO> logs = solutionDao.selectAllLogs();
         model.addAttribute("logs",logs);

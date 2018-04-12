@@ -52,8 +52,8 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/staff_search", method = GET)
-    public String staffSearchPage(HttpServletRequest request, ModelMap model) {
+    private  String testIfLogIn(HttpServletRequest request,ModelMap model)
+    {
         if(request.getSession().getAttribute("loginstaff")!=null) {
             UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
             model.addAttribute("name",loginstaff.getName());
@@ -63,9 +63,18 @@ public class UserController {
             else{
                 model.addAttribute("role","User");
             }
+            return "true";
 
         }else{
             return "unlogin";
+        }
+
+    }
+    @RequestMapping(value = "/staff_search", method = GET)
+    public String staffSearchPage(HttpServletRequest request, ModelMap model) {
+        if(!testIfLogIn(request,model).equals("true"))
+        {
+            return testIfLogIn(request,model);
         }
         List<SolutionVO> contentList = solutionDao.selectAll();
         if (!contentList.isEmpty()) {
@@ -87,19 +96,10 @@ public class UserController {
 
     @RequestMapping(value = "/search.do", method = POST)
     public String staffSearchResultPage(HttpServletRequest request, ModelMap model) {
-        if(request.getSession().getAttribute("loginstaff")!=null) {
-            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
-            model.addAttribute("name",loginstaff.getName());
-            if(loginstaff.getRole()){
-                model.addAttribute("role","Admin");
-            }
-            else{
-                model.addAttribute("role","User");
-            }
-        }else{
-            return "unlogin";
+        if(!testIfLogIn(request,model).equals("true"))
+        {
+            return testIfLogIn(request,model);
         }
-
         List<TemplateVO> allTemplates = solutionDao.selectAllTemplates();
         model.addAttribute("allTemplates",allTemplates);
 
@@ -154,7 +154,6 @@ public class UserController {
 
         if (!resultContentList.isEmpty()) {
             model.addAttribute("content_list", resultContentList);
-
             for (int i = 0; i < resultContentList.size(); i++) {
                 String content_title = resultContentList.get(i).getContent_title();
                 String type = resultContentList.get(i).getIsExternal();
@@ -192,17 +191,9 @@ public class UserController {
 
     @RequestMapping(value = "userViewDetail.do", method = GET)
     public String userViewDetail(HttpServletRequest request, ModelMap model) {
-        if(request.getSession().getAttribute("loginstaff")!=null) {
-            UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
-            model.addAttribute("name",loginstaff.getName());
-            if(loginstaff.getRole()){
-                model.addAttribute("role","Admin");
-            }
-            else{
-                model.addAttribute("role","User");
-            }
-        }else{
-            return "unlogin";
+        if(!testIfLogIn(request,model).equals("true"))
+        {
+            return testIfLogIn(request,model);
         }
         String content_title = request.getParameter("content_title");
         String section_name = request.getParameter("section_name");
