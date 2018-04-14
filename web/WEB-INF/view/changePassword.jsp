@@ -19,7 +19,7 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" type="text/css" href="css/add_solution.css">
     <script src="js/jquery.js"></script>
-    <script src="js/change_password.js?t=3"></script>
+    <script src="js/change_password.js?t=6"></script>
     <link rel="stylesheet" href="css/jquery-ui.css">
     <link rel="stylesheet" href="css/jquery-ui.theme.css">
     <link rel="stylesheet" href="css/jquery-ui.structure.css">
@@ -82,6 +82,14 @@
                 </div>
             </div>
             <div class="form-group">
+            <label for="confirmPassword" class="col-sm-2 control-label">Confirm Password</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" onclick="removeHint(this)">
+                <span class="help-block" style="display: none">Password can not be empty!</span>
+                <span class="help-block" id="duplicate_info" style="display: none">Two password must be the same!</span>
+            </div>
+            </div>
+            <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <input type="button" id="upload_button" class="btn btn-primary" value="Change" onclick="changePassword()">
                 </div>
@@ -90,23 +98,23 @@
     </section>
 </main>
 
-<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="changePasswordModalLabel">Save</h4>
-            </div>
-            <div class="modal-body">
-                Are you sure to change the password of the user?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-info" onclick="changePassword()">Yes</button>
-            </div>
-        </div>
-    </div>
-</div>
+<%--<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModalLabel">--%>
+    <%--<div class="modal-dialog" role="document">--%>
+        <%--<div class="modal-content">--%>
+            <%--<div class="modal-header">--%>
+                <%--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>--%>
+                <%--<h4 class="modal-title" id="changePasswordModalLabel">Save</h4>--%>
+            <%--</div>--%>
+            <%--<div class="modal-body">--%>
+                <%--Are you sure to change the password of the user?--%>
+            <%--</div>--%>
+            <%--<div class="modal-footer">--%>
+                <%--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--%>
+                <%--<button type="button" class="btn btn-info" onclick="changePassword()">Yes</button>--%>
+            <%--</div>--%>
+        <%--</div>--%>
+    <%--</div>--%>
+<%--</div>--%>
 
 
 </body>
