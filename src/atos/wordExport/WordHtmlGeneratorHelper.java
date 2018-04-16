@@ -15,7 +15,7 @@ import org.springframework.util.ReflectionUtils.FieldCallback;
 
 
 /**   
-* @Description:word 网页导出（单文件网页导出，mht文件格式）
+* @Description:word Website Export（Single Web Page，mht file format）
 * @author:LiaoFei  
 * @date :2016-3-28 上午11:17:38  
 * @version V1.0  

@@ -29,7 +29,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @Controller
 public class AdminController {
 
-//    private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 
     @Resource
     private UserDao userDao;
@@ -72,7 +71,7 @@ public class AdminController {
         return sql_date;
     }
 
-    //Test if the user has login before
+    //Check if the user has login before
     private String testIfLogin(HttpServletRequest request,ModelMap model){
         if(request.getSession().getAttribute("loginstaff")!=null) {
             UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
@@ -128,6 +127,7 @@ public class AdminController {
         String author;
         if(request.getSession().getAttribute("loginstaff")!=null) {
             UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
+            //Get the login username
             author = loginstaff.getName();
             if(!loginstaff.getRole()){
                 return "unAdmin";
@@ -144,8 +144,8 @@ public class AdminController {
         Date today = new Date();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String upload_date = df.format(today);
-        int version =1;
-        if(!checkFile(fileName)||fileName == ""){
+        int version = 1;
+        if(!checkFile(fileName)|| fileName.equals("")){
             throw new DuplicateKeyException(null, "Wrong File Format", "Please upload again",type);
         }
         else {
@@ -153,26 +153,27 @@ public class AdminController {
             InputStreamReader isr = new InputStreamReader(file);
             BufferedReader br = new BufferedReader(isr);
             String lineText = "";
-            String section_details = "";
+            StringBuilder section_details = new StringBuilder();
             String section_name = "";
             int i = 0;
             if(solutionDao.storeContent(content_title,author,customer_name,expired_date,upload_date,type)==1){
                 while ((lineText = br.readLine()) != null) {
                     if(!lineText.equals("")){
+                        //This line is for the section heading.
                         if(lineText.charAt(0) == '*') {
-                            if (!section_name.equals("") && !section_details.equals("")) {
-                                solutionDao.storeSectionDetail(content_title, section_name,type, version, section_details,true,upload_date);
+                            if (!section_name.equals("") && !section_details.toString().equals("")) {
+                                solutionDao.storeSectionDetail(content_title, section_name,type, version, section_details.toString(),true,upload_date);
                             }
                             section_name = lineText.substring(1);
-                            section_details = "";
+                            section_details = new StringBuilder();
                         }
                         else{
-                            section_details += "<p>"+lineText+"</p>";
+                            section_details.append("<p>").append(lineText).append("</p>");
                         }
                     }
                 }
-                if(!section_name.equals("")&&!section_details.equals("")){
-                    solutionDao.storeSectionDetail(content_title, section_name,type,version, section_details,true,upload_date);
+                if(!section_name.equals("")&&!section_details.toString().equals("")){
+                    solutionDao.storeSectionDetail(content_title, section_name,type,version, section_details.toString(),true,upload_date);
                 }
                 return "success_upload";
             }
@@ -228,14 +229,15 @@ public class AdminController {
     @RequestMapping(value="/edit_upload.do",method = POST)
     @ResponseBody
     public List<Userjson> uploadForEdit(HttpServletRequest request, @RequestParam String content_title, String section_name, String version, String content_detail,String type){
-        int num_version = Integer.parseInt(version);
         Date today = new Date();
         SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String modify_time = df.format(today);
         List<Userjson> response = new ArrayList<Userjson>();
         Userjson jsonInfo = new Userjson();
+        //Get the section object of the latest version.
         SectionVO latestSection = solutionDao.selectMaxVersionByTitleAndName(content_title,section_name,type);
         solutionDao.updateInUseVersionToFalse(content_title,section_name,type);
+        //Increment the version by 1 base on the latest version.
         int new_version = latestSection.getSection_version() + 1;
         solutionDao.storeSectionDetail(content_title,section_name,type,new_version,content_detail,true,modify_time);
         jsonInfo.setInfo("true");
@@ -314,11 +316,13 @@ public class AdminController {
         String filename = file.getOriginalFilename();
         String name = filename.substring(0,filename.indexOf("."));
         String suffix = filename.substring(filename.lastIndexOf("."));
+        //Get the path of the project output
         String path1 = request.getSession().getServletContext().getRealPath("WEB-INF/view/upload"+File.separator);
         String path = path1+filename;
         File descFile = new File(path);
         int i = 1;
         String newFilename = filename;
+        //If the filename already exist.
         while (descFile.exists()) {
             newFilename = name + "(" + i + ")" + suffix;
             String parentPath = descFile.getParent();
@@ -346,6 +350,7 @@ public class AdminController {
         }
         else{
             currentVersion--;
+            //select the last exist version
             while (solutionDao.selectSectionByTitleAndName(content_title,section_name,currentVersion,type)==null){
                 currentVersion--;
             }
@@ -370,6 +375,7 @@ public class AdminController {
         }
         else{
             currentVersion++;
+            //select the next exist version
             while (solutionDao.selectSectionByTitleAndName(content_title,section_name,currentVersion,type)==null){
                 currentVersion++;
             }
@@ -497,6 +503,7 @@ public class AdminController {
             for(int i = 0;i<files.length;i++){
                 MultipartFile file = files[i];
                 String filename;
+                //files[0] is the ftl file
                 if(i==0){
                      filename = request.getParameter("Template_name")+".ftl";
                      String path1 = request.getSession().getServletContext().getRealPath("WEB-INF/classes/atos/ftl")+File.separator;
@@ -504,6 +511,7 @@ public class AdminController {
                      File descFile = new File(path);
                      file.transferTo(descFile);
                 }
+                //files[1] is the cover image
                 if(i==1){
                     filename = file.getOriginalFilename();
 

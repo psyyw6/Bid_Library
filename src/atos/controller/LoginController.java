@@ -51,6 +51,7 @@ public class LoginController {
     @RequestMapping(value = "/login",method = GET)
     public String showLogin(HttpServletRequest request,ModelMap model)
     {
+        //If the user already log in, return the corresponding page according to his role.
         if(request.getSession().getAttribute("loginstaff")!=null) {
                 UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
                  model.addAttribute("name",loginstaff.getName());

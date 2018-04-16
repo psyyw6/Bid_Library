@@ -77,16 +77,16 @@
             <div class="form-group">
                 <label for="newPassword" class="col-sm-2 control-label">New Password</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="newPassword" name="newPassword" placeholder="New Password" onclick="removeHint(this)">
+                    <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="New Password" onclick="removeHint(this)">
                     <span class="help-block" style="display: none">Password can not be empty!</span>
                 </div>
             </div>
             <div class="form-group">
             <label for="confirmPassword" class="col-sm-2 control-label">Confirm Password</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" onclick="removeHint(this)">
+                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" onclick="removeHint(this)">
                 <span class="help-block" style="display: none">Password can not be empty!</span>
-                <span class="help-block" id="duplicate_info" style="display: none">Two password must be the same!</span>
+                <span class="help-block" id="duplicate_info" style="display: none">Two passwords must be the constant!</span>
             </div>
             </div>
             <div class="form-group">
@@ -98,23 +98,7 @@
     </section>
 </main>
 
-<%--<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModalLabel">--%>
-    <%--<div class="modal-dialog" role="document">--%>
-        <%--<div class="modal-content">--%>
-            <%--<div class="modal-header">--%>
-                <%--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>--%>
-                <%--<h4 class="modal-title" id="changePasswordModalLabel">Save</h4>--%>
-            <%--</div>--%>
-            <%--<div class="modal-body">--%>
-                <%--Are you sure to change the password of the user?--%>
-            <%--</div>--%>
-            <%--<div class="modal-footer">--%>
-                <%--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--%>
-                <%--<button type="button" class="btn btn-info" onclick="changePassword()">Yes</button>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-    <%--</div>--%>
-<%--</div>--%>
+
 
 
 </body>

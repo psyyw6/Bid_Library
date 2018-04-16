@@ -52,7 +52,7 @@ public class UserController {
     }
 
 
-    private  String testIfLogIn(HttpServletRequest request,ModelMap model)
+    private String testIfLogIn(HttpServletRequest request,ModelMap model)
     {
         if(request.getSession().getAttribute("loginstaff")!=null) {
             UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
@@ -118,6 +118,7 @@ public class UserController {
                 finalSectionList.addAll(resultSectionList2);
                 for (SectionVO resultS : finalSectionList) {
                     int isExist = 0;
+                    //check the search content if already exists in the result list.
                     for (SolutionVO resultC : resultContentList) {
                         if (resultS.getTitle().equals(resultC.getContent_title())&&resultS.getIsExternal().equals(resultC.getIsExternal())) {
                             isExist = 1;

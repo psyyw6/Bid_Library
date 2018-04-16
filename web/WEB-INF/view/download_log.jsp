@@ -117,7 +117,7 @@
             </div>
             <div class="form-group" id="export">
                 <div class="col-sm-offset-1 col-sm-10">
-                    <a class="btn btn-primary" data-type="xls" href="javascript:;">Export</a>
+                    <a class="btn btn-primary" data-type="csv" href="javascript:;">Export</a>
                 </div>
             </div>
             <script src="js/Blob.js"></script>

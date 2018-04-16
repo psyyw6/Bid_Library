@@ -64,6 +64,7 @@ function register_user(){
         return false;
     }
     var email = $("#email").val();
+    //Check if the username already in the database
     $.ajax({
             url:"checkUser.do",
             data:{"username":username},

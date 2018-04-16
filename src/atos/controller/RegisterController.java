@@ -38,8 +38,7 @@ public class RegisterController {
     public static String EncoderByMd5(String pwd) throws NoSuchAlgorithmException, UnsupportedEncodingException{
         MessageDigest md5 = MessageDigest.getInstance("MD5");
         BASE64Encoder base64Encoder = new BASE64Encoder();
-        String new_pwd = base64Encoder.encode(md5.digest(pwd.getBytes("utf-8")));
-        return new_pwd;
+        return base64Encoder.encode(md5.digest(pwd.getBytes("utf-8")));
     }
 
     @RequestMapping(value = "/register", method = GET)
@@ -52,7 +51,8 @@ public class RegisterController {
         public List<Userjson> register_user(@RequestParam String username,String pwd,String email)throws NoSuchAlgorithmException, UnsupportedEncodingException {
         List<Userjson> userList = new ArrayList<Userjson>();
         Userjson re_info = new Userjson();
-            String new_pwd = this.EncoderByMd5(pwd);
+        //Encode the password by MD5
+            String new_pwd = EncoderByMd5(pwd);
             if(userDao.registerUser(username,new_pwd,email)!=1) {
                 re_info.setInfo("false");
                 userList.add(re_info);
