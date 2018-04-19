@@ -22,6 +22,16 @@ public class SolutionDao {
         return jdbcTemplate;
     }
 
+    /**
+     * store the content with its related information into the database.
+     * @param content_title
+     * @param author
+     * @param customer
+     * @param expired_date
+     * @param upload_date
+     * @param isExternal
+     * @return
+     */
     public int storeContent(String content_title,String author,String customer,String expired_date,String upload_date,String isExternal){
 
         String sql = "INSERT INTO Content VALUES(?,?,?,?,?,?)";
@@ -38,6 +48,17 @@ public class SolutionDao {
         }
     }
 
+    /**
+     * store the section detail into the database.
+     * @param content_title
+     * @param section_name
+     * @param type
+     * @param version
+     * @param section_detail
+     * @param inUse
+     * @param modify_time
+     * @return
+     */
     public int storeSectionDetail(String content_title,String section_name,String type,int version,String section_detail,boolean inUse,String modify_time){
         String sql = "INSERT INTO Section Values(?,?,?,?,?,?,?);";
         Object[] params = {section_name,content_title,type,section_detail,version,modify_time,true};
@@ -53,6 +74,9 @@ public class SolutionDao {
         }
     }
 
+    /**
+     * @return select all the contents from the database
+     */
     public List selectAll(){
         String sql = "SELECT * FROM Content;";
         try{
@@ -64,6 +88,12 @@ public class SolutionDao {
         }
     }
 
+    /**
+     * select the content with title
+     * @param title
+     * @param type
+     * @return
+     */
     public SolutionVO selectContentByTitle(String title,String type){
         String sql = "select * from Content where Title = ? and IsExternal = ?";
         Object[] params = {title,type};
@@ -76,6 +106,12 @@ public class SolutionDao {
         }
     }
 
+    /**
+     * delete content with required content title.
+     * @param content_title
+     * @param type
+     * @return
+     */
     public int deleteContent(String content_title,String type){
         String sql = "delete from Content where Title = ? and IsExternal = ?";
         Object[] params = {content_title,type};

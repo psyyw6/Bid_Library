@@ -4,7 +4,7 @@ var click_obj;
 function showDialog(obj, name) {
     click_obj = $(obj);
     var role = click_obj.parents("tr").find("#role").val();
-    if(role&& name == "#myModal"){
+    if(role=="true" && name == "#myModal"){
         $("#adminModal").modal({});
         return false;
     }

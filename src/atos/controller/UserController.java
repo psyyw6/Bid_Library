@@ -52,6 +52,12 @@ public class UserController {
     }
 
 
+    /**
+     * Test if the user has log in the system, if not, then redirected to the log in page.
+     * @param request
+     * @param model
+     * @return
+     */
     private String testIfLogIn(HttpServletRequest request,ModelMap model)
     {
         if(request.getSession().getAttribute("loginstaff")!=null) {
@@ -70,6 +76,12 @@ public class UserController {
         }
 
     }
+
+    /**
+     * @param request
+     * @param model
+     * @return direct to the staff_search page.
+     */
     @RequestMapping(value = "/staff_search", method = GET)
     public String staffSearchPage(HttpServletRequest request, ModelMap model) {
         if(!testIfLogIn(request,model).equals("true"))
@@ -94,6 +106,12 @@ public class UserController {
 
     }
 
+    /**
+     * let the user can search content or section with keywords
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/search.do", method = POST)
     public String staffSearchResultPage(HttpServletRequest request, ModelMap model) {
         if(!testIfLogIn(request,model).equals("true"))
@@ -190,6 +208,12 @@ public class UserController {
         return modelAndView;
     }
 
+    /**
+     * display the selected section detail to users
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "userViewDetail.do", method = GET)
     public String userViewDetail(HttpServletRequest request, ModelMap model) {
         if(!testIfLogIn(request,model).equals("true"))
@@ -213,6 +237,16 @@ public class UserController {
         return "UserDetail";
     }
 
+    /**
+     * get the section detail of  selected sections, put it into right position of the selected template.
+     * @param request
+     * @param model
+     * @param list selected content titles
+     * @param list2 selected content types
+     * @param selected_template the name of selected template
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "export_word", method = POST)
     @ResponseBody
     public List<Userjson> exportWord(HttpServletRequest request, ModelMap model, @RequestParam(required = false, value = "list[]") List<String> list, @RequestParam(required = false, value = "list2[]") List<String> list2, String selected_template) throws IOException {

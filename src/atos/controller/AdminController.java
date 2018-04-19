@@ -52,6 +52,11 @@ public class AdminController {
         return solutionDao;
     }
 
+    /**
+     * check if the suffix of the file is 'txt'
+     * @param fileName
+     * @return true if the file format is 'txt', false if not.
+     */
     private boolean checkFile(String fileName){
         String suffixList = "txt";
         String fileSuffix = fileName.substring(fileName.lastIndexOf('.')+1,fileName.length());
@@ -62,6 +67,10 @@ public class AdminController {
     }
 
 
+    /**
+     * @param date
+     * @return date of sql format
+     */
     private String convertSqlDate(String date){
         String[] temp = date.split("/",3);
         String day = temp[1];
@@ -71,7 +80,11 @@ public class AdminController {
         return sql_date;
     }
 
-    //Check if the user has login before
+    /**
+     * @param request
+     * @param model
+     * @return check if the user have log in to the system
+     */
     private String testIfLogin(HttpServletRequest request,ModelMap model){
         if(request.getSession().getAttribute("loginstaff")!=null) {
             UserVO loginstaff = (UserVO) request.getSession().getAttribute("loginstaff");
@@ -87,6 +100,11 @@ public class AdminController {
 
     }
 
+    /**
+     * @param request
+     * @param model
+     * @return direct to the administer_solution page
+     */
     @RequestMapping(value="/administer_solution", method = GET)
     public String showSolution(HttpServletRequest request, ModelMap model) {
         if(!testIfLogin(request,model).equals("true")){
@@ -97,6 +115,12 @@ public class AdminController {
         return "administer_solution";
     }
 
+    /**
+     * @param request
+     * @param model
+     * @return direct to add_solution page
+     * @throws Exception
+     */
     @RequestMapping(value = "/add_solution",method = GET)
     public String addSolutionPage(HttpServletRequest request,ModelMap model) throws Exception{
         if(!testIfLogin(request,model).equals("true")){
@@ -105,6 +129,12 @@ public class AdminController {
         return "add_solution";
     }
 
+    /**
+     * handle the duplicate primary key exception in mysql databse
+     * @param request
+     * @param ex
+     * @return direct to the error page
+     */
     @ExceptionHandler(DuplicateKeyException.class)
     public ModelAndView handleDuplicateKeyException(HttpServletRequest request, DuplicateKeyException ex){
 
@@ -117,11 +147,23 @@ public class AdminController {
         return modelAndView;
     }
 
+    /**
+     * @param request
+     * @param model
+     * @return direct to success upload page
+     */
     @RequestMapping(value = "/success_upload", method = GET)
     public String showSuccess(HttpServletRequest request,ModelMap model){
         return "success_upload";
     }
 
+    /**
+     * Get the upload txt file, read the content of the file, store its information into the database
+     * @param myfile the upload txt file
+     * @param request
+     * @return direct to success_upload page if upload success, direct to error page if not.
+     * @throws Exception duplicate primary key exception
+     */
     @RequestMapping(value = "/upload.do",method = POST)
     public String upLoadFile(@RequestParam MultipartFile myfile,HttpServletRequest request) throws Exception{
         String author;
@@ -186,6 +228,11 @@ public class AdminController {
     }
 
 
+    /**
+     * @param request
+     * @param model
+     * @return direct to admin_view_detail page
+     */
     @RequestMapping(value="/admin_view_detail",method = GET)
     public String viewContentDetail(HttpServletRequest request,ModelMap model){
         if(!testIfLogin(request,model).equals("true")){
@@ -202,6 +249,11 @@ public class AdminController {
         return "admin_view_detail";
     }
 
+    /**
+     * @param request
+     * @param model
+     * @return direct to edit page.
+     */
     @RequestMapping(value = "/edit",method = GET)
     public String editSolution(HttpServletRequest request,ModelMap model){
         if(!testIfLogin(request,model).equals("true")){
@@ -226,6 +278,16 @@ public class AdminController {
         }
     }
 
+    /**
+     * Edit the selected section detail and save as a new version
+     * @param request
+     * @param content_title title of selected content
+     * @param section_name name of selected section
+     * @param version selected section version
+     * @param content_detail content_detail which should display in editor
+     * @param type section type
+     * @return
+     */
     @RequestMapping(value="/edit_upload.do",method = POST)
     @ResponseBody
     public List<Userjson> uploadForEdit(HttpServletRequest request, @RequestParam String content_title, String section_name, String version, String content_detail,String type){
@@ -245,6 +307,12 @@ public class AdminController {
         return response;
     }
 
+    /**
+     * this page could view all the history version of selected section
+     * @param request
+     * @param model
+     * @return direct to section_history page.
+     */
     @RequestMapping(value="section_history",method = GET)
     public String showHistory(HttpServletRequest request, ModelMap model){
         if(!testIfLogin(request,model).equals("true")){
@@ -269,6 +337,13 @@ public class AdminController {
         return "section_history";
     }
 
+    /**
+     * @param request
+     * @param model
+     * @param content_title the content title which needed to be deleted
+     * @param type the selected content type
+     * @return
+     */
     @RequestMapping(value="delete_content.do",method= POST)
     @ResponseBody
     public List<Userjson> deleteContent(HttpServletRequest request,ModelMap model,@RequestParam String content_title,String type){
@@ -285,6 +360,16 @@ public class AdminController {
         return jsonList;
     }
 
+    /**
+     * delete the selected section, however, the version 1 can not be deleted.
+     * @param request
+     * @param model
+     * @param content_title the content_title of selected sections
+     * @param section_name the selected section name
+     * @param version version of selected section
+     * @param type type of seleceted section
+     * @return
+     */
     @RequestMapping(value="delete_section.do",method = POST)
     @ResponseBody
     public List<Userjson> deleteSection(HttpServletRequest request,ModelMap model,@RequestParam String content_title,String section_name,String version,String type){
@@ -310,6 +395,13 @@ public class AdminController {
     }
 
 
+    /**
+     * the image that be inserted into the editor would be uploaded into the server.
+     * @param file inserted iamges.
+     * @param request
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value="/upload",method = POST)
     @ResponseBody
     public ResponseEntity<EditorUploadVO> upload(@RequestParam("file") MultipartFile file,HttpServletRequest request)throws IOException{
@@ -338,6 +430,15 @@ public class AdminController {
         return ResponseEntity.ok().body(new EditorUploadVO(0,data));
     }
 
+    /**
+     * change the in use section version to the last exist version
+     * @param request
+     * @param model
+     * @param content_title the content title of selected sections
+     * @param section_name the selected section name
+     * @param type the type of select section
+     * @return
+     */
     @RequestMapping(value="/rollback.do",method = POST)
     @ResponseBody
     List<Userjson> rollBackVersion(HttpServletRequest request,ModelMap model,@RequestParam String content_title,String section_name,String type){
@@ -362,6 +463,15 @@ public class AdminController {
         return jsonList;
     }
 
+    /**
+     * change the in use section version to the next existed version
+     * @param request
+     * @param model
+     * @param content_title the content title of selected sections
+     * @param section_name the selected section name
+     * @param type the type of select section
+     * @return
+     */
     @RequestMapping(value="/forward.do",method = POST)
     @ResponseBody
     List<Userjson> forwardVersion(HttpServletRequest request,ModelMap model,@RequestParam String content_title,String section_name,String type){
@@ -387,6 +497,11 @@ public class AdminController {
         return jsonList;
     }
 
+    /**
+     * @param request
+     * @param model
+     * @return direct to the user upgrade page
+     */
     @RequestMapping(value="/upgrade",method = GET)
     public String upgrdePage(HttpServletRequest request,ModelMap model){
         if(!testIfLogin(request,model).equals("true")){
@@ -397,6 +512,13 @@ public class AdminController {
         return "upgrade";
     }
 
+    /**
+     * upgrade the selected user if the user is not already an administrator
+     * @param request
+     * @param model
+     * @param username
+     * @return
+     */
     @RequestMapping(value="/upgradeUser.do",method = POST)
     @ResponseBody
     List<Userjson> upgradeUser(HttpServletRequest request,ModelMap model,@RequestParam String username){
@@ -408,6 +530,13 @@ public class AdminController {
         return jsonList;
     }
 
+    /**
+     * delete the selected user from the database.
+     * @param request
+     * @param model
+     * @param username the selected user's username
+     * @return
+     */
     @RequestMapping(value="/deleteUser.do",method = POST)
     @ResponseBody
     List<Userjson> deleteUser(HttpServletRequest request,ModelMap model,@RequestParam String username){
@@ -419,6 +548,11 @@ public class AdminController {
         return jsonList;
     }
 
+    /**
+     * @param request
+     * @param model
+     * @return direct the user change password page.
+     */
     @RequestMapping(value="/changePassword",method = GET)
     public String changePasswordPage(HttpServletRequest request,ModelMap model){
         if(request.getSession().getAttribute("loginstaff")!=null) {
@@ -433,6 +567,16 @@ public class AdminController {
         return "changePassword";
     }
 
+    /**
+     * update the user's password with new password
+     * @param request
+     * @param model
+     * @param username the username of user
+     * @param password new password
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     */
     @RequestMapping(value="/changePassword.do",method = POST)
     @ResponseBody
     List<Userjson> changePassword(HttpServletRequest request,ModelMap model,@RequestParam String username, String password)throws NoSuchAlgorithmException, UnsupportedEncodingException {
@@ -445,6 +589,12 @@ public class AdminController {
         return jsonList;
     }
 
+    /**
+     * administrator search the content or section with keywords.
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "admin_search.do",method = POST)
     public String adminSearch(HttpServletRequest request,ModelMap model)
     {
@@ -496,6 +646,14 @@ public class AdminController {
         return "add_template";
     }
 
+    /**
+     * upload the ftl file to the server, store its related information into the database "template" table
+     * @param request
+     * @param model
+     * @param files the template 'ftl' file
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value="upload_template.do",method= POST)
     public String uploadTemplate(HttpServletRequest request,ModelMap model,@RequestParam("files") MultipartFile[] files) throws IOException {
         String imageUrl = "";
@@ -548,6 +706,14 @@ public class AdminController {
 
     }
 
+    /**
+     * delete the selected template from the server and its related information from the databse.
+     * @param request
+     * @param model
+     * @param template_name the template name that needed to be deleted.
+     * @param image_url the cover image url of the selected template.
+     * @return
+     */
     @RequestMapping(value="delete_template.do",method = POST)
     @ResponseBody
     public List<Userjson> deleteTemplate(HttpServletRequest request,ModelMap model,@RequestParam String template_name,String image_url){
@@ -575,6 +741,12 @@ public class AdminController {
         return jsonList;
     }
 
+    /**
+     * direct to modify template page.
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping(value="modify_template",method = GET)
     public String modifyTemplatePage(HttpServletRequest request,ModelMap model){
         if(request.getSession().getAttribute("loginstaff")!=null) {
@@ -596,6 +768,12 @@ public class AdminController {
         return "modify_template";
     }
 
+    /**
+     * modify the template information and update them in the database.
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "modify_template.do",method = POST)
     public String modifyTemplate(HttpServletRequest request,ModelMap model){
         String template_name = request.getParameter("Template_name");
@@ -612,6 +790,11 @@ public class AdminController {
     }
 
 
+    /**
+     * @param request
+     * @param model
+     * @return direct to the download log page.
+     */
     @RequestMapping(value="download_log",method=GET)
     public String downloadLogPage(HttpServletRequest request,ModelMap model){
         if(!testIfLogin(request,model).equals("true")){
@@ -622,6 +805,14 @@ public class AdminController {
         return "download_log";
     }
 
+    /**
+     * delete the generate document from the server and corresponding download log from the database
+     * @param request
+     * @param model
+     * @param download_id id of the download log
+     * @param file_name file name of the generated document
+     * @return
+     */
     @RequestMapping(value="delete_doc.do",method = POST)
     @ResponseBody
     public List<Userjson> deleteDoc(HttpServletRequest request,ModelMap model,@RequestParam String download_id,String file_name){
