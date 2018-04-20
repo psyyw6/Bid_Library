@@ -2,21 +2,23 @@
 GroupEngineeringProject
 
 1. What is the project about?
-The aim of the project is to build a Bid Library for Atos. The employee of Atos can use this system to search the proper bid proposal and send it to their customers. 
+The task of our group was to create a bid library system for Atos. Atos produces documents outlining its proposed contents for existing customers. Our system allows Atos to create, edit and store these contents on an online application. This is done through pre-approved text in the form of content that is written and uploaded via the application. Our system also allows users to search for any content they want, our application would group together these contents for a specific solution allowing easy editing and viewing of a specific solution document.
 
 2. Who the team members are?
 Tim Nineham
 Charlie Nathan
-Joe Fogbat Drayton
+Joe Drayton
 Yutong Wang
 Shanshan Li
-Kieran Reece Sohal
+Kieran Sohal
 
 3. Who the supervisor/sponsor is
 Supervisor: Professor Milic-Frayling Natasa
 Sponsor: Steffan Bowen
 
 4. Any hardware or software requirements?
+Please check the software requirement in Dropbox:
+https://www.dropbox.com/sh/hj4m6moa9iu0tri/AAAzi152b2XjeK_vs9ZQQwh_a?dl=0
 
 5. Where to find your Trello borad
 https://trello.com/b/Ctww9PtC
