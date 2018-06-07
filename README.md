@@ -35,3 +35,6 @@ Shanshan's email: psysl6@exmail.nottingham.ac.uk
 
 8.How to visit our Web
 http://bidlibrary-env2.eu-west-2.elasticbeanstalk.com
+Admin Account:
+Username : Atos
+Password: 123456
